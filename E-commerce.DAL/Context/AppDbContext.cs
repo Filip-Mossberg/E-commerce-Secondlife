@@ -17,8 +17,8 @@ namespace E_commerce.Context
         {
             base.OnModelCreating(builder);
             builder.Entity<Cart>()
-                .HasOne(u => u.user) // Cart has one user
-                .WithOne(c => c.cart) // User has one cart
+                .HasOne(u => u.User) // Cart has one user
+                .WithOne(c => c.Cart) // User has one cart
                 .HasForeignKey<Cart>(c => c.UserId); // Cart has the foreign key
         }
 

@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace E_commerce.Models.DbModels
 {
-    public class Cart
+    public class Order
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
+        public DateTime DateOrdered { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
-        public List<ProductCart> ProductCart { get; set; } = new List<ProductCart>();
+        public List<Product> Products { get; set; } = new List<Product>();
+
     }
 }

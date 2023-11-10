@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace E_commerce.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231109150333_InitialCreation")]
+    [Migration("20231110101021_InitialCreation")]
     partial class InitialCreation
     {
         /// <inheritdoc />
@@ -84,6 +84,25 @@ namespace E_commerce.DAL.Migrations
                     b.ToTable("Image");
                 });
 
+            modelBuilder.Entity("E_commerce.Models.DbModels.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("DateOrdered")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Order");
+                });
+
             modelBuilder.Entity("E_commerce.Models.DbModels.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -101,6 +120,18 @@ namespace E_commerce.DAL.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsOrdered")
+                        .HasColumnType("boolean");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("double precision");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("Price")
                         .HasColumnType("integer");
 
@@ -110,14 +141,16 @@ namespace E_commerce.DAL.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("userId")
+                    b.Property<string>("UserId1")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("userId");
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Product");
                 });
@@ -349,58 +382,75 @@ namespace E_commerce.DAL.Migrations
 
             modelBuilder.Entity("E_commerce.Models.DbModels.Cart", b =>
                 {
-                    b.HasOne("E_commerce.Models.DbModels.User", "user")
-                        .WithOne("cart")
+                    b.HasOne("E_commerce.Models.DbModels.User", "User")
+                        .WithOne("Cart")
                         .HasForeignKey("E_commerce.Models.DbModels.Cart", "UserId");
 
-                    b.Navigation("user");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("E_commerce.Models.DbModels.Image", b =>
                 {
-                    b.HasOne("E_commerce.Models.DbModels.Product", "product")
+                    b.HasOne("E_commerce.Models.DbModels.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("product");
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("E_commerce.Models.DbModels.Order", b =>
+                {
+                    b.HasOne("E_commerce.Models.DbModels.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("E_commerce.Models.DbModels.Product", b =>
                 {
-                    b.HasOne("E_commerce.Models.DbModels.Category", "category")
+                    b.HasOne("E_commerce.Models.DbModels.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("E_commerce.Models.DbModels.User", "user")
-                        .WithMany("products")
-                        .HasForeignKey("userId");
+                    b.HasOne("E_commerce.Models.DbModels.Order", "Order")
+                        .WithMany("Products")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("category");
+                    b.HasOne("E_commerce.Models.DbModels.User", "User")
+                        .WithMany("Products")
+                        .HasForeignKey("UserId1");
 
-                    b.Navigation("user");
+                    b.Navigation("Category");
+
+                    b.Navigation("Order");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("E_commerce.Models.DbModels.ProductCart", b =>
                 {
-                    b.HasOne("E_commerce.Models.DbModels.Cart", "cart")
-                        .WithMany("productCart")
+                    b.HasOne("E_commerce.Models.DbModels.Cart", "Cart")
+                        .WithMany("ProductCart")
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("E_commerce.Models.DbModels.Product", "product")
+                    b.HasOne("E_commerce.Models.DbModels.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("cart");
+                    b.Navigation("Cart");
 
-                    b.Navigation("product");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -456,14 +506,21 @@ namespace E_commerce.DAL.Migrations
 
             modelBuilder.Entity("E_commerce.Models.DbModels.Cart", b =>
                 {
-                    b.Navigation("productCart");
+                    b.Navigation("ProductCart");
+                });
+
+            modelBuilder.Entity("E_commerce.Models.DbModels.Order", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("E_commerce.Models.DbModels.User", b =>
                 {
-                    b.Navigation("cart");
+                    b.Navigation("Cart");
 
-                    b.Navigation("products");
+                    b.Navigation("Orders");
+
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

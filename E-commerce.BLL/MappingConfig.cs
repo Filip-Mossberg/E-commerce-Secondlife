@@ -14,6 +14,7 @@ namespace E_commerce_BLL
         public MappingConfig()
         {
             CreateMap<UserRegisterRequest, User>();
+            CreateMap<User, UserGetRequest>();
         }
     }
 }

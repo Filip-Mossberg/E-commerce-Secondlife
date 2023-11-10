@@ -10,8 +10,8 @@ namespace E_commerce.Models.DbModels
     {
         public int Id { get; set; }
         public int ProductId { get; set; }
-        public Product product { get; set; }
+        public Product Product { get; set; }
         public int CartId { get; set; }
-        public Cart cart { get; set; }
+        public Cart Cart { get; set; }
     }
 }

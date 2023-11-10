@@ -11,5 +11,7 @@ namespace E_commerce_BLL.IService
     public interface IUserService
     {
         public Task<ApiResponse> UserRegister(UserRegisterRequest userRegisterReq);
+        public Task<ApiResponse> GetUserById(string id);
+        public Task<ApiResponse> DeleteUserById(string id);
     }
 }

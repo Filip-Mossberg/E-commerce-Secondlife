@@ -22,45 +22,105 @@ namespace E_commerce_BLL.Service
         }
         public async Task<ApiResponse> UserRegister(UserRegisterRequest userRegisterReq)
         {
-            ApiResponse response = new ApiResponse();
-            var validationContext = new ValidationContext(userRegisterReq);
-            var validationResults = new List<ValidationResult>();
-
-            var userExists = await _userManager.FindByEmailAsync(userRegisterReq.Email);
-
-            if(Validator.TryValidateObject(userRegisterReq, validationContext, validationResults)
-                && userExists == null)
+            try
             {
+                ApiResponse response = new ApiResponse();
+                var validationContext = new ValidationContext(userRegisterReq);
+                var validationResults = new List<ValidationResult>();
 
-                User user = new User()
+                var userExists = await _userManager.FindByEmailAsync(userRegisterReq.Email);
+
+                if (Validator.TryValidateObject(userRegisterReq, validationContext, validationResults)
+                    && userExists == null)
                 {
-                    UserName = userRegisterReq.UserName,
-                    Email = userRegisterReq.Email
-                };
 
-                await _userRepository.UserRegister(user, userRegisterReq.PasswordHash);
-                response.IsSuccess = true;
-
-                return response;
-            }
-            else
-            {
-                response.IsSuccess = false;
-
-                if (validationResults.Any())
-                {
-                    foreach (var error in validationResults)
+                    User user = new User()
                     {
-                        response.Errors.Add(error.ToString());
-                    }
+                        UserName = userRegisterReq.UserName,
+                        Email = userRegisterReq.Email
+                    };
+
+                    await _userRepository.UserRegister(user, userRegisterReq.PasswordHash);
+                    response.IsSuccess = true;
+
+                    return response;
                 }
                 else
                 {
-                    response.Errors.Add("Email already exsists!");
+                    response.IsSuccess = false;
+
+                    if (validationResults.Any())
+                    {
+                        foreach (var error in validationResults)
+                        {
+                            response.Errors.Add(error.ToString());
+                        }
+                    }
+                    else
+                    {
+                        response.Errors.Add("Email already exsists!");
+                    }
+
+                    return response;
                 }
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+        }
 
-                return response;
+        public async Task<ApiResponse> GetUserById(string id)
+        {
+            try
+            {
+                ApiResponse response = new ApiResponse();
+                var user = await _userRepository.GetUserById(id);
+
+                if (user != null)
+                {
+                    response.IsSuccess = true;
+                    response.Result = _mapper.Map<UserGetRequest>(user);
+                    return response;
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Errors.Add($"Could not get user with Id {id}");
+                    return response;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<ApiResponse> DeleteUserById(string id)
+        {
+            try
+            {
+                ApiResponse response = new ApiResponse();
+                var userToDelete = await _userRepository.GetUserById(id);
+                await _userRepository.DeleteUserById(userToDelete);
+
+                if (response.IsSuccess)
+                {
+                    response.IsSuccess = true;
+                    return response;
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Errors.Add($"Unable to delete user with id {id}");
+                    return response;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

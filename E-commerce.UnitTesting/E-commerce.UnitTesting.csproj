@@ -24,7 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UserTesting\" />
+    <ProjectReference Include="..\E-commerce.BLL\E-commerce.BLL.csproj" />
+    <ProjectReference Include="..\E-commerce.DAL\E-commerce.DAL.csproj" />
+    <ProjectReference Include="..\E-commerce.Models\E-commerce.Models.csproj" />
+    <ProjectReference Include="..\E-commerce\E-commerce.csproj" />
   </ItemGroup>
 
 </Project>

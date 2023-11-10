@@ -13,11 +13,16 @@ namespace E_commerce.Models.DbModels
         public string Description { get; set; }
         public int Price { get; set; }
         public DateTime DateListed { get; set; }
+        public bool IsOrdered { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
+        public Guid OrderId { get; set; }
+        public Order Order { get; set; }
         public int UserId { get; set; }
-        public User user { get; set; }
+        public User User { get; set; }
         public int CategoryId { get; set; }
-        public Category category { get; set; }
-        List<Image> images { get; set; } = new List<Image>();
-        List<ProductCart> productCarts { get; set; } = new List<ProductCart>();
+        public Category Category { get; set; }
+        List<Image> Images { get; set; } = new List<Image>();
+        List<ProductCart> ProductCarts { get; set; } = new List<ProductCart>();
     }
 }

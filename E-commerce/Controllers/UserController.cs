@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace E_commerce_recycling.Controllers
 {
-    [Route("User")]
+    [Route("Api/User")]
     [ApiController]
     public class UserController : Controller
     {
@@ -15,15 +15,25 @@ namespace E_commerce_recycling.Controllers
             _userService = userService;
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<IActionResult> UserRegister(UserRegisterRequest userRegisterReq)
         {
             var response = await _userService.UserRegister(userRegisterReq);
-            if(response.IsSuccess)
-            {
-                return Ok(response);
-            }
-            return BadRequest(response);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+
+        [HttpGet("GetById")]
+        public async Task<IActionResult> GetUserById(string id)
+        {
+            var response = await _userService.GetUserById(id);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+
+        [HttpDelete("Delete")]
+        public async Task<IActionResult> UserDelete(string id)
+        {
+            var response = await _userService.DeleteUserById(id);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
     }
 }

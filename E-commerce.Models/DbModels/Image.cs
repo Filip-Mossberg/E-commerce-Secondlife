@@ -12,6 +12,6 @@ namespace E_commerce.Models.DbModels
         public string URL { get; set; }
         public bool IsDisplayImage { get; set; }
         public int ProductId { get; set; }
-        public Product product { get; set; }
+        public Product Product { get; set; }
     }
 }
