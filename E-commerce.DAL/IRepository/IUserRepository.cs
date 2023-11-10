@@ -12,5 +12,6 @@ namespace E_commerce_DAL.IRepository
         public Task UserRegister(User user, string password);
         public Task<User> GetUserById(string id);
         public Task DeleteUserById(User user);
+        public Task UserUpdate(User user);
     }
 }

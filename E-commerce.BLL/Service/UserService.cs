@@ -4,6 +4,7 @@ using E_commerce.Models.DbModels;
 using E_commerce.Models.DTO_s.User;
 using E_commerce_BLL.IService;
 using E_commerce_DAL.IRepository;
+using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
@@ -103,10 +104,9 @@ namespace E_commerce_BLL.Service
             {
                 ApiResponse response = new ApiResponse();
                 var userToDelete = await _userRepository.GetUserById(id);
-                await _userRepository.DeleteUserById(userToDelete);
-
-                if (response.IsSuccess)
+                if(userToDelete != null)
                 {
+                    await _userRepository.DeleteUserById(userToDelete);
                     response.IsSuccess = true;
                     return response;
                 }
@@ -123,5 +123,24 @@ namespace E_commerce_BLL.Service
                 throw;
             }
         }
+
+        //public async Task<ApiResponse> UpdateUser(UserUpdateRequest userToUpdate, IValidator<UserUpdateRequest> _validator)
+        //{
+        //    try
+        //    {
+        //        ApiResponse response = new ApiResponse();
+
+        //        if (userToUpdate != null)
+        //        {
+                    
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+
+        //}
     }
 }

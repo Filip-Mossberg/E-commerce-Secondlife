@@ -32,5 +32,11 @@ namespace E_commerce_DAL.Repository
             await _userManager.CreateAsync(user, password);
             await _context.SaveChangesAsync();
         }
+
+        public async Task UserUpdate(User user)
+        {
+            await _userManager.UpdateAsync(user);
+            await _context.SaveChangesAsync();
+        }
     }
 }

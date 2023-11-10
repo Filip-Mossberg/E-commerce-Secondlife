@@ -17,6 +17,8 @@ namespace E_commerce.Models.DTO_s.User
         [EmailAddress(ErrorMessage = "Invalid email adress format.")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Password is requiered!")]
+        [MinLength(8, ErrorMessage = "Password must be at least 8 characters long.")]
+        [MaxLength(128, ErrorMessage = "Password cannot exceed 128 characters.")]
         [RegularExpression("^(?=.*\\d)(?=.*[A-Z])(?=.*\\W).+", ErrorMessage = "Password needs to contain at least one uppercase letter, one digit, and one special character.")]
         [DataType(DataType.Password)]
         public string PasswordHash { get; set; }

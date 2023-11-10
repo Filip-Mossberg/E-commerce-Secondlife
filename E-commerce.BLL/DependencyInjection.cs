@@ -1,5 +1,7 @@
-﻿using E_commerce_BLL.IService;
+﻿using E_commerce.Models.DTO_s.User;
+using E_commerce_BLL.IService;
 using E_commerce_BLL.Service;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace E_commerce_BLL
@@ -12,6 +14,7 @@ namespace E_commerce_BLL
             services.AddAutoMapper(typeof(MappingConfig));
 
             services.AddScoped<IUserService, UserService>();
+            services.AddValidatorsFromAssemblyContaining<UserUpdateRequest>();
 
             return services;
         }
