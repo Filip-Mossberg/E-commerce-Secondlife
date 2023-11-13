@@ -14,7 +14,7 @@ namespace E_commerce_BLL
             services.AddAutoMapper(typeof(MappingConfig));
 
             services.AddScoped<IUserService, UserService>();
-            services.AddValidatorsFromAssemblyContaining<UserUpdateRequest>();
+            services.AddValidatorsFromAssemblyContaining<UserUpdatePasswordRequest>();
 
             return services;
         }

@@ -35,5 +35,12 @@ namespace E_commerce_recycling.Controllers
             var response = await _userService.DeleteUserById(id);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
+
+        [HttpPut("Update/Password")]
+        public async Task<IActionResult> UserUpdatePassword(UserUpdatePasswordRequest userUpdateRequest)
+        {
+            var response = await _userService.UpdateUserPassword(userUpdateRequest);
+            return response.IsSuccess? Ok(response) : BadRequest(response);
+        }
     }
 }

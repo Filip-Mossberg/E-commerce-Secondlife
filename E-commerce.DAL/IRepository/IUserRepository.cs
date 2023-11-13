@@ -1,4 +1,5 @@
 ﻿using E_commerce.Models.DbModels;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,6 @@ namespace E_commerce_DAL.IRepository
         public Task UserRegister(User user, string password);
         public Task<User> GetUserById(string id);
         public Task DeleteUserById(User user);
-        public Task UserUpdate(User user);
+        public Task<IdentityResult> UserPasswordUpdate(User user, string currentPassword, string password);
     }
 }

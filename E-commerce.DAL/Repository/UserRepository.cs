@@ -33,10 +33,11 @@ namespace E_commerce_DAL.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task UserUpdate(User user)
+        public async Task<IdentityResult> UserPasswordUpdate(User user, string currentPassword, string password)
         {
-            await _userManager.UpdateAsync(user);
+            var result = await _userManager.ChangePasswordAsync(user, currentPassword, password);
             await _context.SaveChangesAsync();
+            return result;
         }
     }
 }
