@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace E_commerce.Models.DbModels
         public User User { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
-        List<Image> Images { get; set; } = new List<Image>();
-        List<ProductCart> ProductCarts { get; set; } = new List<ProductCart>();
+        public List<Image> Images { get; set; } = new List<Image>();
+        public List<Cart> Carts { get; set; } = new List<Cart>();
     }
 }

@@ -1,5 +1,10 @@
+using E_commerce.BLL.MiddleWeare;
+using E_commerce.Models;
 using E_commerce_BLL;
 using E_commerce_DAL;
+using FluentValidation;
+using Microsoft.AspNetCore.Diagnostics;
+using System.Net;
 
 namespace E_commerce
 {
@@ -17,6 +22,8 @@ namespace E_commerce
                 .DbServicesDAL(builder.Configuration)
                 .DbServicesBLL();
 
+            builder.Services.AddTransient<ExceptionMiddleWare>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -30,6 +37,7 @@ namespace E_commerce
 
             app.UseAuthorization();
 
+            app.UseMiddleware<ExceptionMiddleWare>();
 
             app.MapControllers();
 

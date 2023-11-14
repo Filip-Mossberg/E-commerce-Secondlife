@@ -27,10 +27,11 @@ namespace E_commerce_DAL.Repository
             return await _userManager.Users.FirstOrDefaultAsync(user => user.Id == id);
         }
 
-        public async Task UserRegister(User user, string password)
+        public async Task<IdentityResult> UserRegister(User user, string password)
         {
-            await _userManager.CreateAsync(user, password);
+            var result = await _userManager.CreateAsync(user, password);
             await _context.SaveChangesAsync();
+            return result;
         }
 
         public async Task<IdentityResult> UserPasswordUpdate(User user, string currentPassword, string password)

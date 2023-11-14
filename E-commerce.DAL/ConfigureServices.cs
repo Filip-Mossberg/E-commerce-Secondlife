@@ -6,10 +6,12 @@ using E_commerce.Context;
 using E_commerce_DAL.IRepository;
 using E_commerce_DAL.Repository;
 using E_commerce.Models.DbModels;
+using E_commerce.DAL.IRepository;
+using E_commerce.DAL.Repository;
 
 namespace E_commerce_DAL
 {
-    public static class DependencyInjection
+    public static class ConfigureServices
     {
         public static IServiceCollection DbServicesDAL(
             this IServiceCollection services,
@@ -19,6 +21,7 @@ namespace E_commerce_DAL
             options.UseNpgsql(configuration.GetConnectionString("EcommerceDb")));
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICartRepository, CartRepository>();
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()

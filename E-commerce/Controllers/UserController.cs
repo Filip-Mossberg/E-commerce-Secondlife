@@ -1,4 +1,5 @@
-﻿using E_commerce.Models.DTO_s.User;
+﻿using E_commerce.Middleware.Exceptions;
+using E_commerce.Models.DTO_s.User;
 using E_commerce_BLL.IService;
 using E_commerce_DAL.IRepository;
 using Microsoft.AspNetCore.Mvc;
@@ -41,6 +42,24 @@ namespace E_commerce_recycling.Controllers
         {
             var response = await _userService.UpdateUserPassword(userUpdateRequest);
             return response.IsSuccess? Ok(response) : BadRequest(response);
+        }
+
+        [HttpPut("Test")]
+        public async Task<int> Divide(int number)
+        {
+            if(number == 1)
+            {
+                var result = number / 0;
+                return result;
+            }
+            else if(number == 2)
+            {
+                throw new ArgumentNullException("Not Found");
+            }
+            else
+            {
+                throw new ("Bad Request");
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace E_commerce_DAL.IRepository
 {
     public interface IUserRepository
     {
-        public Task UserRegister(User user, string password);
+        public Task<IdentityResult> UserRegister(User user, string password);
         public Task<User> GetUserById(string id);
         public Task DeleteUserById(User user);
         public Task<IdentityResult> UserPasswordUpdate(User user, string currentPassword, string password);
