@@ -13,6 +13,7 @@ namespace E_commerce.Models
         {
             Errors = new List<string>();
         }
+        public int StatusCode { get; set; } 
         public bool IsSuccess { get; set; }
         public Object Result { get; set; }
         public List<string> Errors { get; set; }

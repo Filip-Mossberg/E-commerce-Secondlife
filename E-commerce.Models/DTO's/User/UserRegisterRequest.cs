@@ -10,21 +10,8 @@ namespace E_commerce.Models.DTO_s.User
 {
     public class UserRegisterRequest
     {
-        [Required(ErrorMessage = "Username is requiered!")]
-        [StringLength(50, ErrorMessage = "Username must be between 3 and 40 characters.", MinimumLength = 3)]
-        public string UserName { get; set; }
-        [Required(ErrorMessage = "Email is requiered!")]
-        [EmailAddress(ErrorMessage = "Invalid email adress format.")]
         public string Email { get; set; }
-        [Required(ErrorMessage = "Password is requiered!")]
-        [MinLength(8, ErrorMessage = "Password must be at least 8 characters long.")]
-        [MaxLength(128, ErrorMessage = "Password cannot exceed 128 characters.")]
-        [RegularExpression("^(?=.*\\d)(?=.*[A-Z])(?=.*\\W).+", ErrorMessage = "Password needs to contain at least one uppercase letter, one digit, and one special character.")]
-        [DataType(DataType.Password)]
         public string PasswordHash { get; set; }
-        [Required(ErrorMessage = "Confirm Password is requiered!")]
-        [DataType(DataType.Password)]
-        [Compare("PasswordHash", ErrorMessage = "Passwords do not match.")]
         public string ConfirmPassword { get; set; }
     }
 }

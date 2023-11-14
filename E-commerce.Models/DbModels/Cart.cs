@@ -11,6 +11,6 @@ namespace E_commerce.Models.DbModels
         public int Id { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
-        public List<ProductCart> ProductCart { get; set; } = new List<ProductCart>();
+        public List<Product> Products { get; set; } = new List<Product>();
     }
 }

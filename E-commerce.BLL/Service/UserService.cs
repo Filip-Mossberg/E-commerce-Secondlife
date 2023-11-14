@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using E_commerce.BLL.IService;
+using E_commerce.DAL.IRepository;
 using E_commerce.Models;
 using E_commerce.Models.DbModels;
 using E_commerce.Models.DTO_s.User;
@@ -6,7 +8,9 @@ using E_commerce_BLL.IService;
 using E_commerce_DAL.IRepository;
 using FluentValidation;
 using FluentValidation.Validators;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 
 namespace E_commerce_BLL.Service
@@ -16,42 +20,58 @@ namespace E_commerce_BLL.Service
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
-        public UserService(IUserRepository userRepository, IMapper mapper, UserManager<User> userManager)
+        private readonly ICartService _cartService;
+        private readonly IValidator<UserRegisterRequest> _validator;
+        public UserService(IUserRepository userRepository, IMapper mapper, UserManager<User> userManager, ICartService cartService, IValidator<UserRegisterRequest> validator)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _userManager = userManager;
+            _cartService = cartService;
+            _validator = validator;
         }
         public async Task<ApiResponse> UserRegister(UserRegisterRequest userRegisterReq)
         {
-            ApiResponse response = new ApiResponse();
-            var validationContext = new ValidationContext(userRegisterReq);
-            var validationResults = new List<ValidationResult>();
+            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
 
+            var validationResult = await _validator.ValidateAsync(userRegisterReq);
             var userExists = await _userManager.FindByEmailAsync(userRegisterReq.Email);
 
-            if (Validator.TryValidateObject(userRegisterReq, validationContext, validationResults)
+            if (validationResult.IsValid
                 && userExists == null)
             {
-
                 User user = new User()
                 {
-                    UserName = userRegisterReq.UserName,
-                    Email = userRegisterReq.Email
+                    Email = userRegisterReq.Email,
+                    UserName = userRegisterReq.Email
                 };
 
-                await _userRepository.UserRegister(user, userRegisterReq.PasswordHash);
-                response.IsSuccess = true;
+                var creationResult = await _userRepository.UserRegister(user, userRegisterReq.PasswordHash);
 
-                return response;
+                if(creationResult.Succeeded)
+                {
+                    var createdUser = await _userManager.FindByEmailAsync(user.Email);
+                    await _cartService.CreateCart(createdUser);
+
+                    response.StatusCode = StatusCodes.Status201Created;
+                    response.IsSuccess = true;
+                    return response;
+                }
+                else
+                {
+                    foreach (var item in creationResult.Errors)
+                    {
+                        response.Errors.Add(item.Description);
+                    }
+
+                    return response;
+                }
             }
             else
             {
-                response.IsSuccess = false;
-
-                if (validationResults.Any())
+                if (validationResult.Errors.Any())
                 {
-                    foreach (var error in validationResults)
+                    foreach (var error in validationResult.Errors)
                     {
                         response.Errors.Add(error.ToString());
                     }
@@ -67,18 +87,18 @@ namespace E_commerce_BLL.Service
 
         public async Task<ApiResponse> GetUserById(string id)
         {
-            ApiResponse response = new ApiResponse();
+            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
             var user = await _userRepository.GetUserById(id);
 
             if (user != null)
             {
+                response.StatusCode = StatusCodes.Status200OK;
                 response.IsSuccess = true;
                 response.Result = _mapper.Map<UserGetRequest>(user);
                 return response;
             }
             else
             {
-                response.IsSuccess = false;
                 response.Errors.Add($"Could not get user with Id {id}");
                 return response;
             }
@@ -86,17 +106,18 @@ namespace E_commerce_BLL.Service
 
         public async Task<ApiResponse> DeleteUserById(string id)
         {
-            ApiResponse response = new ApiResponse();
+            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
             var userToDelete = await _userRepository.GetUserById(id);
             if (userToDelete != null)
             {
                 await _userRepository.DeleteUserById(userToDelete);
+
+                response.StatusCode = StatusCodes.Status200OK;
                 response.IsSuccess = true;
                 return response;
             }
             else
             {
-                response.IsSuccess = false;
                 response.Errors.Add($"Unable to delete user with id {id}");
                 return response;
             }
@@ -104,7 +125,7 @@ namespace E_commerce_BLL.Service
 
         public async Task<ApiResponse> UpdateUserPassword(UserUpdatePasswordRequest userUpdateRequest)
         {
-            ApiResponse response = new ApiResponse() { IsSuccess = false };
+            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
             var validationContext = new ValidationContext(userUpdateRequest);
             var validationResults = new List<ValidationResult>();
 
@@ -117,6 +138,7 @@ namespace E_commerce_BLL.Service
 
                     if (result.Succeeded)
                     {
+                        response.StatusCode = StatusCodes.Status200OK;
                         response.IsSuccess = true;
                         return response;
                     }
