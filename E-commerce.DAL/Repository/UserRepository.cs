@@ -20,6 +20,7 @@ namespace E_commerce_DAL.Repository
         {
             await _userManager.DeleteAsync(user);
             await _context.SaveChangesAsync();
+
         }
 
         public async Task<User> GetUserById(string id)

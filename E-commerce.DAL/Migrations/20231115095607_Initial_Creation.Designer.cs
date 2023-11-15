@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace E_commerce.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231114083430_InitialCreation")]
-    partial class InitialCreation
+    [Migration("20231115095607_Initial_Creation")]
+    partial class Initial_Creation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -391,7 +391,8 @@ namespace E_commerce.DAL.Migrations
                 {
                     b.HasOne("E_commerce.Models.DbModels.User", "User")
                         .WithOne("Cart")
-                        .HasForeignKey("E_commerce.Models.DbModels.Cart", "UserId");
+                        .HasForeignKey("E_commerce.Models.DbModels.Cart", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("User");
                 });

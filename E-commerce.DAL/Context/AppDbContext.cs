@@ -1,9 +1,6 @@
 ﻿using E_commerce.Models.DbModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using E_commerce.Models.DbModels;
-using E_commerce.Models;
-using System.Reflection.Emit;
 
 namespace E_commerce.Context
 {
@@ -18,13 +15,14 @@ namespace E_commerce.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<Cart>()
-                .HasOne(u => u.User) // Cart has one user
-                .WithOne(c => c.Cart) // User has one cart
-                .HasForeignKey<Cart>(c => c.UserId); // Cart has the foreign key
             builder.Entity<Product>()
                 .HasMany(c => c.Carts)
                 .WithMany(p => p.Products);
+            builder.Entity<User>()
+                .HasOne(c => c.Cart)
+                .WithOne(u => u.User)
+                .HasForeignKey<Cart>(u => u.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         public DbSet<Cart> Cart { get; set; }

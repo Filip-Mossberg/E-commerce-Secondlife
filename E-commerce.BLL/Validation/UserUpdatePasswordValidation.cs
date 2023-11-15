@@ -19,7 +19,8 @@ namespace E_commerce.BLL.Validation
                 .MaximumLength(128).WithMessage("Password cannot exceed 128 characters.")
                 .Matches(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).*$").WithMessage("Password needs to contain at least one uppercase letter, one digit, and one special character.");
             RuleFor(confPassword => confPassword.ConfirmPassword)
-                .Matches("PasswordHash").WithMessage("Passwords do not match.");
+                .Equal(password => password.PasswordHash).WithMessage("Passwords do not match.");
+            RuleFor(currentPassword => currentPassword.CurrentPassword).NotEmpty().WithMessage("Current Password field cannot be empty");
         }
     }
 }

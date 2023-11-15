@@ -112,6 +112,7 @@ namespace E_commerce_BLL.Service
         {
             ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
             var userToDelete = await _userRepository.GetUserById(id);
+
             if (userToDelete != null)
             {
                 await _userRepository.DeleteUserById(userToDelete);

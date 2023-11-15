@@ -388,7 +388,8 @@ namespace E_commerce.DAL.Migrations
                 {
                     b.HasOne("E_commerce.Models.DbModels.User", "User")
                         .WithOne("Cart")
-                        .HasForeignKey("E_commerce.Models.DbModels.Cart", "UserId");
+                        .HasForeignKey("E_commerce.Models.DbModels.Cart", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("User");
                 });
