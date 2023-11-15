@@ -21,20 +21,24 @@ namespace E_commerce_BLL.Service
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly ICartService _cartService;
-        private readonly IValidator<UserRegisterRequest> _validator;
-        public UserService(IUserRepository userRepository, IMapper mapper, UserManager<User> userManager, ICartService cartService, IValidator<UserRegisterRequest> validator)
+        private readonly IValidator<UserRegisterRequest> _registerValidator;
+        private readonly IValidator<UserUpdatePasswordRequest> _passwordUpdateValidator;
+        public UserService(IUserRepository userRepository, IMapper mapper, UserManager<User> userManager, 
+            ICartService cartService, IValidator<UserRegisterRequest> registerValidator,
+            IValidator<UserUpdatePasswordRequest> updatePasswordValidator)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _userManager = userManager;
             _cartService = cartService;
-            _validator = validator;
+            _registerValidator = registerValidator;
+            _passwordUpdateValidator = updatePasswordValidator;
         }
         public async Task<ApiResponse> UserRegister(UserRegisterRequest userRegisterReq)
         {
             ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
 
-            var validationResult = await _validator.ValidateAsync(userRegisterReq);
+            var validationResult = await _registerValidator.ValidateAsync(userRegisterReq);
             var userExists = await _userManager.FindByEmailAsync(userRegisterReq.Email);
 
             if (validationResult.IsValid
@@ -126,10 +130,9 @@ namespace E_commerce_BLL.Service
         public async Task<ApiResponse> UpdateUserPassword(UserUpdatePasswordRequest userUpdateRequest)
         {
             ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
-            var validationContext = new ValidationContext(userUpdateRequest);
-            var validationResults = new List<ValidationResult>();
+            var validationResult = await _passwordUpdateValidator.ValidateAsync(userUpdateRequest);
 
-            if (Validator.TryValidateObject(userUpdateRequest, validationContext, validationResults))
+            if (validationResult.IsValid)
             {
                 var userToUpdate = await _userManager.FindByEmailAsync(userUpdateRequest.Email);
                 if(userToUpdate != null)
@@ -158,7 +161,7 @@ namespace E_commerce_BLL.Service
             }
             else
             {
-                foreach (var error in validationResults)
+                foreach (var error in validationResult.Errors)
                 {
                     response.Errors.Add(error.ToString());
                 }
