@@ -4,6 +4,7 @@ using E_commerce_BLL;
 using E_commerce_DAL;
 using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
+using Serilog;
 using System.Net;
 
 namespace E_commerce
@@ -24,6 +25,13 @@ namespace E_commerce
 
             builder.Services.AddTransient<ExceptionMiddleWare>();
 
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .WriteTo.Console()
+                .CreateLogger();
+
+            builder.Host.UseSerilog();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -32,6 +40,8 @@ namespace E_commerce
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseSerilogRequestLogging();
 
             app.UseHttpsRedirection();
 

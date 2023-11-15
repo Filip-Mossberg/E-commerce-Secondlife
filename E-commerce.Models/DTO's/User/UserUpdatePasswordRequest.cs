@@ -12,6 +12,7 @@ namespace E_commerce.Models.DTO_s.User
     public class UserUpdatePasswordRequest
     {
         public string Email { get; set; }
+        public string PasswordHash { get; set; }
         public string ConfirmPassword { get; set; }
         public string CurrentPassword { get; set; }
     }
