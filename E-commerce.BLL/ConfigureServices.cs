@@ -18,9 +18,11 @@ namespace E_commerce_BLL
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICartService, CartService>();
+            services.AddScoped<ICategoryService, CategoryService>();
 
             services.AddValidatorsFromAssemblyContaining<UserRegisterValidation>();
             services.AddValidatorsFromAssemblyContaining<UserUpdatePasswordValidation>();
+            services.AddValidatorsFromAssemblyContaining<CategoryCreateValidation>();
 
             return services;
         }

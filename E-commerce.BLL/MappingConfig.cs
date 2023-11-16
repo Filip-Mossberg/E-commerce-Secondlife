@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using E_commerce.Models.DbModels;
+using E_commerce.Models.DTO_s.Category;
 using E_commerce.Models.DTO_s.Product;
 using E_commerce.Models.DTO_s.User;
 using System;
@@ -17,6 +18,8 @@ namespace E_commerce_BLL
             CreateMap<UserRegisterRequest, User>();
             CreateMap<User, UserGetRequest>();
             CreateMap<ProductCreateRequest, Product>();
+
+            CreateMap<CategoryCreateRequest, Category>().ReverseMap();
         }
     }
 }

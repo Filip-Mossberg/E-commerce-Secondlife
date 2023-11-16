@@ -7,8 +7,8 @@ using Serilog;
 
 namespace E_commerce_recycling.Controllers
 {
-    [Route("Api/User")]
     [ApiController]
+    [Route("Api/User")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -30,7 +30,7 @@ namespace E_commerce_recycling.Controllers
         {
             var response = await _userService.GetUserById(id);
             Log.Information("ApiResponse object => {@response}", response);
-            return response.IsSuccess ? Ok(response) : BadRequest(response);
+            return response.IsSuccess ? Ok(response) : NotFound(response);
         }
 
         [HttpDelete("Delete")]
