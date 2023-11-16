@@ -1,5 +1,6 @@
 ﻿using E_commerce.BLL.IService;
 using E_commerce.DAL.IRepository;
+using E_commerce.Models;
 using E_commerce.Models.DbModels;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,16 @@ namespace E_commerce.BLL.Service
             };
 
             await _cartRepository.CreateCart(cart);
+        }
+
+        public async Task<ApiResponse> ClearCart(int id)
+        {
+            ApiResponse response = new ApiResponse();
+            
+            await _cartRepository.RemoveAllFromCart(id);
+
+            response.IsSuccess = true;
+            return response;
         }
     }
 }

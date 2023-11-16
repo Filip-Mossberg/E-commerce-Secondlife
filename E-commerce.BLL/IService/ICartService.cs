@@ -1,14 +1,11 @@
-﻿using E_commerce.Models.DbModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using E_commerce.Models;
+using E_commerce.Models.DbModels;
 
 namespace E_commerce.BLL.IService
 {
     public interface ICartService
     {
         public Task CreateCart(User user);
+        public Task<ApiResponse> ClearCart(int id);
     }
 }

@@ -8,19 +8,15 @@ namespace E_commerce_DAL.Repository
 {
     public class UserRepository : IUserRepository
     {
-        private readonly AppDbContext _context;
         private readonly UserManager<User> _userManager;
-        public UserRepository(AppDbContext context, UserManager<User> userManager)
+        public UserRepository(UserManager<User> userManager)
         {
-            _context = context;
             _userManager = userManager;
         }
 
         public async Task DeleteUserById(User user)
         {
             await _userManager.DeleteAsync(user);
-            await _context.SaveChangesAsync();
-
         }
 
         public async Task<User> GetUserById(string id)
@@ -30,16 +26,12 @@ namespace E_commerce_DAL.Repository
 
         public async Task<IdentityResult> UserRegister(User user, string password)
         {
-            var result = await _userManager.CreateAsync(user, password);
-            await _context.SaveChangesAsync();
-            return result;
+            return await _userManager.CreateAsync(user, password);
         }
 
         public async Task<IdentityResult> UserPasswordUpdate(User user, string currentPassword, string password)
         {
-            var result = await _userManager.ChangePasswordAsync(user, currentPassword, password);
-            await _context.SaveChangesAsync();
-            return result;
+            return await _userManager.ChangePasswordAsync(user, currentPassword, password);
         }
     }
 }

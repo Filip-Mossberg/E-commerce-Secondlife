@@ -91,7 +91,7 @@ namespace E_commerce_BLL.Service
 
         public async Task<ApiResponse> GetUserById(string id)
         {
-            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
+            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status404NotFound };
             var user = await _userRepository.GetUserById(id);
 
             if (user != null)

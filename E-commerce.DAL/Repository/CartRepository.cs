@@ -1,8 +1,11 @@
 ﻿using E_commerce.Context;
 using E_commerce.DAL.IRepository;
 using E_commerce.Models.DbModels;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,9 +31,13 @@ namespace E_commerce.DAL.Repository
             throw new NotImplementedException();
         }
 
-        public Task RemoveAllFromCart()
+        public async Task RemoveAllFromCart(int id)
         {
-            throw new NotImplementedException();
+            var test = _context.Cart.Include(cart => cart.Products).FirstOrDefault(c => c.Id == id);
+            test.Products.Clear();
+            //var itemsToDelete = await _context.CartProduct
+            //await _context.Cart.RemoveRange();
+            Log.Information("ApiResponse object => {@test}", test);
         }
 
         public Task RemoveItemFromCart()

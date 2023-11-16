@@ -11,7 +11,7 @@ namespace E_commerce.DAL.IRepository
     {
         public Task CreateCart(Cart cart);
         public Task RemoveItemFromCart();
-        public Task RemoveAllFromCart();
+        public Task RemoveAllFromCart(int id);
         public Task GetCartById(string id);
     }
 }
