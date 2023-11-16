@@ -4,14 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace E_commerce.Models.DbModels
+namespace E_commerce.Models.DTO_s.Image
 {
-    public class Image
+    public class ImageUploadRequest
     {
-        public int Id { get; set; }
-        public string ImageName { get; set; }
+        public string FilePath { get; set; }
         public bool IsDisplayImage { get; set; }
         //public int ProductId { get; set; }
-        //public Product Product { get; set; }
     }
 }
