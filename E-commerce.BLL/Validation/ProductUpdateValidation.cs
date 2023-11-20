@@ -2,16 +2,15 @@
 using FluentValidation;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace E_commerce.BLL.Validation
 {
-    public class ProductCreateValidation : AbstractValidator<ProductCreateRequest>
+    public class ProductUpdateValidation : AbstractValidator<ProductUpdateRequest>
     {
-        public ProductCreateValidation()
+        public ProductUpdateValidation()
         {
             RuleFor(title => title.Title).NotEmpty().WithMessage("Title is requierd!")
                 .Length(3, 50).WithMessage("Title must be between 3 and 40 characters.");
@@ -22,6 +21,3 @@ namespace E_commerce.BLL.Validation
         }
     }
 }
-
-
-

@@ -29,6 +29,6 @@ namespace E_commerce.Context
         public DbSet<Image> Image { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<Product> Product { get; set; }
-        public DbSet<Order> Order { get; set; }
+        //public DbSet<Order> Order { get; set; }
     }
 }

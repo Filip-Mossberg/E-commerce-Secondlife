@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace E_commerce.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231116134535_Initial_Creation")]
-    partial class Initial_Creation
+    [Migration("20231117092232_Initial_TestingMigration")]
+    partial class Initial_TestingMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -159,10 +159,8 @@ namespace E_commerce.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -171,7 +169,7 @@ namespace E_commerce.DAL.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Product");
                 });
@@ -438,7 +436,9 @@ namespace E_commerce.DAL.Migrations
 
                     b.HasOne("E_commerce.Models.DbModels.User", "User")
                         .WithMany("Products")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
 

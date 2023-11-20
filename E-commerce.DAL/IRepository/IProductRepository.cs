@@ -11,11 +11,11 @@ namespace E_commerce.DAL.IRepository
     {
         public Task GetAllByCategoryId(int categoryId);
         public Task GetAllByCustomerId(int customerId);
-        public Task GetProductById(int productId);
+        public Task<Product> GetProductById(int productId);
         public Task GetAllByLocation();
-        public Task SearchByProductName(string productName);
-        public Task CreateProduct(Product product);
+        public Task<IEnumerable<Product>> SearchByProductName(string productName);
+        public Task<int> CreateProduct(Product product);
         public Task UpdateProduct(Product product);
-        public Task DeleteProduct(int productId);
+        public Task DeleteProduct(Product product);
     }
 }

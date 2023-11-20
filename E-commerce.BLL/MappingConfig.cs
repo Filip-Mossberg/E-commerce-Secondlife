@@ -20,6 +20,8 @@ namespace E_commerce_BLL
             CreateMap<ProductCreateRequest, Product>();
 
             CreateMap<CategoryCreateRequest, Category>().ReverseMap();
+            CreateMap<ProductCreateRequest, Product>()
+                .ForMember(destination => destination.Images, opt => opt.Ignore()); // Need to ignore images here since the Product has a list of images and thats not what the ProductCreatingRequest takes in
         }
     }
 }

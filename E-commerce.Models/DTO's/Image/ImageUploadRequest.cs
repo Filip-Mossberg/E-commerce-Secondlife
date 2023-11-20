@@ -10,6 +10,5 @@ namespace E_commerce.Models.DTO_s.Image
     {
         public string FilePath { get; set; }
         public bool IsDisplayImage { get; set; }
-        //public int ProductId { get; set; }
     }
 }

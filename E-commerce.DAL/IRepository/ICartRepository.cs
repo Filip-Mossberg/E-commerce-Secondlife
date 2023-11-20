@@ -10,8 +10,9 @@ namespace E_commerce.DAL.IRepository
     public interface ICartRepository
     {
         public Task CreateCart(Cart cart);
-        public Task RemoveItemFromCart();
-        public Task RemoveAllFromCart(int id);
-        public Task GetCartById(string id);
+        public Task<bool> RemoveItemFromCart(int cartId, Product product);
+        public Task<bool> RemoveAllFromCart(int cartId);
+        public Task<Cart> GetCartById(int id);
+        public Task<bool> AddItemToCart(Product product, Cart cart);
     }
 }
