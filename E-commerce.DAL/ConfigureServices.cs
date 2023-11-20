@@ -24,6 +24,7 @@ namespace E_commerce_DAL
             services.AddScoped<ICartRepository, CartRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();    
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()

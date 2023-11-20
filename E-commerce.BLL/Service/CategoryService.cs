@@ -39,7 +39,7 @@ namespace E_commerce.BLL.Service
             {
                 await _categoryRepository.CreateCategory(_mapper.Map<Category>(createCategoryReq));
 
-                response.StatusCode = StatusCodes.Status200OK;
+                response.StatusCode = StatusCodes.Status201Created;
                 response.IsSuccess = true;
                 return response;
             }
@@ -49,7 +49,7 @@ namespace E_commerce.BLL.Service
                 {
                     foreach (var error in validationResult.Errors)
                     {
-                        response.Errors.Add(error.ToString());
+                        response.Errors.Add(error.ErrorMessage);
                     }
                 }
                 else
@@ -118,7 +118,7 @@ namespace E_commerce.BLL.Service
                 {
                     foreach (var error in validationResult.Errors)
                     {
-                        response.Errors.Add(error.ToString());
+                        response.Errors.Add(error.ErrorMessage);
                     }
                 }
 

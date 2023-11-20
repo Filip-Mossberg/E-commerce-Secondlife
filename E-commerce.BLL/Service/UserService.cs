@@ -77,7 +77,7 @@ namespace E_commerce_BLL.Service
                 {
                     foreach (var error in validationResult.Errors)
                     {
-                        response.Errors.Add(error.ToString());
+                        response.Errors.Add(error.ErrorMessage);
                     }
                 }
                 else
@@ -164,7 +164,7 @@ namespace E_commerce_BLL.Service
             {
                 foreach (var error in validationResult.Errors)
                 {
-                    response.Errors.Add(error.ToString());
+                    response.Errors.Add(error.ErrorMessage);
                 }
                 return response;
             }        

@@ -1,6 +1,7 @@
 ﻿using E_commerce.Context;
 using E_commerce.DAL.IRepository;
 using E_commerce.Models.DbModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,11 @@ namespace E_commerce.DAL.Repository
         {
             await _context.Image.AddAsync(image);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Image>> GetAllImagesById(int productId)
+        {
+             return await _context.Image.Where(i => i.ProductId == productId).ToListAsync();
         }
 
         public async Task GetDisplayImage(int productId) // Here we will find the Display Image of a specific product, not sure we need a method in the controller for this one 

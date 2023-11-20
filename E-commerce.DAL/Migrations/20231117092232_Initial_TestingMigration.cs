@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace E_commerce.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial_Creation : Migration
+    public partial class Initial_TestingMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -224,18 +224,18 @@ namespace E_commerce.DAL.Migrations
                     Longitude = table.Column<double>(type: "double precision", nullable: false),
                     Latitude = table.Column<double>(type: "double precision", nullable: false),
                     OrderId = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<int>(type: "integer", nullable: false),
-                    UserId1 = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<string>(type: "text", nullable: false),
                     CategoryId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Product", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Product_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Product_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Product_Category_CategoryId",
                         column: x => x.CategoryId,
@@ -363,9 +363,9 @@ namespace E_commerce.DAL.Migrations
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_UserId1",
+                name: "IX_Product_UserId",
                 table: "Product",
-                column: "UserId1");
+                column: "UserId");
         }
 
         /// <inheritdoc />

@@ -1,10 +1,12 @@
 ﻿using E_commerce.Context;
 using E_commerce.DAL.IRepository;
 using E_commerce.Models.DbModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace E_commerce.DAL.Repository
@@ -16,15 +18,17 @@ namespace E_commerce.DAL.Repository
         {
             _context = context;
         }
-        public async Task CreateProduct(Product product)
+        public async Task<int> CreateProduct(Product product)
         {
-            await _context.Product.AddAsync(product);
+            var result = await _context.Product.AddAsync(product);
             await _context.SaveChangesAsync();
+            return result.Entity.Id;
         }
 
-        public Task DeleteProduct(int productId)
+        public async Task DeleteProduct(Product product)
         {
-            throw new NotImplementedException();
+            _context.Product.Remove(product);
+            await _context.SaveChangesAsync();
         }
 
         public Task GetAllByCategoryId(int categoryId)
@@ -42,19 +46,20 @@ namespace E_commerce.DAL.Repository
             throw new NotImplementedException();
         }
 
-        public Task GetProductById(int productId)
+        public async Task<Product> GetProductById(int productId)
         {
-            throw new NotImplementedException();
+            return await _context.Product.FirstOrDefaultAsync(p => p.Id == productId);
         }
 
-        public Task SearchByProductName(string productName)
+        public async Task<IEnumerable<Product>> SearchByProductName(string productName)
         {
-            throw new NotImplementedException();
+            return await _context.Product.Where(name => Regex.IsMatch(name.Title, Regex.Escape(productName), RegexOptions.IgnoreCase)).ToListAsync();
         }
 
-        public Task UpdateProduct(Product product)
+        public async Task UpdateProduct(Product product)
         {
-            throw new NotImplementedException();
+            _context.Product.Update(product);
+            await _context.SaveChangesAsync();  
         }
     }
 }

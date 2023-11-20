@@ -1,4 +1,5 @@
 ﻿using E_commerce.Models.DbModels;
+using E_commerce.Models.DTO_s.Image;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,9 +16,8 @@ namespace E_commerce.Models.DTO_s.Product
         public string Description { get; set; }
         public int Price { get; set; }
         public DateTime DateListed { get; set; } = DateTime.Now;
-        public string MainImage { get; set; }
-        public List<string>? Images { get; set; }
-        public int UserId { get; set; }
+        public List<ImageUploadRequest> Images { get; set; }
+        public string UserId { get; set; }
         public int CategoryId { get; set; }
     }
 }
