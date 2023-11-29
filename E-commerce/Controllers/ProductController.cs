@@ -45,7 +45,15 @@ namespace E_commerce.Controllers
         {
             var response = await _productService.SearchByProductName(productName);
             Log.Information("ApiResponse object => {@response}", response);
-            return response.IsSuccess ? Ok(response) : BadRequest(response);
+            return response.IsSuccess ? Ok(response) : NotFound(response);
+        }
+
+        [HttpGet("SearchByCategoryId")]
+        public async Task<IActionResult> SearchByCategoryId(int categoryId)
+        {
+            var response = await _productService.GetAllByCategoryId(categoryId);
+            Log.Information("ApiResponse object => {@response}", response);
+            return response.IsSuccess ? Ok(response) : NotFound(response);
         }
     }
 }

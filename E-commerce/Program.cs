@@ -24,7 +24,7 @@ namespace E_commerce
 
             builder.Services
                 .DbServicesDAL(builder.Configuration)
-                .DbServicesBLL();
+                .DbServicesBLL(builder.Configuration);
 
             builder.Services.AddTransient<ExceptionMiddleWare>();
 

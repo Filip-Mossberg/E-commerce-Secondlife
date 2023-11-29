@@ -10,8 +10,12 @@ using FluentValidation;
 using FluentValidation.Validators;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Serilog;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Policy;
 
 namespace E_commerce_BLL.Service
 {
@@ -21,11 +25,15 @@ namespace E_commerce_BLL.Service
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly ICartService _cartService;
+        private readonly IEmailService _emailService;
         private readonly IValidator<UserRegisterRequest> _registerValidator;
         private readonly IValidator<UserUpdatePasswordRequest> _passwordUpdateValidator;
+        private readonly IUrlHelperFactory _urlHeplerFactory;
+
         public UserService(IUserRepository userRepository, IMapper mapper, UserManager<User> userManager, 
             ICartService cartService, IValidator<UserRegisterRequest> registerValidator,
-            IValidator<UserUpdatePasswordRequest> updatePasswordValidator)
+            IValidator<UserUpdatePasswordRequest> updatePasswordValidator, IEmailService emailService,
+            IUrlHelperFactory urlHelperFactory)
         {
             _userRepository = userRepository;
             _mapper = mapper;
@@ -33,8 +41,10 @@ namespace E_commerce_BLL.Service
             _cartService = cartService;
             _registerValidator = registerValidator;
             _passwordUpdateValidator = updatePasswordValidator;
+            _emailService = emailService;
+            _urlHeplerFactory = urlHelperFactory;
         }
-        public async Task<ApiResponse> UserRegister(UserRegisterRequest userRegisterReq)
+        public async Task<ApiResponse> UserRegister(UserRegisterRequest userRegisterReq, HttpContext httpContext)
         {
             ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
 
@@ -52,10 +62,23 @@ namespace E_commerce_BLL.Service
 
                 var creationResult = await _userRepository.UserRegister(user, userRegisterReq.PasswordHash);
 
-                if(creationResult.Succeeded)
+                if (creationResult.Succeeded)
                 {
                     var createdUser = await _userManager.FindByEmailAsync(user.Email);
+
+                    // Adding role and cart to user
+                    await _userManager.AddToRoleAsync(createdUser, "user");
                     await _cartService.CreateCart(createdUser);
+
+                    // Generating email verification token
+                    var urlHelper = _urlHeplerFactory.GetUrlHelper(new ActionContext
+                    {
+                        HttpContext = httpContext
+                    });
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(createdUser);
+                    var confirmationLink = urlHelper.Action("ConfirmEmail", "User", new { token, email = createdUser.Email }, httpContext.Request.Scheme = "https");
+                    var message = new EmailMessage(new string[] { createdUser.Email! }, "Confirm email link", confirmationLink!);
+                    _emailService.SendEmail(message);
 
                     response.StatusCode = StatusCodes.Status201Created;
                     response.IsSuccess = true;

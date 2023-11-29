@@ -14,5 +14,6 @@ namespace E_commerce.BLL.IService
         public Task<ApiResponse> DeleteProductById(int productId);
         public Task<ApiResponse> UpdateProduct(ProductUpdateRequest productUpdateRequest);
         public Task<ApiResponse> SearchByProductName(string productName);
+        public Task<ApiResponse> GetAllByCategoryId(int categoryId);
     }
 }

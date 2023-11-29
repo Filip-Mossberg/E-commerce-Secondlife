@@ -101,7 +101,6 @@ namespace E_commerce.BLL.Service
         {
             ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
             var productImages = await _imageRepository.GetAllImagesById(productId);
-            var blobStreams = new List<Stream>();
 
             if (productImages.Any())
             {
@@ -109,22 +108,58 @@ namespace E_commerce.BLL.Service
                 {
                     var blobClient = _blobContainerClient.GetBlobClient(item.ImageName);
                     var blobDownloadInfo = await blobClient.DownloadAsync();
-                    MemoryStream memoryStream = new MemoryStream();
 
-                    await blobClient.DownloadToAsync(memoryStream);
-                    memoryStream.Position = 0;
+                    using (MemoryStream memoryStream = new MemoryStream())
+                    {
+                        await blobDownloadInfo.Value.Content.CopyToAsync(memoryStream);
+                        byte[] imageBytes = memoryStream.ToArray();
 
-                    string content = new StreamReader(memoryStream).ReadToEnd();
+                        var contentType = blobDownloadInfo.Value.Details.ContentType; // Replace with actual content type if available
 
-                    response.Result = content;
-                    response.IsSuccess = true;
-                    return response;
+                        if (imageBytes != null && imageBytes.Length > 0)
+                        {
+                            var imageData = new ImageData
+                            {
+                                ImageBytes = imageBytes,
+                                ContentType = contentType
+                            };
+
+                            response.Result = imageData; // Store ImageData object in the response
+                            response.IsSuccess = true;
+                            return response;
+                        }
+                    }
                 }
+                return response;
             }
-            return response;
-
+            else
+            {
+                return response;
+            }
         }
 
+        public async Task<ApiResponse> DeleteImages(int productId) // Will see when I have to implement this, (not tested)
+        {
+            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
+            var productImages = await _imageRepository.GetAllImagesById(productId);
 
+            if (productImages.Any())
+            {
+                foreach (var item in productImages)
+                {
+                    var blobClient = _blobContainerClient.GetBlobClient(item.ImageName);
+                    await blobClient.DeleteAsync();
+                }
+
+                response.IsSuccess = true;
+                response.StatusCode = StatusCodes.Status200OK;
+                return response;
+            }
+            else
+            {
+                response.Errors.Add("Error removing blobs.");
+                return response;
+            }
+        }
     }
 }

@@ -134,11 +134,31 @@ namespace E_commerce.BLL.Service
 
             var productsFound = await _productRepository.SearchByProductName(productName);
 
-            if(productsFound != null)
+            if(productsFound.Any())
             {
                 response.IsSuccess = true;
                 response.StatusCode = StatusCodes.Status200OK;
-                response.Result = productsFound;
+                response.Result = _mapper.Map<IEnumerable<ProductGetRequest>>(productsFound);
+                return response;
+            }
+            else
+            {
+                response.Errors.Add("Unable to find products! Try again.");
+                return response;
+            }
+        }
+
+        public async Task<ApiResponse> GetAllByCategoryId(int categoryId)
+        {
+            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status404NotFound };
+
+            var productsFound = await _productRepository.GetAllByCategoryId(categoryId);
+
+            if (productsFound.Any())
+            {
+                response.IsSuccess = true;
+                response.StatusCode = StatusCodes.Status200OK;
+                response.Result = _mapper.Map<IEnumerable<ProductGetRequest>>(productsFound);
                 return response;
             }
             else
