@@ -1,7 +1,7 @@
-﻿using E_commerce.Middleware.Exceptions;
+﻿using E_commerce.BLL.IService;
+using E_commerce.Middleware.Exceptions;
 using E_commerce.Models.DTO_s.User;
 using E_commerce_BLL.IService;
-using E_commerce_DAL.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -12,15 +12,17 @@ namespace E_commerce_recycling.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        private readonly IEmailService _emailService;
+        public UserController(IUserService userService, IEmailService emailService)
         {
             _userService = userService;
+            _emailService = emailService;
         }
 
         [HttpPost("Create")]
         public async Task<IActionResult> UserRegister(UserRegisterRequest userRegisterReq)
         {
-            var response = await _userService.UserRegister(userRegisterReq);
+            var response = await _userService.UserRegister(userRegisterReq, Url.ActionContext.HttpContext);
             Log.Information("ApiResponse object => {@response}", response);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
@@ -49,22 +51,11 @@ namespace E_commerce_recycling.Controllers
             return response.IsSuccess? Ok(response) : BadRequest(response);
         }
 
-        [HttpPut("Test")]
-        public async Task<int> Divide(int number)
+        [HttpGet("ConfirmEmail")]
+        public async Task<IActionResult> ConfirmEmail(string token, string email)
         {
-            if (number == 1)
-            {
-                var result = number / 0;
-                return result;
-            }
-            else if(number == 2)
-            {
-                throw new ArgumentNullException("Not Found");
-            }
-            else
-            {
-                throw new ("Bad Request");
-            }
+            var response = await _emailService.ConfirmEmail(token, email);
+            return response.IsSuccess ? Ok($"{email} is now confirmed") : BadRequest(response);
         }
     }
 }

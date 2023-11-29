@@ -31,9 +31,9 @@ namespace E_commerce.DAL.Repository
             await _context.SaveChangesAsync();
         }
 
-        public Task GetAllByCategoryId(int categoryId)
+        public async Task<IEnumerable<Product>> GetAllByCategoryId(int categoryId)
         {
-            throw new NotImplementedException();
+            return await _context.Product.Where(p => p.CategoryId == categoryId).ToListAsync();
         }
 
         public Task GetAllByCustomerId(int customerId)

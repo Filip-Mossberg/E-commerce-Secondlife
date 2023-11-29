@@ -16,7 +16,7 @@ namespace E_commerce.Controllers
             _imageService = imageService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAllImagesById(int productId)
         {
             var response = await _imageService.GetAllImagesById2(productId);

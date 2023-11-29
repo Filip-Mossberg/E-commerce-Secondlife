@@ -9,7 +9,7 @@ namespace E_commerce.DAL.IRepository
 {
     public interface IProductRepository
     {
-        public Task GetAllByCategoryId(int categoryId);
+        public Task<IEnumerable<Product>> GetAllByCategoryId(int categoryId);
         public Task GetAllByCustomerId(int customerId);
         public Task<Product> GetProductById(int productId);
         public Task GetAllByLocation();
