@@ -1,6 +1,7 @@
 ﻿using E_commerce.BLL.IService;
 using E_commerce.Models.DbModels;
 using E_commerce.Models.DTO_s.Category;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -16,6 +17,7 @@ namespace E_commerce.Controllers
             _categoryService = categoryService;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("Create")]
         public async Task<IActionResult> CreateCategory(CategoryCreateRequest categoryCreateReq)
         {
@@ -24,6 +26,7 @@ namespace E_commerce.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
+        [AllowAnonymous]
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAllCategories()
         {
@@ -32,6 +35,7 @@ namespace E_commerce.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
+        [AllowAnonymous]
         [HttpGet("GetById")]
         public async Task<IActionResult> GetCategoryById(int id)
         {
@@ -40,6 +44,7 @@ namespace E_commerce.Controllers
             return response.IsSuccess ? Ok(response) : NotFound(response);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("Update")]
         public async Task<IActionResult> UpdateCategory(Category category)
         {
@@ -48,6 +53,7 @@ namespace E_commerce.Controllers
             return response.IsSuccess ? Ok(response) : NotFound();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteById")]
         public async Task<IActionResult> DeleteCategoryById(int id)
         {

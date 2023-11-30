@@ -1,6 +1,7 @@
 ﻿using Azure.Storage.Blobs.Models;
 using E_commerce.BLL.IService;
 using E_commerce.Models.DTO_s.Image;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -16,6 +17,7 @@ namespace E_commerce.Controllers
             _imageService = imageService;
         }
 
+        [AllowAnonymous]
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAllImagesById(int productId)
         {

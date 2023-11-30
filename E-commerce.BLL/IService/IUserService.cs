@@ -16,5 +16,6 @@ namespace E_commerce_BLL.IService
         public Task<ApiResponse> GetUserById(string id);
         public Task<ApiResponse> DeleteUserById(string id);
         public Task<ApiResponse> UpdateUserPassword(UserUpdatePasswordRequest userUpdateReq);
+        public Task<ApiResponse> UserLogin(UserLoginRequest userLoginReq);
     }
 }

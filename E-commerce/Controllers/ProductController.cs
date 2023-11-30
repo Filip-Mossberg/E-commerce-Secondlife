@@ -1,6 +1,7 @@
 ﻿using Azure;
 using E_commerce.BLL.IService;
 using E_commerce.Models.DTO_s.Product;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -16,6 +17,7 @@ namespace E_commerce.Controllers
             _productService = productService;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("Create")]
         public async Task<IActionResult> CreateProduct(ProductCreateRequest productCreateRequest)
         {
@@ -24,6 +26,7 @@ namespace E_commerce.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
+        [Authorize(Roles = "Admin, User")]
         [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteProduct(int productId)
         {
@@ -32,6 +35,7 @@ namespace E_commerce.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
+        [Authorize(Roles = "Admin, User")]
         [HttpPut("Update")]
         public async Task<IActionResult> UpdateProduct(ProductUpdateRequest productUpdateRequest)
         {
@@ -40,6 +44,7 @@ namespace E_commerce.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
+        [AllowAnonymous]
         [HttpGet("SearchByProductName")]
         public async Task<IActionResult> SearchByProductName(string productName)
         {
@@ -48,6 +53,7 @@ namespace E_commerce.Controllers
             return response.IsSuccess ? Ok(response) : NotFound(response);
         }
 
+        [AllowAnonymous]
         [HttpGet("SearchByCategoryId")]
         public async Task<IActionResult> SearchByCategoryId(int categoryId)
         {
