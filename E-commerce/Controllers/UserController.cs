@@ -2,6 +2,7 @@
 using E_commerce.Middleware.Exceptions;
 using E_commerce.Models.DTO_s.User;
 using E_commerce_BLL.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -19,6 +20,7 @@ namespace E_commerce_recycling.Controllers
             _emailService = emailService;
         }
 
+        [AllowAnonymous]
         [HttpPost("Create")]
         public async Task<IActionResult> UserRegister(UserRegisterRequest userRegisterReq)
         {
@@ -27,6 +29,7 @@ namespace E_commerce_recycling.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
+        [AllowAnonymous]
         [HttpGet("GetById")]
         public async Task<IActionResult> GetUserById(string id)
         {
@@ -35,6 +38,7 @@ namespace E_commerce_recycling.Controllers
             return response.IsSuccess ? Ok(response) : NotFound(response);
         }
 
+        [Authorize(Roles = "User")]
         [HttpDelete("Delete")]
         public async Task<IActionResult> UserDelete(string id)
         {
@@ -43,6 +47,7 @@ namespace E_commerce_recycling.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
+        [Authorize(Roles = "User")]
         [HttpPut("Update/Password")]
         public async Task<IActionResult> UserUpdatePassword(UserUpdatePasswordRequest userUpdateRequest)
         {
@@ -51,11 +56,21 @@ namespace E_commerce_recycling.Controllers
             return response.IsSuccess? Ok(response) : BadRequest(response);
         }
 
+        [AllowAnonymous]
         [HttpGet("ConfirmEmail")]
         public async Task<IActionResult> ConfirmEmail(string token, string email)
         {
             var response = await _emailService.ConfirmEmail(token, email);
             return response.IsSuccess ? Ok($"{email} is now confirmed") : BadRequest(response);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("Login")]
+        public async Task<IActionResult> UserLogin(UserLoginRequest userLoginReq)
+        {
+            var response = await _userService.UserLogin(userLoginReq);
+            Log.Information("ApiResponse object => {@response}", response);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
     }
 }

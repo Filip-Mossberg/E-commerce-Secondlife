@@ -5,6 +5,7 @@ using E_commerce.Models;
 using E_commerce.Models.DbModels;
 using E_commerce.Models.DTO_s.Category;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;

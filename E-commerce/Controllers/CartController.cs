@@ -1,4 +1,5 @@
 ﻿using E_commerce.BLL.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -14,6 +15,7 @@ namespace E_commerce.Controllers
             _cartService = cartService;
         }
 
+        [Authorize(Roles = "Admin, User")]
         [HttpDelete("ClearCart")]
         public async Task<IActionResult> ClearCart(int cartId)
         {
@@ -22,6 +24,7 @@ namespace E_commerce.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
+        [Authorize(Roles = "Admin, User")]
         [HttpPost("AddToCart")]
         public async Task<IActionResult> AddToCart(int cartId, int productId)
         {
@@ -30,6 +33,7 @@ namespace E_commerce.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
+        [Authorize(Roles = "Admin, User")]
         [HttpDelete("RemoveSingle")]
         public async Task<IActionResult> RemoveItemFromCart(int cartId, int productId)
         {
