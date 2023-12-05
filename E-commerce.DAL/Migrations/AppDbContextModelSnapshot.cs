@@ -101,9 +101,11 @@ namespace E_commerce.DAL.Migrations
 
             modelBuilder.Entity("E_commerce.Models.DbModels.Order", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DateOrdered")
                         .HasColumnType("timestamp with time zone");
@@ -146,8 +148,8 @@ namespace E_commerce.DAL.Migrations
                     b.Property<double>("Longitude")
                         .HasColumnType("double precision");
 
-                    b.Property<Guid?>("OrderId")
-                        .HasColumnType("uuid");
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Price")
                         .HasColumnType("integer");
@@ -269,14 +271,14 @@ namespace E_commerce.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e4faf1b0-29e6-4999-981a-fb2842f36df6",
+                            Id = "b3cc29a4-0b1f-4cb8-8fce-f6b7766a0807",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "a0e06eca-db0c-414f-9200-295bd549e86d",
+                            Id = "997567ee-0464-4b1a-a8a1-d4823c0c2275",
                             ConcurrencyStamp = "2",
                             Name = "User",
                             NormalizedName = "USER"
@@ -445,7 +447,7 @@ namespace E_commerce.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("E_commerce.Models.DbModels.Order", "Order")
+                    b.HasOne("E_commerce.Models.DbModels.Order", null)
                         .WithMany("Products")
                         .HasForeignKey("OrderId");
 
@@ -456,8 +458,6 @@ namespace E_commerce.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-
-                    b.Navigation("Order");
 
                     b.Navigation("User");
                 });

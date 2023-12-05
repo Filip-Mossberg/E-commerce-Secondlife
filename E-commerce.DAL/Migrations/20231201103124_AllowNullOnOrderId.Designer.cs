@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace E_commerce.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231117092232_Initial_TestingMigration")]
-    partial class Initial_TestingMigration
+    [Migration("20231201103124_AllowNullOnOrderId")]
+    partial class AllowNullOnOrderId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -92,7 +92,7 @@ namespace E_commerce.DAL.Migrations
                     b.Property<bool>("IsDisplayImage")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -104,9 +104,11 @@ namespace E_commerce.DAL.Migrations
 
             modelBuilder.Entity("E_commerce.Models.DbModels.Order", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DateOrdered")
                         .HasColumnType("timestamp with time zone");
@@ -149,8 +151,8 @@ namespace E_commerce.DAL.Migrations
                     b.Property<double>("Longitude")
                         .HasColumnType("double precision");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Price")
                         .HasColumnType("integer");
@@ -268,6 +270,22 @@ namespace E_commerce.DAL.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "0183f8db-5876-406f-bf4c-0db5d80c0732",
+                            ConcurrencyStamp = "1",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "3833e74c-7c99-47cc-8421-5ffdb723710f",
+                            ConcurrencyStamp = "2",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -404,9 +422,13 @@ namespace E_commerce.DAL.Migrations
 
             modelBuilder.Entity("E_commerce.Models.DbModels.Image", b =>
                 {
-                    b.HasOne("E_commerce.Models.DbModels.Product", null)
+                    b.HasOne("E_commerce.Models.DbModels.Product", "Product")
                         .WithMany("Images")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("E_commerce.Models.DbModels.Order", b =>
@@ -430,9 +452,7 @@ namespace E_commerce.DAL.Migrations
 
                     b.HasOne("E_commerce.Models.DbModels.Order", "Order")
                         .WithMany("Products")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderId");
 
                     b.HasOne("E_commerce.Models.DbModels.User", "User")
                         .WithMany("Products")

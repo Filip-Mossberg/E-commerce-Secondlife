@@ -1,5 +1,6 @@
 ﻿using E_commerce.Context;
 using E_commerce.DAL.IRepository;
+using E_commerce.Models;
 using E_commerce.Models.DbModels;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -60,6 +61,11 @@ namespace E_commerce.DAL.Repository
         {
             _context.Product.Update(product);
             await _context.SaveChangesAsync();  
+        }
+
+        public async Task<int> UserProducts(string userId)
+        {
+            return _context.Product.Where(p => p.UserId == userId).Count();
         }
     }
 }

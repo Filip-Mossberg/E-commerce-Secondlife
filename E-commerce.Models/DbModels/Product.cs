@@ -17,8 +17,7 @@ namespace E_commerce.Models.DbModels
         public bool IsOrdered { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
-        //public Guid OrderId { get; set; }
-        public Order? Order { get; set; }
+        public int? OrderId { get; set; }
         public string UserId { get; set; }
         public User? User { get; set; }
         public int CategoryId { get; set; }

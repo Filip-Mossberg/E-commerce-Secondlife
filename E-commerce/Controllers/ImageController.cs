@@ -7,8 +7,8 @@ using Serilog;
 
 namespace E_commerce.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("Api/Image")]
     public class ImageController : Controller
     {
         private readonly IImageService _imageService;

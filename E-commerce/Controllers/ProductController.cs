@@ -7,8 +7,8 @@ using Serilog;
 
 namespace E_commerce.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("Api/Product")]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
@@ -17,7 +17,7 @@ namespace E_commerce.Controllers
             _productService = productService;
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "User")]
         [HttpPost("Create")]
         public async Task<IActionResult> CreateProduct(ProductCreateRequest productCreateRequest)
         {
@@ -26,7 +26,7 @@ namespace E_commerce.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
-        [Authorize(Roles = "Admin, User")]
+        //[Authorize(Roles = "Admin, User")]
         [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteProduct(int productId)
         {
@@ -35,7 +35,7 @@ namespace E_commerce.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
-        [Authorize(Roles = "Admin, User")]
+        //[Authorize(Roles = "Admin, User")]
         [HttpPut("Update")]
         public async Task<IActionResult> UpdateProduct(ProductUpdateRequest productUpdateRequest)
         {
@@ -46,7 +46,7 @@ namespace E_commerce.Controllers
 
         [AllowAnonymous]
         [HttpGet("SearchByProductName")]
-        public async Task<IActionResult> SearchByProductName(string productName)
+        public async Task<IActionResult> SearchByProductName(string productName) 
         {
             var response = await _productService.SearchByProductName(productName);
             Log.Information("ApiResponse object => {@response}", response);

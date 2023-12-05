@@ -7,7 +7,8 @@ namespace E_commerce.BLL.Validation
     {
         public ImageUploadValidation()
         {
-            RuleFor(path => path.FilePath).NotEmpty().WithMessage("FilePath is required!")
+            RuleFor(path => path.FilePath)
+                .NotEmpty().WithMessage("FilePath is required!")
                 .Must(ImageFormatCheck).WithMessage("File format must be either PNG, JPEG, or JPG.");
         }
 

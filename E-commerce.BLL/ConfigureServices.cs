@@ -27,6 +27,7 @@ namespace E_commerce_BLL
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IOrderService, OrderService>();
 
             services.AddValidatorsFromAssemblyContaining<UserRegisterValidation>();
 

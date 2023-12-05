@@ -12,7 +12,8 @@ namespace E_commerce.BLL.Validation
     {
         public CategoryCreateValidation()
         {
-            RuleFor(x => x.Name).NotEmpty().WithMessage("Category name is required!")
+            RuleFor(x => x.Name)
+                .NotEmpty().WithMessage("Category name is required!")
                 .Length(2, 20).WithMessage("Category name must be between 3 and 40 characters.");
         }
     }
