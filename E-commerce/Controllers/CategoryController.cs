@@ -7,8 +7,8 @@ using Serilog;
 
 namespace E_commerce.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("Api/Category")]
     public class CategoryController : Controller
     {
         public readonly ICategoryService _categoryService;
@@ -17,7 +17,7 @@ namespace E_commerce.Controllers
             _categoryService = categoryService;
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPost("Create")]
         public async Task<IActionResult> CreateCategory(CategoryCreateRequest categoryCreateReq)
         {
@@ -44,7 +44,7 @@ namespace E_commerce.Controllers
             return response.IsSuccess ? Ok(response) : NotFound(response);
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPut("Update")]
         public async Task<IActionResult> UpdateCategory(Category category)
         {
@@ -53,7 +53,7 @@ namespace E_commerce.Controllers
             return response.IsSuccess ? Ok(response) : NotFound();
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpDelete("DeleteById")]
         public async Task<IActionResult> DeleteCategoryById(int id)
         {

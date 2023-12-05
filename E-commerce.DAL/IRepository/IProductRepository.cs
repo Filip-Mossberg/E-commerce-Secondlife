@@ -17,5 +17,6 @@ namespace E_commerce.DAL.IRepository
         public Task<int> CreateProduct(Product product);
         public Task UpdateProduct(Product product);
         public Task DeleteProduct(Product product);
+        public Task<int> UserProducts(string userId);
     }
 }

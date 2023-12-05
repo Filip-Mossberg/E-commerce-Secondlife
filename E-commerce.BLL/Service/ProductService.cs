@@ -17,7 +17,7 @@ namespace E_commerce.BLL.Service
         private readonly IValidator<ProductCreateRequest> _productCreateValidator;
         private readonly IValidator<ProductUpdateRequest> _productUpdateValidator;
         public ProductService(IProductRepository productRepository, IMapper mapper, IValidator<ProductCreateRequest> productCreateValidator
-            , IImageService imageService, IValidator<ProductUpdateRequest> productUpdateValidator)
+            ,IImageService imageService, IValidator<ProductUpdateRequest> productUpdateValidator)
         {
             _productRepository = productRepository;
             _mapper = mapper;
@@ -69,11 +69,19 @@ namespace E_commerce.BLL.Service
 
             if(productToDelete != null)
             {
-                await _productRepository.DeleteProduct(productToDelete);
+                if (!productToDelete.IsOrdered)
+                {
+                    await _productRepository.DeleteProduct(productToDelete);
 
-                response.IsSuccess = true;
-                response.StatusCode = StatusCodes.Status200OK;
-                return response;
+                    response.IsSuccess = true;
+                    response.StatusCode = StatusCodes.Status200OK;
+                    return response;
+                }
+                else
+                {
+                    response.Errors.Add("Cannot delete product that's ordered!");
+                    return response;
+                }
             }
             else
             {
@@ -82,7 +90,7 @@ namespace E_commerce.BLL.Service
             }
         }
 
-        public async Task<ApiResponse> UpdateProduct(ProductUpdateRequest updateProductRequest) // Add validation for it its ordered or not
+        public async Task<ApiResponse> UpdateProduct(ProductUpdateRequest updateProductRequest) 
         {
             ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
 
@@ -91,22 +99,30 @@ namespace E_commerce.BLL.Service
 
             if(productToUpdate != null && validationResult.IsValid)
             {
-                if(productToUpdate.Title != updateProductRequest.Title && productToUpdate.Description != updateProductRequest.Description
-                    && productToUpdate.Price != updateProductRequest.Price)
+                if (!productToUpdate.IsOrdered)
                 {
-                    productToUpdate.Title = updateProductRequest.Title;
-                    productToUpdate.Description = updateProductRequest.Description;
-                    productToUpdate.Price = updateProductRequest.Price;
+                    if (productToUpdate.Title != updateProductRequest.Title || productToUpdate.Description != updateProductRequest.Description
+                        || productToUpdate.Price != updateProductRequest.Price)
+                    {
+                        productToUpdate.Title = updateProductRequest.Title;
+                        productToUpdate.Description = updateProductRequest.Description;
+                        productToUpdate.Price = updateProductRequest.Price;
 
-                    await _productRepository.UpdateProduct(productToUpdate);
+                        await _productRepository.UpdateProduct(productToUpdate);
 
-                    response.IsSuccess = true;
-                    response.StatusCode = StatusCodes.Status200OK;
-                    return response;
+                        response.IsSuccess = true;
+                        response.StatusCode = StatusCodes.Status200OK;
+                        return response;
+                    }
+                    else
+                    {
+                        response.Errors.Add("Order detauls have to change to be able to update!");
+                        return response;
+                    }
                 }
                 else
                 {
-                    response.Errors.Add("Input fields has to change to be able to update!");
+                    response.Errors.Add("Cannot update product that's ordered!");
                     return response;
                 }
             }

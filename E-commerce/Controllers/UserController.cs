@@ -8,8 +8,8 @@ using Serilog;
 
 namespace E_commerce_recycling.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("Api/User")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -38,7 +38,7 @@ namespace E_commerce_recycling.Controllers
             return response.IsSuccess ? Ok(response) : NotFound(response);
         }
 
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         [HttpDelete("Delete")]
         public async Task<IActionResult> UserDelete(string id)
         {
@@ -47,7 +47,7 @@ namespace E_commerce_recycling.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         [HttpPut("Update/Password")]
         public async Task<IActionResult> UserUpdatePassword(UserUpdatePasswordRequest userUpdateRequest)
         {

@@ -12,7 +12,6 @@ namespace E_commerce.BLL.MiddleWeare
 {
     public class ExceptionMiddleWare : IMiddleware
     {
-        // We can take an instance of our ILogger here if we want to include that
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try

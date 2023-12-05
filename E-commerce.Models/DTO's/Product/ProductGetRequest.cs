@@ -12,6 +12,7 @@ namespace E_commerce.Models.DTO_s.Product
         public string Title { get; set; }
         public string Description { get; set; }
         public int Price { get; set; }
+        public bool IsOrdered { get; set; }
         public DateTime DateListed { get; set; }
     }
 }

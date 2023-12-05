@@ -13,12 +13,17 @@ namespace E_commerce.BLL.Validation
     {
         public ProductCreateValidation()
         {
-            RuleFor(title => title.Title).NotEmpty().WithMessage("Title is requierd!")
+            RuleFor(title => title.Title)
+                .NotEmpty().WithMessage("Title is requierd!")
                 .Length(3, 50).WithMessage("Title must be between 3 and 40 characters.");
-            RuleFor(desc => desc.Description).NotEmpty().WithMessage("Description is requierd!")
+            RuleFor(desc => desc.Description)
+                .NotEmpty().WithMessage("Description is requierd!")
                 .Length(50, 500).WithMessage("Description must be between 50 and 500 characters.");
-            RuleFor(price => price.Price).NotEmpty().WithMessage("Price is requierd!")
+            RuleFor(price => price.Price)
+                .NotEmpty().WithMessage("Price is requierd!")
                 .ExclusiveBetween(1, 100000000).WithMessage("Price needs to be bewteen 1 - 100 000 000 Sek");
+            RuleFor(image => image.Images)
+                .NotEmpty().WithMessage("One image is required!");
         }
     }
 }

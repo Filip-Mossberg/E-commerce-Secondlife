@@ -63,7 +63,7 @@ namespace E_commerce.BLL.Service
             emailMessage.From.Add(new MailboxAddress("email", _emailConfig.From));
             emailMessage.To.AddRange(message.To);
             emailMessage.Subject = message.Subject;
-            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Text) { Text = message.Content };
+            emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = message.Content };
 
             return emailMessage;
         }
