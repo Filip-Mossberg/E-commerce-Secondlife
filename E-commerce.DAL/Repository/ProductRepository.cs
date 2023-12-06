@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace E_commerce.DAL.Repository
 {
@@ -32,19 +33,9 @@ namespace E_commerce.DAL.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetAllByCategoryId(int categoryId)
+        public async Task<IEnumerable<Product>> GetAllProductsByUserId(string userId)
         {
-            return await _context.Product.Where(p => p.CategoryId == categoryId).ToListAsync();
-        }
-
-        public Task GetAllByCustomerId(int customerId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task GetAllByLocation()
-        {
-            throw new NotImplementedException();
+            return await _context.Product.Where(p => p.UserId == userId).Include(i => i.Images).ToListAsync();
         }
 
         public async Task<Product> GetProductById(int productId)
@@ -52,9 +43,36 @@ namespace E_commerce.DAL.Repository
             return await _context.Product.FirstOrDefaultAsync(p => p.Id == productId);
         }
 
-        public async Task<IEnumerable<Product>> SearchByProductName(string productName)
+        public async Task<IEnumerable<Product>> ProductSearch(ProductSearchModel model)
         {
-            return await _context.Product.Where(name => Regex.IsMatch(name.Title, Regex.Escape(productName), RegexOptions.IgnoreCase)).ToListAsync();
+            if(model.SearchTerm != string.Empty && model.CategoryId != null)
+            {
+                return await _context.Product.Where(p => p.CategoryId == model.CategoryId
+                && Regex.IsMatch(p.Title, Regex.Escape(model.SearchTerm), RegexOptions.IgnoreCase)
+                && p.IsOrdered != true 
+                && p.Price > model.MinAmount
+                && p.Price < model.MaxAmount).Include(i => i.Images).ToListAsync();
+            }
+            else if(model.SearchTerm != string.Empty)
+            {
+                return await _context.Product.Where(p => Regex.IsMatch(p.Title, Regex.Escape(model.SearchTerm), RegexOptions.IgnoreCase)
+                && p.IsOrdered != true
+                && p.Price > model.MinAmount
+                && p.Price < model.MaxAmount).Include(i => i.Images).ToListAsync(); ;
+            }
+            else if (model.CategoryId != null)
+            {
+                return await _context.Product.Where(p => p.CategoryId == model.CategoryId
+                && p.IsOrdered != true
+                && p.Price > model.MinAmount
+                && p.Price < model.MaxAmount).Include(i => i.Images).ToListAsync(); ;
+            }
+            else
+            {
+                return await _context.Product.Where(p => p.IsOrdered != true
+                && p.Price > model.MinAmount
+                && p.Price < model.MaxAmount).Include(i => i.Images).ToListAsync();
+            }
         }
 
         public async Task UpdateProduct(Product product)
@@ -63,6 +81,7 @@ namespace E_commerce.DAL.Repository
             await _context.SaveChangesAsync();  
         }
 
+        // This is for validating how many active products a user have
         public async Task<int> UserProducts(string userId)
         {
             return _context.Product.Where(p => p.UserId == userId).Count();

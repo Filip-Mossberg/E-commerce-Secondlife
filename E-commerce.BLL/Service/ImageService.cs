@@ -8,6 +8,7 @@ using E_commerce.Models.DbModels;
 using E_commerce.Models.DTO_s.Image;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using Serilog;
 
 namespace E_commerce.BLL.Service
 {
@@ -34,19 +35,20 @@ namespace E_commerce.BLL.Service
 
                 if(validationResult.IsValid)
                 {
-                    string Name = Guid.NewGuid().ToString();
+                    var Name = Guid.NewGuid().ToString();
+
+                    var blobClient = _blobContainerClient.GetBlobClient(Name);
+                    var result = await blobClient.UploadAsync(image.FilePath, new BlobHttpHeaders { ContentType = image.FilePath.GetContentType() });
 
                     Image imageUpload = new Image()
                     {
-                        ImageName = Name,
+                        Id = Name,
+                        Url = blobClient.Uri.ToString(),
                         IsDisplayImage = image.IsDisplayImage,
                         ProductId = productId
                     };
 
                     await _imageRepository.UploadImage(imageUpload);
-
-                    var blobClient = _blobContainerClient.GetBlobClient(Name);
-                    await blobClient.UploadAsync(image.FilePath, new BlobHttpHeaders { ContentType = image.FilePath.GetContentType() });
                 }
                 else
                 {
@@ -76,7 +78,7 @@ namespace E_commerce.BLL.Service
                 {
                     await foreach (var item in _blobContainerClient.GetBlobsAsync())
                     {
-                        if (item.Name == image.ImageName)
+                        if (item.Name == image.Id)
                         {
                             images.Add(item.Name);
                         }
@@ -106,7 +108,7 @@ namespace E_commerce.BLL.Service
             {
                 foreach (var item in productImages)
                 {
-                    var blobClient = _blobContainerClient.GetBlobClient(item.ImageName);
+                    var blobClient = _blobContainerClient.GetBlobClient(item.Id);
                     var blobDownloadInfo = await blobClient.DownloadAsync();
 
                     using (MemoryStream memoryStream = new MemoryStream())
@@ -114,7 +116,7 @@ namespace E_commerce.BLL.Service
                         await blobDownloadInfo.Value.Content.CopyToAsync(memoryStream);
                         byte[] imageBytes = memoryStream.ToArray();
 
-                        var contentType = blobDownloadInfo.Value.Details.ContentType; // Replace with actual content type if available
+                        var contentType = blobDownloadInfo.Value.Details.ContentType; 
 
                         if (imageBytes != null && imageBytes.Length > 0)
                         {
@@ -124,7 +126,7 @@ namespace E_commerce.BLL.Service
                                 ContentType = contentType
                             };
 
-                            response.Result = imageData; // Store ImageData object in the response
+                            response.Result = imageData; 
                             response.IsSuccess = true;
                             return response;
                         }
@@ -138,7 +140,7 @@ namespace E_commerce.BLL.Service
             }
         }
 
-        public async Task<ApiResponse> DeleteImages(int productId) // Will see when I have to implement this, (not tested)
+        public async Task<ApiResponse> DeleteImages(int productId) 
         {
             ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
             var productImages = await _imageRepository.GetAllImagesById(productId);
@@ -147,7 +149,7 @@ namespace E_commerce.BLL.Service
             {
                 foreach (var item in productImages)
                 {
-                    var blobClient = _blobContainerClient.GetBlobClient(item.ImageName);
+                    var blobClient = _blobContainerClient.GetBlobClient(item.Id);
                     await blobClient.DeleteAsync();
                 }
 

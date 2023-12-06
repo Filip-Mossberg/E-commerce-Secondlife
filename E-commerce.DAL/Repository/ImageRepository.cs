@@ -29,7 +29,7 @@ namespace E_commerce.DAL.Repository
              return await _context.Image.Where(i => i.ProductId == productId).ToListAsync();
         }
 
-        public async Task GetDisplayImage(int productId) // Here we will find the Display Image of a specific product, not sure we need a method in the controller for this one 
+        public async Task GetDisplayImage(int productId) 
         {
 
         }

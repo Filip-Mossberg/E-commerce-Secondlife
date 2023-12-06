@@ -127,7 +127,9 @@ namespace E_commerce.BLL.Service
                             await _productRepository.UpdateProduct(product);
                         }
 
-                        var message = new EmailMessage(new string[] { placeOrderReq.Email }, $"Your Order Confirmation - Order #{placedOrder.Id}", "<html><body><h2>Thank you for your order!</h2><h3>Order Details:</h3><p>Order Number: #" + placedOrder.Id + "<br>Order Date: " + placedOrder.DateOrdered.ToString("yyyy-MM-dd") + "<br>Order Items: <br><ul><li>IPhone Xs - $1299.99</li></ul></p></body></html>");
+                        var message = new EmailMessage(new string[] { placeOrderReq.Email }, 
+                            $"Your Order Confirmation - Order #{placedOrder.Id}", 
+                            "<html><body><h2>Thank you for your order!</h2><h3>Order Details:</h3><p>Order Number: #" + placedOrder.Id + "<br>Order Date: " + placedOrder.DateOrdered.ToString("yyyy-MM-dd") + "<br>Order Items: <br><ul><li>IPhone Xs - $1299.99</li></ul></p></body></html>");
                         _emailService.SendEmail(message);
 
                         response.IsSuccess = true;

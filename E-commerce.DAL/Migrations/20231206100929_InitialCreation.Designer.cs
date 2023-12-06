@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace E_commerce.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231201091633_OrderImplementation")]
-    partial class OrderImplementation
+    [Migration("20231206100929_InitialCreation")]
+    partial class InitialCreation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,18 +75,28 @@ namespace E_commerce.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Category");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Cars"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Electronics"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Decor"
+                        });
                 });
 
             modelBuilder.Entity("E_commerce.Models.DbModels.Image", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ImageName")
-                        .IsRequired()
+                    b.Property<string>("Id")
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDisplayImage")
@@ -94,6 +104,10 @@ namespace E_commerce.DAL.Migrations
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -151,7 +165,7 @@ namespace E_commerce.DAL.Migrations
                     b.Property<double>("Longitude")
                         .HasColumnType("double precision");
 
-                    b.Property<int>("OrderId")
+                    b.Property<int?>("OrderId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Price")
@@ -274,14 +288,14 @@ namespace E_commerce.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fde80696-2d9e-487e-9d84-7a98c2028ed6",
+                            Id = "578fe86c-7c25-4a46-b77f-42d8901eb483",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "1f5fdcc8-71e8-4db3-9161-bf3e187b7fbd",
+                            Id = "6eaf73bb-8ba5-45ce-a4ec-254cd152f26b",
                             ConcurrencyStamp = "2",
                             Name = "User",
                             NormalizedName = "USER"
@@ -450,11 +464,9 @@ namespace E_commerce.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("E_commerce.Models.DbModels.Order", "Order")
+                    b.HasOne("E_commerce.Models.DbModels.Order", null)
                         .WithMany("Products")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderId");
 
                     b.HasOne("E_commerce.Models.DbModels.User", "User")
                         .WithMany("Products")
@@ -463,8 +475,6 @@ namespace E_commerce.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-
-                    b.Navigation("Order");
 
                     b.Navigation("User");
                 });

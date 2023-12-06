@@ -35,6 +35,12 @@ namespace E_commerce.Context
                 new IdentityRole() { Name = "Admin", ConcurrencyStamp = "1", NormalizedName = "ADMIN" },
                 new IdentityRole() { Name = "User", ConcurrencyStamp = "2", NormalizedName = "USER" }
                 );
+            builder.Entity<Category>().HasData
+                (
+                new Category() { Id = 1, Name = "Cars"},
+                new Category() { Id = 2, Name = "Electronics" },
+                new Category() { Id = 3, Name = "Decor" }
+                );
         }
 
         public DbSet<Cart> Cart { get; set; }
