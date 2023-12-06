@@ -13,7 +13,7 @@ namespace E_commerce.BLL.IService
         public Task<ApiResponse> CreateProduct(ProductCreateRequest productCreateRequest);
         public Task<ApiResponse> DeleteProductById(int productId);
         public Task<ApiResponse> UpdateProduct(ProductUpdateRequest productUpdateRequest);
-        public Task<ApiResponse> SearchByProductName(string productName);
-        public Task<ApiResponse> GetAllByCategoryId(int categoryId);
+        public Task<ApiResponse> ProductSearch(ProductSearchModel model);
+        public Task<ApiResponse> GetAllByUserId(string userId); 
     }
 }

@@ -72,18 +72,28 @@ namespace E_commerce.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Category");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Cars"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Electronics"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Decor"
+                        });
                 });
 
             modelBuilder.Entity("E_commerce.Models.DbModels.Image", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ImageName")
-                        .IsRequired()
+                    b.Property<string>("Id")
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDisplayImage")
@@ -91,6 +101,10 @@ namespace E_commerce.DAL.Migrations
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -271,14 +285,14 @@ namespace E_commerce.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b3cc29a4-0b1f-4cb8-8fce-f6b7766a0807",
+                            Id = "39a61b39-163e-4b33-896e-a2e57d85eab8",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "997567ee-0464-4b1a-a8a1-d4823c0c2275",
+                            Id = "caebd75c-b366-4fbb-86a0-a6499fb1daaa",
                             ConcurrencyStamp = "2",
                             Name = "User",
                             NormalizedName = "USER"
@@ -419,13 +433,11 @@ namespace E_commerce.DAL.Migrations
 
             modelBuilder.Entity("E_commerce.Models.DbModels.Image", b =>
                 {
-                    b.HasOne("E_commerce.Models.DbModels.Product", "Product")
+                    b.HasOne("E_commerce.Models.DbModels.Product", null)
                         .WithMany("Images")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("E_commerce.Models.DbModels.Order", b =>

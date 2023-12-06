@@ -6,6 +6,8 @@ using E_commerce.Models.DbModels;
 using E_commerce.Models.DTO_s.Product;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Serilog;
 
 namespace E_commerce.BLL.Service
 {
@@ -71,7 +73,9 @@ namespace E_commerce.BLL.Service
             {
                 if (!productToDelete.IsOrdered)
                 {
+                    await _imageService.DeleteImages(productId);
                     await _productRepository.DeleteProduct(productToDelete);
+
 
                     response.IsSuccess = true;
                     response.StatusCode = StatusCodes.Status200OK;
@@ -144,42 +148,42 @@ namespace E_commerce.BLL.Service
             }
         }
 
-        public async Task<ApiResponse> SearchByProductName(string productName)
+        public async Task<ApiResponse> ProductSearch(ProductSearchModel model)
         {
-            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status404NotFound };
+            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
 
-            var productsFound = await _productRepository.SearchByProductName(productName);
-
-            if(productsFound.Any())
+            if(model != null)
             {
+                var searchResult = await _productRepository.ProductSearch(model);
+
                 response.IsSuccess = true;
-                response.StatusCode = StatusCodes.Status200OK;
-                response.Result = _mapper.Map<IEnumerable<ProductGetRequest>>(productsFound);
+                response.StatusCode = 200;
+                response.Result = _mapper.Map<IEnumerable<ProductGetRequest>>(searchResult);
                 return response;
             }
             else
             {
-                response.Errors.Add("Unable to find products! Try again.");
+                response.Errors.Add("Unable to fulfill search!");
                 return response;
             }
         }
 
-        public async Task<ApiResponse> GetAllByCategoryId(int categoryId)
+        public async Task<ApiResponse> GetAllByUserId(string userId)
         {
-            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status404NotFound };
+           ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
 
-            var productsFound = await _productRepository.GetAllByCategoryId(categoryId);
+            var products = await _productRepository.GetAllProductsByUserId(userId);
 
-            if (productsFound.Any())
+            if (products.Any())
             {
                 response.IsSuccess = true;
-                response.StatusCode = StatusCodes.Status200OK;
-                response.Result = _mapper.Map<IEnumerable<ProductGetRequest>>(productsFound);
+                response.StatusCode = 200;
+                response.Result = _mapper.Map<IEnumerable<ProductGetRequest>>(products);
                 return response;
             }
             else
             {
-                response.Errors.Add("Unable to find products! Try again.");
+                response.Errors.Add("You dont have any products!");
                 return response;
             }
         }

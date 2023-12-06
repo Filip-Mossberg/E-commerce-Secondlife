@@ -1,5 +1,6 @@
 ﻿using Azure;
 using E_commerce.BLL.IService;
+using E_commerce.Models;
 using E_commerce.Models.DTO_s.Product;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -45,19 +46,19 @@ namespace E_commerce.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("SearchByProductName")]
-        public async Task<IActionResult> SearchByProductName(string productName) 
+        [HttpPost("Search")]
+        public async Task<IActionResult> ProductSearch(ProductSearchModel model)
         {
-            var response = await _productService.SearchByProductName(productName);
+            var response = await _productService.ProductSearch(model);
             Log.Information("ApiResponse object => {@response}", response);
             return response.IsSuccess ? Ok(response) : NotFound(response);
         }
 
-        [AllowAnonymous]
-        [HttpGet("SearchByCategoryId")]
-        public async Task<IActionResult> SearchByCategoryId(int categoryId)
+        //[Authorize(Roles = "Admin, User")]
+        [HttpGet("GetAllByUserId")]
+        public async Task<IActionResult> GetAllByUserId(string userId)
         {
-            var response = await _productService.GetAllByCategoryId(categoryId);
+            var response = await _productService.GetAllByUserId(userId);
             Log.Information("ApiResponse object => {@response}", response);
             return response.IsSuccess ? Ok(response) : NotFound(response);
         }

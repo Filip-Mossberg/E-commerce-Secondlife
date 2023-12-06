@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace E_commerce.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class OrderImplementation : Migration
+    public partial class InitialCreation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -226,7 +226,7 @@ namespace E_commerce.DAL.Migrations
                     IsOrdered = table.Column<bool>(type: "boolean", nullable: false),
                     Longitude = table.Column<double>(type: "double precision", nullable: false),
                     Latitude = table.Column<double>(type: "double precision", nullable: false),
-                    OrderId = table.Column<int>(type: "integer", nullable: false),
+                    OrderId = table.Column<int>(type: "integer", nullable: true),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     CategoryId = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -249,8 +249,7 @@ namespace E_commerce.DAL.Migrations
                         name: "FK_Product_Order_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Order",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -281,9 +280,8 @@ namespace E_commerce.DAL.Migrations
                 name: "Image",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ImageName = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Url = table.Column<string>(type: "text", nullable: false),
                     IsDisplayImage = table.Column<bool>(type: "boolean", nullable: false),
                     ProductId = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -303,8 +301,18 @@ namespace E_commerce.DAL.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1f5fdcc8-71e8-4db3-9161-bf3e187b7fbd", "2", "User", "USER" },
-                    { "fde80696-2d9e-487e-9d84-7a98c2028ed6", "1", "Admin", "ADMIN" }
+                    { "578fe86c-7c25-4a46-b77f-42d8901eb483", "1", "Admin", "ADMIN" },
+                    { "6eaf73bb-8ba5-45ce-a4ec-254cd152f26b", "2", "User", "USER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Category",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Cars" },
+                    { 2, "Electronics" },
+                    { 3, "Decor" }
                 });
 
             migrationBuilder.CreateIndex(
