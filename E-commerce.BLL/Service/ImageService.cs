@@ -65,85 +65,10 @@ namespace E_commerce.BLL.Service
             return response;
         }
 
-        public async Task<ApiResponse> GetAllImagesById(int productId)
-        {
-            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
-            var productImages = await _imageRepository.GetAllImagesById(productId);
-
-            if (productImages.Any())
-            {
-                var images = new List<string>();
-
-                foreach (var image in productImages)
-                {
-                    await foreach (var item in _blobContainerClient.GetBlobsAsync())
-                    {
-                        if (item.Name == image.Id)
-                        {
-                            images.Add(item.Name);
-                        }
-                    }
-                }
-
-                if(images.Any())
-                {
-                    response.IsSuccess = true;
-                    response.StatusCode = StatusCodes.Status200OK;
-                    response.Result = images;
-                    return response;
-                }
-            }
-
-            response.Errors.Add("Error retrieving blobs.");
-            return response;
-        }
-
-
-        public async Task<ApiResponse> GetAllImagesById2(int productId)
-        {
-            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
-            var productImages = await _imageRepository.GetAllImagesById(productId);
-
-            if (productImages.Any())
-            {
-                foreach (var item in productImages)
-                {
-                    var blobClient = _blobContainerClient.GetBlobClient(item.Id);
-                    var blobDownloadInfo = await blobClient.DownloadAsync();
-
-                    using (MemoryStream memoryStream = new MemoryStream())
-                    {
-                        await blobDownloadInfo.Value.Content.CopyToAsync(memoryStream);
-                        byte[] imageBytes = memoryStream.ToArray();
-
-                        var contentType = blobDownloadInfo.Value.Details.ContentType; 
-
-                        if (imageBytes != null && imageBytes.Length > 0)
-                        {
-                            var imageData = new ImageData
-                            {
-                                ImageBytes = imageBytes,
-                                ContentType = contentType
-                            };
-
-                            response.Result = imageData; 
-                            response.IsSuccess = true;
-                            return response;
-                        }
-                    }
-                }
-                return response;
-            }
-            else
-            {
-                return response;
-            }
-        }
-
         public async Task<ApiResponse> DeleteImages(int productId) 
         {
             ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
-            var productImages = await _imageRepository.GetAllImagesById(productId);
+            var productImages = await _imageRepository.GetAllImagesByProductId(productId);
 
             if (productImages.Any())
             {
@@ -151,6 +76,11 @@ namespace E_commerce.BLL.Service
                 {
                     var blobClient = _blobContainerClient.GetBlobClient(item.Id);
                     await blobClient.DeleteAsync();
+
+                    foreach (var image in await _imageRepository.GetAllImagesByProductId(productId))
+                    {
+                        await _imageRepository.DeleteImage(image);
+                    } 
                 }
 
                 response.IsSuccess = true;

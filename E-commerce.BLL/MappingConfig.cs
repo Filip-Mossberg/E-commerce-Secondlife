@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using E_commerce.Models.DbModels;
 using E_commerce.Models.DTO_s.Category;
+using E_commerce.Models.DTO_s.Image;
 using E_commerce.Models.DTO_s.Order;
 using E_commerce.Models.DTO_s.Product;
 using E_commerce.Models.DTO_s.User;
@@ -22,12 +23,13 @@ namespace E_commerce_BLL
 
             CreateMap<CategoryCreateRequest, Category>().ReverseMap();
             CreateMap<ProductCreateRequest, Product>()
-                .ForMember(destination => destination.Images, opt => opt.Ignore()); // Need to ignore images here since the Product has a list of images and thats not what the ProductCreatingRequest takes in
+                .ForMember(destination => destination.Images, opt => opt.Ignore()); 
             CreateMap<Product, ProductGetRequest>().ReverseMap();
             CreateMap<PlaceOrderRequest, Order>()
                 .ForMember(dest => dest.Products, opt => opt.Ignore());
             CreateMap<ProductOrderRequest, Product>();
             CreateMap<Order, OrderGetRequest>();
+            CreateMap<Image, ImageGetRequest>();
         }
     }
 }

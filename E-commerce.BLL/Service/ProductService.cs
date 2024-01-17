@@ -38,7 +38,7 @@ namespace E_commerce.BLL.Service
                 var productId = await _productRepository.CreateProduct(_mapper.Map<Product>(productCreateRequest));
                 var result = await _imageService.UploadMultipleImages(productCreateRequest.Images, productId);
 
-                if(result.IsSuccess)
+                if (result.IsSuccess)
                 {
                     response.IsSuccess = true;
                     response.StatusCode = StatusCodes.Status201Created;
@@ -157,7 +157,7 @@ namespace E_commerce.BLL.Service
                 var searchResult = await _productRepository.ProductSearch(model);
 
                 response.IsSuccess = true;
-                response.StatusCode = 200;
+                response.StatusCode = StatusCodes.Status200OK;
                 response.Result = _mapper.Map<IEnumerable<ProductGetRequest>>(searchResult);
                 return response;
             }
@@ -177,7 +177,7 @@ namespace E_commerce.BLL.Service
             if (products.Any())
             {
                 response.IsSuccess = true;
-                response.StatusCode = 200;
+                response.StatusCode = StatusCodes.Status200OK;
                 response.Result = _mapper.Map<IEnumerable<ProductGetRequest>>(products);
                 return response;
             }

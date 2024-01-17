@@ -1,4 +1,6 @@
-﻿using System;
+﻿using E_commerce.Models.DbModels;
+using E_commerce.Models.DTO_s.Image;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +16,6 @@ namespace E_commerce.Models.DTO_s.Product
         public int Price { get; set; }
         public bool IsOrdered { get; set; }
         public DateTime DateListed { get; set; }
+        public List<ImageGetRequest> Images { get; set; } = new List<ImageGetRequest>();
     }
 }

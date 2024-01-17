@@ -39,6 +39,16 @@ namespace E_commerce
                 return blobServiceClient.GetBlobContainerClient("images");
             });
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("CORSPolicy", builder =>
+                {
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
+                    builder.WithOrigins("http://localhost:5173");
+                });
+            });
+
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -105,6 +115,8 @@ namespace E_commerce
             app.UseSerilogRequestLogging();
 
             app.UseHttpsRedirection();
+
+            app.UseCors("CORSPolicy");
 
             app.UseAuthentication();
 

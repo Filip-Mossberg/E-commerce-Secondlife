@@ -48,7 +48,7 @@ namespace E_commerce.BLL.Service
                 await _orderRepository.CancelOrderById(orderToCancel);
 
                 response.IsSuccess = true;
-                response.StatusCode = 200;
+                response.StatusCode = StatusCodes.Status200OK;
                 return response;
             }
             else
@@ -68,7 +68,7 @@ namespace E_commerce.BLL.Service
             if (orders.Any())
             {
                 response.IsSuccess = true;
-                response.StatusCode = 200;
+                response.StatusCode = StatusCodes.Status200OK;
                 response.Result = userOrders;
                 return response;
             }
@@ -89,7 +89,7 @@ namespace E_commerce.BLL.Service
             if (orders.Any())
             {
                 response.IsSuccess = true;
-                response.StatusCode = 200;
+                response.StatusCode = StatusCodes.Status200OK;
                 response.Result = mappedOrders;
                 return response;
             }
@@ -133,7 +133,7 @@ namespace E_commerce.BLL.Service
                         _emailService.SendEmail(message);
 
                         response.IsSuccess = true;
-                        response.StatusCode = 200;
+                        response.StatusCode = StatusCodes.Status201Created;
                         return response;
                     }
                     else

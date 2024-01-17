@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using E_commerce.Models.DbModels;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Http;
 
 namespace E_commerce.BLL.Service
 {
@@ -27,7 +28,7 @@ namespace E_commerce.BLL.Service
 
         public async Task<ApiResponse> ConfirmEmail(string token, string email)
         {
-            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = 400 };
+            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
             var user = await _userManager.FindByEmailAsync(email);
             if(user != null)
             {
@@ -36,7 +37,7 @@ namespace E_commerce.BLL.Service
                 if (result.Succeeded)
                 {
                     response.IsSuccess = true;
-                    response.StatusCode = 200;
+                    response.StatusCode = StatusCodes.Status200OK;
                     response.Result = "Verification email sent";
                     return response;
                 }

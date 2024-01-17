@@ -232,7 +232,7 @@ namespace E_commerce_BLL.Service
                     var JwtToken = GetToken(authClaims);
 
                     response.IsSuccess = true;
-                    response.StatusCode = 200;
+                    response.StatusCode = StatusCodes.Status200OK;
                     response.Result = new JwtTokenHandler(JwtToken, JwtToken.ValidTo);
 
                     return response;

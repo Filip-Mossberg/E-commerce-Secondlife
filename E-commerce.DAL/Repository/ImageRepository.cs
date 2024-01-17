@@ -24,14 +24,14 @@ namespace E_commerce.DAL.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Image>> GetAllImagesById(int productId)
+        public async Task<IEnumerable<Image>> GetAllImagesByProductId(int productId)
         {
              return await _context.Image.Where(i => i.ProductId == productId).ToListAsync();
         }
 
-        public async Task GetDisplayImage(int productId) 
+        public async Task DeleteImage(Image image)
         {
-
+            _context.Image.Remove(image);
         }
     }
 }

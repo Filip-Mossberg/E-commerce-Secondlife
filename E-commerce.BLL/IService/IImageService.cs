@@ -11,8 +11,6 @@ namespace E_commerce.BLL.IService
     public interface IImageService
     {
         public Task<ApiResponse> UploadMultipleImages(List<ImageUploadRequest> imageUploadRequests, int productId);
-        public Task<ApiResponse> GetAllImagesById2(int productId);
-        public Task<ApiResponse> GetAllImagesById(int productId);
         public Task<ApiResponse> DeleteImages(int productId);
     }
 }
