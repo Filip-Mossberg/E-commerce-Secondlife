@@ -1,13 +1,10 @@
-﻿using E_commerce.BLL.IService;
+﻿using AutoMapper;
+using E_commerce.BLL.IService;
 using E_commerce.DAL.IRepository;
 using E_commerce.Models;
 using E_commerce.Models.DbModels;
+using E_commerce.Models.DTO_s.Product;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace E_commerce.BLL.Service
 {
@@ -15,10 +12,12 @@ namespace E_commerce.BLL.Service
     {
         private readonly ICartRepository _cartRepository;
         private readonly IProductRepository _productRepository;
-        public CartService(ICartRepository cartRepository, IProductRepository productRepository)
+        private IMapper _mapper;
+        public CartService(ICartRepository cartRepository, IProductRepository productRepository, IMapper mapper)
         {
             _cartRepository = cartRepository;
             _productRepository = productRepository;
+            _mapper = mapper;
         }
 
         // No controller for this, since its automated
@@ -34,11 +33,11 @@ namespace E_commerce.BLL.Service
             await _cartRepository.CreateCart(cart);
         }
 
-        public async Task<ApiResponse> ClearCart(int cartId)
+        public async Task<ApiResponse> ClearCart(string userId)
         {
             ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
             
-            var result = await _cartRepository.RemoveAllFromCart(cartId);
+            var result = await _cartRepository.RemoveAllFromCart(userId);
             if(result)
             {
                 response.IsSuccess = true;
@@ -52,12 +51,12 @@ namespace E_commerce.BLL.Service
             }
         }
 
-        public async Task<ApiResponse> AddItemToCart(int cartId, int productId)
+        public async Task<ApiResponse> AddItemToCart(string userId, int productId)
         {
             ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
             
             var productToAdd = await _productRepository.GetProductById(productId);
-            var cartToAdd = await _cartRepository.GetCartById(cartId);
+            var cartToAdd = await _cartRepository.GetCartById(userId);
 
             if(productToAdd != null && cartToAdd != null)
             {
@@ -82,7 +81,7 @@ namespace E_commerce.BLL.Service
             }
         }
 
-        public async Task<ApiResponse> RemoveItemFromCart(int cartId, int productId)
+        public async Task<ApiResponse> RemoveItemFromCart(string userId, int productId)
         {
             ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
 
@@ -90,7 +89,7 @@ namespace E_commerce.BLL.Service
 
             if(productToRemove != null)
             {
-                var result = await _cartRepository.RemoveItemFromCart(cartId, productToRemove);
+                var result = await _cartRepository.RemoveItemFromCart(userId, productToRemove);
 
                 if (result)
                 {
@@ -107,6 +106,32 @@ namespace E_commerce.BLL.Service
             else
             {
                 response.Errors.Add("Unable to remove item from cart!");
+                return response;
+            }
+        }
+
+        public async Task<ApiResponse> GetCartItemsById(string userId)
+        {
+            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
+
+            var products = await _cartRepository.GetCartItems(userId);
+
+            if (products != null)
+            {
+                response.IsSuccess = true;
+                response.StatusCode = StatusCodes.Status200OK;
+                if (products.Any())
+                {
+                    response.Result = _mapper.Map<IEnumerable<ProductGetResponse>>(products);
+                }
+                else
+                {
+                    response.Result = "";
+                }
+                return response; 
+            }
+            else
+            {
                 return response;
             }
         }

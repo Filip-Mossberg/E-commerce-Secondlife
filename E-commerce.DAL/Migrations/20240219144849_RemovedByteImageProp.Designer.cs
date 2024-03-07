@@ -3,6 +3,7 @@ using System;
 using E_commerce.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace E_commerce.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240219144849_RemovedByteImageProp")]
+    partial class RemovedByteImageProp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,9 +171,6 @@ namespace E_commerce.DAL.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("RandomOrderIdentifier")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
@@ -288,14 +288,14 @@ namespace E_commerce.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9ae560ed-6100-4336-bc60-3526eefa4f91",
+                            Id = "04b6577c-8892-481f-90fe-582387b72c0f",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "3120802c-4c24-4b38-adba-fa3d14ecdce8",
+                            Id = "c1faa4df-1500-4e72-bf54-0d4543b3fd75",
                             ConcurrencyStamp = "2",
                             Name = "User",
                             NormalizedName = "USER"

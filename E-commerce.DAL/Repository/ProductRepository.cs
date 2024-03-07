@@ -1,24 +1,25 @@
-﻿using E_commerce.Context;
+﻿using AutoMapper;
+using E_commerce.Context;
 using E_commerce.DAL.IRepository;
+using E_commerce.DAL.Repository.Get;
 using E_commerce.Models;
 using E_commerce.Models.DbModels;
+using E_commerce.Models.DTO_s.Product;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace E_commerce.DAL.Repository
 {
     internal class ProductRepository : IProductRepository
     {
         private readonly AppDbContext _context;
-        public ProductRepository(AppDbContext context)
+        private readonly ISender _sender;
+        private readonly IMapper _mapper;
+        public ProductRepository(AppDbContext context, ISender sender, IMapper mapper)
         {
             _context = context;
+            _sender = sender;
+            _mapper = mapper;
         }
         public async Task<int> CreateProduct(Product product)
         {
@@ -33,6 +34,15 @@ namespace E_commerce.DAL.Repository
             await _context.SaveChangesAsync();
         }
 
+        public async Task<PageList<ProductGetResponse>> GetAllProducts(string? searchTerm, string? sortColumn, string? sortOrder, int? category, int page, int pageSize)
+        {
+            var query = new GetProductsQuery(searchTerm, sortColumn, sortOrder, category, page, pageSize);
+
+            var products = await _sender.Send(query);
+
+            return products;
+        }
+
         public async Task<IEnumerable<Product>> GetAllProductsByUserId(string userId)
         {
             return await _context.Product.Where(p => p.UserId == userId).Include(i => i.Images).ToListAsync();
@@ -43,36 +53,22 @@ namespace E_commerce.DAL.Repository
             return await _context.Product.FirstOrDefaultAsync(p => p.Id == productId);
         }
 
-        public async Task<IEnumerable<Product>> ProductSearch(ProductSearchModel model)
+        public async Task<ProductGetResponse> GetSingleProduct(int productId)
         {
-            if(model.SearchTerm != string.Empty && model.CategoryId != null)
-            {
-                return await _context.Product.Where(p => p.CategoryId == model.CategoryId
-                && Regex.IsMatch(p.Title, Regex.Escape(model.SearchTerm), RegexOptions.IgnoreCase)
-                && p.IsOrdered != true 
-                && p.Price > model.MinAmount
-                && p.Price < model.MaxAmount).Include(i => i.Images).ToListAsync();
-            }
-            else if(model.SearchTerm != string.Empty)
-            {
-                return await _context.Product.Where(p => Regex.IsMatch(p.Title, Regex.Escape(model.SearchTerm), RegexOptions.IgnoreCase)
-                && p.IsOrdered != true
-                && p.Price > model.MinAmount
-                && p.Price < model.MaxAmount).Include(i => i.Images).ToListAsync(); ;
-            }
-            else if (model.CategoryId != null)
-            {
-                return await _context.Product.Where(p => p.CategoryId == model.CategoryId
-                && p.IsOrdered != true
-                && p.Price > model.MinAmount
-                && p.Price < model.MaxAmount).Include(i => i.Images).ToListAsync(); ;
-            }
-            else
-            {
-                return await _context.Product.Where(p => p.IsOrdered != true
-                && p.Price > model.MinAmount
-                && p.Price < model.MaxAmount).Include(i => i.Images).ToListAsync();
-            }
+            var product = await _context.Product
+               .Include(p => p.Images)
+               .FirstOrDefaultAsync(p => p.Id == productId);
+
+            var productResponse = _mapper.Map<ProductGetResponse>(product);
+
+            var categoryName = await _context.Category
+               .Where(c => c.Id == product.CategoryId)
+               .Select(c => c.Name)
+               .FirstOrDefaultAsync();
+
+            productResponse.Category = categoryName;
+
+            return productResponse;
         }
 
         public async Task UpdateProduct(Product product)
@@ -81,7 +77,7 @@ namespace E_commerce.DAL.Repository
             await _context.SaveChangesAsync();  
         }
 
-        // This is for validating how many active products a user have
+        // For validating how many active products a user have
         public async Task<int> UserProducts(string userId)
         {
             return _context.Product.Where(p => p.UserId == userId).Count();

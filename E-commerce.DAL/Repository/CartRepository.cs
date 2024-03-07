@@ -2,13 +2,6 @@
 using E_commerce.DAL.IRepository;
 using E_commerce.Models.DbModels;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace E_commerce.DAL.Repository
 {
@@ -43,14 +36,20 @@ namespace E_commerce.DAL.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Cart> GetCartById(int id)
+        public async Task<Cart> GetCartById(string userId)
         {
-            return await _context.Cart.FirstOrDefaultAsync(c => c.Id == id);
+            return await _context.Cart.FirstOrDefaultAsync(c => c.UserId == userId);
         }
 
-        public async Task<bool> RemoveAllFromCart(int cartId)
+        public async Task<List<Product>> GetCartItems(string userId)
         {
-            var cartProductList = await _context.Cart.Include(p => p.Products).FirstOrDefaultAsync(c => c.Id == cartId);
+            return await _context.Cart.Where(cart => cart.UserId == userId)
+                .SelectMany(c => c.Products).Include(p => p.Images).ToListAsync();
+        }
+
+        public async Task<bool> RemoveAllFromCart(string userId)
+        {
+            var cartProductList = await _context.Cart.Include(p => p.Products).FirstOrDefaultAsync(c => c.UserId == userId);
 
             if (cartProductList != null)
             {
@@ -62,9 +61,9 @@ namespace E_commerce.DAL.Repository
             return false;
         }
 
-        public async Task<bool> RemoveItemFromCart(int cartId, Product product)
+        public async Task<bool> RemoveItemFromCart(string userId, Product product)
         {
-            var cartProductList = await _context.Cart.Include(cart => cart.Products).FirstOrDefaultAsync(c => c.Id == cartId);
+            var cartProductList = await _context.Cart.Include(cart => cart.Products).FirstOrDefaultAsync(c => c.UserId == userId);
 
             if (cartProductList != null && cartProductList.Products.Contains(product))
             {

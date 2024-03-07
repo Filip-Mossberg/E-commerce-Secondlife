@@ -1,5 +1,4 @@
-﻿using Azure;
-using E_commerce.BLL.IService;
+﻿using E_commerce.BLL.IService;
 using E_commerce.Models;
 using E_commerce.Models.DTO_s.Product;
 using Microsoft.AspNetCore.Authorization;
@@ -45,22 +44,49 @@ namespace E_commerce.Controllers
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
-        [AllowAnonymous]
-        [HttpPost("Search")]
-        public async Task<IActionResult> ProductSearch(ProductSearchModel model)
-        {
-            var response = await _productService.ProductSearch(model);
-            Log.Information("ApiResponse object => {@response}", response);
-            return response.IsSuccess ? Ok(response) : NotFound(response);
-        }
-
         //[Authorize(Roles = "Admin, User")]
         [HttpGet("GetAllByUserId")]
-        public async Task<IActionResult> GetAllByUserId(string userId)
+        public async Task<IActionResult> GetAllByUserId([FromQuery] string userId)
         {
             var response = await _productService.GetAllByUserId(userId);
             Log.Information("ApiResponse object => {@response}", response);
             return response.IsSuccess ? Ok(response) : NotFound(response);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAllProducts([FromQuery] ProductGetRequest productGetRequest)
+        {
+            var response = await _productService.GetAllProducts(productGetRequest);
+            Log.Information("ApiResponse objekt => {@response}", response);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("GetSingleProduct")]
+        public async Task<IActionResult> GetSingleProduct([FromQuery] int productId)
+        {
+            var response = await _productService.GetSingleProduct(productId);
+            Log.Information("ApiResponse objekt => {@response}", response);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("GetAllRedis")]
+        public async Task<IActionResult> GetAllProductsRedis([FromQuery] ProductGetRequest productGetRequest)
+        {
+            var response = await _productService.GetAllProductsRedis(productGetRequest);
+            Log.Information("ApiResponse objekt => {@response}", response);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+
+        [AllowAnonymous]
+        [HttpGet("GetSingleProductRedis")]
+        public async Task<IActionResult> GetSingleProductRedis([FromQuery] int productId)
+        {
+            var response = await _productService.GetSingleProductRedis(productId);
+            Log.Information("ApiResponse objekt => {@response}", response);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
     }
 }

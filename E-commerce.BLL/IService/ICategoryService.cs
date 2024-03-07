@@ -16,6 +16,8 @@ namespace E_commerce.BLL.IService
         public Task<ApiResponse> GetAllCategories();
         public Task<ApiResponse> UpdateCategory(Category category);
         public Task<ApiResponse> DeleteCategoryById(int id);
+        public Task<ApiResponse> GetCategoryByIdRedis(int id);
+        public Task<ApiResponse> GetAllCategoriesRedis();
 
     }
 }

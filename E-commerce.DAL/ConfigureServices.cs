@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MediatR;
 using E_commerce.Context;
 using E_commerce_DAL.IRepository;
 using E_commerce_DAL.Repository;
@@ -26,6 +27,9 @@ namespace E_commerce_DAL
             services.AddScoped<IImageRepository, ImageRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+
+            services.AddMediatR(cfg => 
+            cfg.RegisterServicesFromAssembly(typeof(ProductRepository).Assembly));
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()

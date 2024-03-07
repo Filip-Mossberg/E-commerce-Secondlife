@@ -3,6 +3,7 @@ using E_commerce.Middleware.Exceptions;
 using E_commerce.Models.DTO_s.User;
 using E_commerce_BLL.IService;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -24,12 +25,12 @@ namespace E_commerce_recycling.Controllers
         [HttpPost("Create")]
         public async Task<IActionResult> UserRegister(UserRegisterRequest userRegisterReq)
         {
-            var response = await _userService.UserRegister(userRegisterReq, Url.ActionContext.HttpContext);
+            var response = await _userService.UserRegister(userRegisterReq);
             Log.Information("ApiResponse object => {@response}", response);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
-        [AllowAnonymous]
+        //[Authorize(Roles = "Admin, User")]
         [HttpGet("GetById")]
         public async Task<IActionResult> GetUserById(string id)
         {
@@ -38,7 +39,7 @@ namespace E_commerce_recycling.Controllers
             return response.IsSuccess ? Ok(response) : NotFound(response);
         }
 
-        //[Authorize(Roles = "User")]
+        //[Authorize(Roles = "Admin, User")]
         [HttpDelete("Delete")]
         public async Task<IActionResult> UserDelete(string id)
         {
@@ -53,20 +54,22 @@ namespace E_commerce_recycling.Controllers
         {
             var response = await _userService.UpdateUserPassword(userUpdateRequest);
             Log.Information("ApiResponse object => {@response}", response);
-            return response.IsSuccess? Ok(response) : BadRequest(response);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
         [AllowAnonymous]
-        [HttpGet("ConfirmEmail")]
-        public async Task<IActionResult> ConfirmEmail(string token, string email)
+        [HttpPost("ConfirmEmail")]
+        public async Task<IActionResult> ConfirmEmail([FromBody] Confirmpass req)
         {
-            var response = await _emailService.ConfirmEmail(token, email);
-            return response.IsSuccess ? Ok($"{email} is now confirmed") : BadRequest(response);
+            var response = await _emailService.ConfirmEmail(req.token, req.email);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
+
+        public record Confirmpass(string token, string email);
 
         [AllowAnonymous]
         [HttpPost("Login")]
-        public async Task<IActionResult> UserLogin(UserLoginRequest userLoginReq)
+        public async Task<IActionResult> UserLogin([FromBody] UserLoginRequest userLoginReq)
         {
             var response = await _userService.UserLogin(userLoginReq);
             Log.Information("ApiResponse object => {@response}", response);

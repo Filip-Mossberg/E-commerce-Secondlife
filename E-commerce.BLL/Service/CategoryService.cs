@@ -7,11 +7,8 @@ using E_commerce.Models.DTO_s.Category;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Distributed;
+using System.Text.Json;
 
 namespace E_commerce.BLL.Service
 {
@@ -20,12 +17,14 @@ namespace E_commerce.BLL.Service
         private readonly ICategoryRepository _categoryRepository;
         private readonly IValidator<CategoryCreateRequest> _categoryValidator;
         private readonly IMapper _mapper;
+        private readonly IDistributedCache _cache;
         public CategoryService(ICategoryRepository categoryRepository, IValidator<CategoryCreateRequest> createCategoryValidator,
-            IMapper mapper)
+            IMapper mapper, IDistributedCache cahce)
         {
             _categoryRepository = categoryRepository;
             _categoryValidator = createCategoryValidator;
             _mapper = mapper;
+            _cache = cahce;
         }
 
         public async Task<ApiResponse> CreateCategory(CategoryCreateRequest createCategoryReq)
@@ -39,6 +38,7 @@ namespace E_commerce.BLL.Service
                 && categoryExists == null)
             {
                 await _categoryRepository.CreateCategory(_mapper.Map<Category>(createCategoryReq));
+                await _cache.RemoveAsync("category-all");
 
                 response.StatusCode = StatusCodes.Status201Created;
                 response.IsSuccess = true;
@@ -81,6 +81,39 @@ namespace E_commerce.BLL.Service
             }
         }
 
+        public async Task<ApiResponse> GetAllCategoriesRedis()
+        {
+            ApiResponse response = new ApiResponse() { StatusCode = StatusCodes.Status400BadRequest };
+
+            string key = "category-all";
+
+            string? cachedCategories = await _cache.GetStringAsync(key);
+
+            if (string.IsNullOrEmpty(cachedCategories))
+            {
+                var categories = await _categoryRepository.GetAllCategories();
+
+                if (categories.Any())
+                {
+                    await _cache.SetStringAsync(key, JsonSerializer.Serialize(categories));
+
+                    response.IsSuccess = true;
+                    response.StatusCode = 200;
+                    response.Result = categories;
+
+                    return response;
+                }
+
+                return response;
+            }
+
+            response.IsSuccess = true;
+            response.StatusCode = 200;
+            response.Result = JsonSerializer.Deserialize<List<Category>>(cachedCategories);
+
+            return response;
+        }
+
         public async Task<ApiResponse> GetCategoryById(int id)
         {
             ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status404NotFound };
@@ -100,6 +133,41 @@ namespace E_commerce.BLL.Service
             }
         }
 
+        public async Task<ApiResponse> GetCategoryByIdRedis(int id)
+        {
+            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status404NotFound };
+
+            string key = $"category-{id}";
+
+            string? category = await _cache.GetStringAsync(key);
+
+            if (string.IsNullOrEmpty(category))
+            {
+                var test = await _categoryRepository.GetCategoryById(id);
+
+                if(test != null)
+                {
+                    await _cache.SetStringAsync(
+                        key, 
+                        JsonSerializer.Serialize(test));
+
+                    response.IsSuccess = true;
+                    response.StatusCode = 200;
+                    response.Result = test;
+
+                    return response;
+                }
+
+                return response;
+            }
+
+            response.IsSuccess = true;
+            response.StatusCode = 200;
+            response.Result = JsonSerializer.Deserialize<Category>(category);
+
+            return response;
+        }
+
         public async Task<ApiResponse> UpdateCategory(Category category)
         {
             ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
@@ -108,6 +176,8 @@ namespace E_commerce.BLL.Service
             if(validationResult.IsValid)
             {
                 await _categoryRepository.UpdateCategory(category);
+                await _cache.RemoveAsync("category-all");
+                await _cache.RemoveAsync($"category-{category.Id}");
 
                 response.IsSuccess = true;
                 response.StatusCode = StatusCodes.Status200OK;
@@ -135,6 +205,8 @@ namespace E_commerce.BLL.Service
             if(categoryExists != null)
             {
                 await _categoryRepository.DeleteCategory(categoryExists);
+                await _cache.RemoveAsync("category-all");
+                await _cache.RemoveAsync($"category-{id}");
 
                 response.StatusCode = StatusCodes.Status200OK;
                 response.IsSuccess = true;

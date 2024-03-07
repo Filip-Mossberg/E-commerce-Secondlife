@@ -1,13 +1,16 @@
 ﻿using E_commerce.BLL.IService;
 using E_commerce.BLL.Service;
+using E_commerce.BLL.Service.ServiceTest;
 using E_commerce.BLL.Validation;
 using E_commerce.Models;
 using E_commerce.Models.DTO_s.User;
 using E_commerce_BLL.IService;
 using E_commerce_BLL.Service;
 using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -28,6 +31,13 @@ namespace E_commerce_BLL
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddTransient<IRequestHandler<UserRegisterRequest, ApiResponse>, CreateUserService>();
+
+            services.AddStackExchangeRedisCache(redisOptions =>
+            {
+                string connection = configuration.GetConnectionString("Redis");
+                redisOptions.Configuration = connection;
+            });
 
             services.AddValidatorsFromAssemblyContaining<UserRegisterValidation>();
 

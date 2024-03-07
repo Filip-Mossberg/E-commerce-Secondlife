@@ -3,6 +3,7 @@ using System;
 using E_commerce.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace E_commerce.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240219091710_NewImageByteProp")]
+    partial class NewImageByteProp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,6 +99,9 @@ namespace E_commerce.DAL.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<byte[]>("ImageByte")
+                        .HasColumnType("bytea");
+
                     b.Property<bool>("IsDisplayImage")
                         .HasColumnType("boolean");
 
@@ -167,9 +173,6 @@ namespace E_commerce.DAL.Migrations
 
                     b.Property<int>("Price")
                         .HasColumnType("integer");
-
-                    b.Property<Guid>("RandomOrderIdentifier")
-                        .HasColumnType("uuid");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -288,14 +291,14 @@ namespace E_commerce.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9ae560ed-6100-4336-bc60-3526eefa4f91",
+                            Id = "003d688d-ebae-45ec-9832-f43d8cea6bd2",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "3120802c-4c24-4b38-adba-fa3d14ecdce8",
+                            Id = "84995a2e-66e0-4025-a510-8fa2cf63abed",
                             ConcurrencyStamp = "2",
                             Name = "User",
                             NormalizedName = "USER"

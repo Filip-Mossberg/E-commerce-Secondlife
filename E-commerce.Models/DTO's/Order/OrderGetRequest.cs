@@ -13,6 +13,6 @@ namespace E_commerce.Models.DTO_s.Order
         public int Id { get; set; }
         public DateTime DateOrdered { get; set; }
         public string UserId { get; set; }
-        public List<ProductGetRequest> Products { get; set; } = new List<ProductGetRequest>();
+        public List<ProductGetResponse> Products { get; set; } = new List<ProductGetResponse>();
     }
 }

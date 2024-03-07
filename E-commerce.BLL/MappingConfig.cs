@@ -24,7 +24,7 @@ namespace E_commerce_BLL
             CreateMap<CategoryCreateRequest, Category>().ReverseMap();
             CreateMap<ProductCreateRequest, Product>()
                 .ForMember(destination => destination.Images, opt => opt.Ignore()); 
-            CreateMap<Product, ProductGetRequest>().ReverseMap();
+            CreateMap<Product, ProductGetResponse>().ReverseMap();
             CreateMap<PlaceOrderRequest, Order>()
                 .ForMember(dest => dest.Products, opt => opt.Ignore());
             CreateMap<ProductOrderRequest, Product>();

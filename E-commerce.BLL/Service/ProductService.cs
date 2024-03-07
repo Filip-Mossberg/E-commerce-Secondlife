@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using E_commerce.BLL.IService;
 using E_commerce.DAL.IRepository;
+using E_commerce.DAL.Repository.Get;
 using E_commerce.Models;
 using E_commerce.Models.DbModels;
 using E_commerce.Models.DTO_s.Product;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Formatters;
-using Serilog;
+using Microsoft.Extensions.Caching.Distributed;
+using System.Text.Json;
 
 namespace E_commerce.BLL.Service
 {
@@ -18,14 +19,17 @@ namespace E_commerce.BLL.Service
         private readonly IMapper _mapper;
         private readonly IValidator<ProductCreateRequest> _productCreateValidator;
         private readonly IValidator<ProductUpdateRequest> _productUpdateValidator;
+        private readonly IDistributedCache _cache;
         public ProductService(IProductRepository productRepository, IMapper mapper, IValidator<ProductCreateRequest> productCreateValidator
-            ,IImageService imageService, IValidator<ProductUpdateRequest> productUpdateValidator)
+            ,IImageService imageService, IValidator<ProductUpdateRequest> productUpdateValidator,
+            IDistributedCache cache)
         {
             _productRepository = productRepository;
             _mapper = mapper;
             _productCreateValidator = productCreateValidator;
             _imageService = imageService;
             _productUpdateValidator = productUpdateValidator;
+            _cache = cache;
         }
 
         public async Task<ApiResponse> CreateProduct(ProductCreateRequest productCreateRequest)
@@ -35,7 +39,10 @@ namespace E_commerce.BLL.Service
 
             if (validationResult.IsValid)
             {
-                var productId = await _productRepository.CreateProduct(_mapper.Map<Product>(productCreateRequest));
+                var product = _mapper.Map<Product>(productCreateRequest);
+                product.RandomOrderIdentifier = Guid.NewGuid();
+
+                var productId = await _productRepository.CreateProduct(product);
                 var result = await _imageService.UploadMultipleImages(productCreateRequest.Images, productId);
 
                 if (result.IsSuccess)
@@ -120,7 +127,7 @@ namespace E_commerce.BLL.Service
                     }
                     else
                     {
-                        response.Errors.Add("Order detauls have to change to be able to update!");
+                        response.Errors.Add("Order details have to change to be able to update!");
                         return response;
                     }
                 }
@@ -148,26 +155,6 @@ namespace E_commerce.BLL.Service
             }
         }
 
-        public async Task<ApiResponse> ProductSearch(ProductSearchModel model)
-        {
-            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
-
-            if(model != null)
-            {
-                var searchResult = await _productRepository.ProductSearch(model);
-
-                response.IsSuccess = true;
-                response.StatusCode = StatusCodes.Status200OK;
-                response.Result = _mapper.Map<IEnumerable<ProductGetRequest>>(searchResult);
-                return response;
-            }
-            else
-            {
-                response.Errors.Add("Unable to fulfill search!");
-                return response;
-            }
-        }
-
         public async Task<ApiResponse> GetAllByUserId(string userId)
         {
            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
@@ -178,7 +165,7 @@ namespace E_commerce.BLL.Service
             {
                 response.IsSuccess = true;
                 response.StatusCode = StatusCodes.Status200OK;
-                response.Result = _mapper.Map<IEnumerable<ProductGetRequest>>(products);
+                response.Result = _mapper.Map<IEnumerable<ProductGetResponse>>(products);
                 return response;
             }
             else
@@ -186,6 +173,104 @@ namespace E_commerce.BLL.Service
                 response.Errors.Add("You dont have any products!");
                 return response;
             }
+        }
+
+        public async Task<ApiResponse> GetAllProducts(ProductGetRequest p)
+        {
+            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
+
+            var products = await _productRepository.GetAllProducts(p.searchTerm, p.sortColumn, p.sortOrder, p.category, p.page, p.pageSize);
+
+            response.IsSuccess = true;
+            response.StatusCode = StatusCodes.Status200OK;
+            response.Result = products;
+            return response;
+        }
+
+        public async Task<ApiResponse> GetAllProductsRedis(ProductGetRequest p)
+        {
+            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
+
+            string? key = $"{p.searchTerm?.ToLower() + p.sortColumn?.ToLower() + p.sortOrder?.ToLower() + p.category + p.page + p.pageSize}";
+
+            var cachedProducts = await _cache.GetStringAsync(key);
+
+            if (string.IsNullOrEmpty(cachedProducts))
+            {
+                var products = await _productRepository.GetAllProducts(p.searchTerm, p.sortColumn, p.sortOrder, p.category, p.page, p.pageSize);
+
+                if (products != null)
+                {
+                    await _cache.SetStringAsync(key, JsonSerializer.Serialize(products));
+
+                    response.IsSuccess = true;
+                    response.StatusCode = 200;
+                    response.Result = products;
+
+                    return response;
+                }
+
+                return response;
+            }
+
+            response.IsSuccess = true;
+            response.StatusCode = 200;
+            response.Result = JsonSerializer.Deserialize<PageList<ProductGetResponse>>(cachedProducts);
+
+            return response;
+        }
+
+        public async Task<ApiResponse> GetSingleProduct(int productId)
+        {
+            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
+
+            var product = await _productRepository.GetSingleProduct(productId);
+
+            if(product != null)
+            {
+                response.IsSuccess = true;
+                response.StatusCode = StatusCodes.Status200OK;
+                response.Result = product;
+                return response;
+            }
+            else
+            {
+                response.Errors.Add("You dont have any products!");
+                return response;
+            }
+        }
+
+        public async Task<ApiResponse> GetSingleProductRedis(int productId)
+        {
+            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
+
+            string key = $"product-{productId}";
+
+            string? cachedProduct = await _cache.GetStringAsync(key);
+
+            if (string.IsNullOrEmpty(cachedProduct))
+            {
+                var product = await _productRepository.GetSingleProduct(productId);
+
+                if(product != null)
+                {
+                    await _cache.SetStringAsync(key, JsonSerializer.Serialize(product));
+
+                    response.IsSuccess = true;
+                    response.StatusCode = 200;
+                    response.Result = _mapper.Map<ProductGetResponse>(product);
+
+                    return response;
+                }
+
+                return response;
+            }
+
+            response.IsSuccess = true;
+            response.StatusCode = 200;
+            response.Result = JsonSerializer.Deserialize<ProductGetResponse>(cachedProduct);
+
+            return response;
         }
     }
 }

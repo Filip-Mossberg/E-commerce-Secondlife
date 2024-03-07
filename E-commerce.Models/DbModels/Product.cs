@@ -15,6 +15,7 @@ namespace E_commerce.Models.DbModels
         public int Price { get; set; }
         public DateTime DateListed { get; set; }
         public bool IsOrdered { get; set; }
+        public Guid RandomOrderIdentifier { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
         public int? OrderId { get; set; }

@@ -11,25 +11,27 @@ using Microsoft.AspNetCore.Identity;
 using E_commerce.Models.DbModels;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace E_commerce.BLL.Service
 {
     public class EmailService : IEmailService
     {
         private readonly EmailConfiguration _emailConfig;
-        private readonly UserManager<User>_userManager;
+        private readonly UserManager<User> _userManager;
         public EmailService(EmailConfiguration emailConfig, UserManager<User> userManager)
         {
-
             _emailConfig = emailConfig;
             _userManager = userManager;
-
         }
 
         public async Task<ApiResponse> ConfirmEmail(string token, string email)
         {
             ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
             var user = await _userManager.FindByEmailAsync(email);
+
             if(user != null)
             {
                 var result = await _userManager.ConfirmEmailAsync(user, token);
@@ -56,6 +58,27 @@ namespace E_commerce.BLL.Service
         {
             var emailMessage = CreateEmailMessage(message);
             Send(emailMessage);
+        }
+
+        public async Task<ApiResponse> VerifyEmail(string email)
+        {
+            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user != null)
+            {
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var siteUrl = "http://localhost:5173";
+                var confirmationLink = $"{siteUrl}/?token={Uri.EscapeDataString(token)}&email={user.Email}";
+                var message = new EmailMessage(new string[] { user.Email! }, "Confirm email link", confirmationLink!);
+                SendEmail(message);
+
+                response.IsSuccess = true;
+                response.StatusCode= StatusCodes.Status200OK;
+                return response;
+            }
+
+            return response;
         }
 
         private MimeMessage CreateEmailMessage(EmailMessage message)

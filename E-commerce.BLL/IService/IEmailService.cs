@@ -1,4 +1,5 @@
 ﻿using E_commerce.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace E_commerce.BLL.IService
     {
         public void SendEmail(EmailMessage message);
         public Task<ApiResponse> ConfirmEmail(string token, string email);
+        public Task<ApiResponse> VerifyEmail(string email);
     }
 }

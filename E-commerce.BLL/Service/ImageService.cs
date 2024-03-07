@@ -7,8 +7,9 @@ using E_commerce.Models;
 using E_commerce.Models.DbModels;
 using E_commerce.Models.DTO_s.Image;
 using FluentValidation;
+using ImageProcessor;
+using ImageProcessor.Imaging.Formats;
 using Microsoft.AspNetCore.Http;
-using Serilog;
 
 namespace E_commerce.BLL.Service
 {
@@ -38,7 +39,17 @@ namespace E_commerce.BLL.Service
                     var Name = Guid.NewGuid().ToString();
 
                     var blobClient = _blobContainerClient.GetBlobClient(Name);
-                    var result = await blobClient.UploadAsync(image.FilePath, new BlobHttpHeaders { ContentType = image.FilePath.GetContentType() });
+
+                    using (var imageFactory = new ImageFactory())
+                    {
+                        imageFactory.Load(image.FilePath);
+
+                        imageFactory.Resolution(1200, 1200);
+
+                        var newImage = imageFactory.ImagePath;
+
+                        await blobClient.UploadAsync(newImage, new BlobHttpHeaders { ContentType = image.FilePath.GetContentType() });
+                    }
 
                     Image imageUpload = new Image()
                     {

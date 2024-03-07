@@ -9,14 +9,10 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Serilog;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace E_commerce_BLL.Service
@@ -31,14 +27,12 @@ namespace E_commerce_BLL.Service
         private readonly IValidator<UserRegisterRequest> _registerValidator;
         private readonly IValidator<UserUpdatePasswordRequest> _passwordUpdateValidator;
         private readonly IValidator<UserLoginRequest> _loginValidator;
-        private readonly IUrlHelperFactory _urlHeplerFactory;
         private readonly IConfiguration _configuration;
 
         public UserService(IUserRepository userRepository, IMapper mapper, UserManager<User> userManager, 
             ICartService cartService, IValidator<UserRegisterRequest> registerValidator,
             IValidator<UserUpdatePasswordRequest> updatePasswordValidator, IEmailService emailService,
-            IUrlHelperFactory urlHelperFactory, IValidator<UserLoginRequest> loginValidator,
-            IConfiguration configuration)
+            IValidator<UserLoginRequest> loginValidator, IConfiguration configuration)
         {
             _userRepository = userRepository;
             _mapper = mapper;
@@ -47,14 +41,12 @@ namespace E_commerce_BLL.Service
             _registerValidator = registerValidator;
             _passwordUpdateValidator = updatePasswordValidator;
             _emailService = emailService;
-            _urlHeplerFactory = urlHelperFactory;
             _registerValidator = registerValidator;
             _loginValidator = loginValidator;
             _configuration = configuration;
         }
 
-        [AllowAnonymous]
-        public async Task<ApiResponse> UserRegister(UserRegisterRequest userRegisterReq, HttpContext httpContext)
+        public async Task<ApiResponse> UserRegister(UserRegisterRequest userRegisterReq)
         {
             ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
 
@@ -81,12 +73,9 @@ namespace E_commerce_BLL.Service
                     await _cartService.CreateCart(createdUser);
 
                     // Generating email verification token
-                    var urlHelper = _urlHeplerFactory.GetUrlHelper(new ActionContext
-                    {
-                        HttpContext = httpContext
-                    });
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(createdUser);
-                    var confirmationLink = urlHelper.Action("ConfirmEmail", "User", new { token, email = createdUser.Email }, httpContext.Request.Scheme = "https");
+                    var siteUrl = "http://localhost:5173";
+                    var confirmationLink = $"{siteUrl}/?token={Uri.EscapeDataString(token)}&email={createdUser.Email}";
                     var message = new EmailMessage(new string[] { createdUser.Email! }, "Confirm email link", confirmationLink!);
                     _emailService.SendEmail(message);
 
@@ -161,7 +150,6 @@ namespace E_commerce_BLL.Service
             }
         }
 
-        [AllowAnonymous]
         public async Task<ApiResponse> UpdateUserPassword(UserUpdatePasswordRequest userUpdateRequest)
         {
             ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
@@ -204,10 +192,9 @@ namespace E_commerce_BLL.Service
             }        
         }
 
-        [AllowAnonymous]
-        public async Task<ApiResponse> UserLogin(UserLoginRequest userLoginReq)
+        public async Task<ApiLoginResponse> UserLogin(UserLoginRequest userLoginReq)
         {
-            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
+            ApiLoginResponse response = new ApiLoginResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
             var validatioResult = await _loginValidator.ValidateAsync(userLoginReq);
 
             if (validatioResult.IsValid)
@@ -216,14 +203,17 @@ namespace E_commerce_BLL.Service
 
                 if (user != null && await _userManager.CheckPasswordAsync(user, userLoginReq.Password))
                 {
+                    // Applying claims for the JWT token
                     var authClaims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name, user.UserName),
+                        new Claim(ClaimTypes.Email, user.Email),
+                        new Claim(ClaimTypes.NameIdentifier, user.Id),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                     };
 
                     var userRoles = await _userManager.GetRolesAsync(user);
 
+                    // Applying user roles 
                     foreach (var role in userRoles)
                     {
                         authClaims.Add(new Claim(ClaimTypes.Role, role));
@@ -232,6 +222,7 @@ namespace E_commerce_BLL.Service
                     var JwtToken = GetToken(authClaims);
 
                     response.IsSuccess = true;
+                    response.EmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
                     response.StatusCode = StatusCodes.Status200OK;
                     response.Result = new JwtTokenHandler(JwtToken, JwtToken.ValidTo);
 
@@ -254,6 +245,9 @@ namespace E_commerce_BLL.Service
             }
         }
 
+        /// <summary>
+        /// JWT token configuration
+        /// </summary>
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));

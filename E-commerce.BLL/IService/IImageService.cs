@@ -1,4 +1,5 @@
 ﻿using E_commerce.Models;
+using E_commerce.Models.DbModels;
 using E_commerce.Models.DTO_s.Image;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,6 @@ namespace E_commerce.BLL.IService
     {
         public Task<ApiResponse> UploadMultipleImages(List<ImageUploadRequest> imageUploadRequests, int productId);
         public Task<ApiResponse> DeleteImages(int productId);
+        //public Task<byte[]> imgToByteArray(ImageGetRequest image);
     }
 }

@@ -1,22 +1,17 @@
 using Azure.Storage.Blobs;
 using E_commerce.BLL.MiddleWeare;
-using E_commerce.Context;
-using E_commerce.Models;
 using E_commerce_BLL;
 using E_commerce_DAL;
-using FluentValidation;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using System.Net;
 using System.Text;
 
 namespace E_commerce
 {
-    public class Program
+    internal class Program
     {
         public static void Main(string[] args)
         {
@@ -68,6 +63,12 @@ namespace E_commerce
                 };
             });
 
+            // Since we are running RabbitMQ locally we dont need any addititonal configuration here
+            builder.Services.AddMassTransit(x =>
+            {
+                x.UsingRabbitMq();
+            });
+
             builder.Services.AddSwaggerGen(option =>
             {
                 option.SwaggerDoc("v1", new OpenApiInfo { Title = "Auth API", Version = "v1" });
@@ -112,11 +113,11 @@ namespace E_commerce
                 app.UseSwaggerUI();
             }
 
+            app.UseCors("CORSPolicy");
+
             app.UseSerilogRequestLogging();
 
             app.UseHttpsRedirection();
-
-            app.UseCors("CORSPolicy");
 
             app.UseAuthentication();
 
@@ -130,3 +131,5 @@ namespace E_commerce
         }
     }
 }
+
+public partial class Program { }
