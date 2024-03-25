@@ -1,5 +1,6 @@
 using Azure.Storage.Blobs;
 using E_commerce.BLL.MiddleWeare;
+using E_commerce.DAL.Context;
 using E_commerce_BLL;
 using E_commerce_DAL;
 using MassTransit;
@@ -63,10 +64,13 @@ namespace E_commerce
                 };
             });
 
-            // Since we are running RabbitMQ locally we dont need any addititonal configuration here
             builder.Services.AddMassTransit(x =>
             {
-                x.UsingRabbitMq();
+                var rabbitMqConnectionString = builder.Configuration.GetConnectionString("RabbitMQ");
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host(rabbitMqConnectionString);
+                });
             });
 
             builder.Services.AddSwaggerGen(option =>
@@ -106,6 +110,8 @@ namespace E_commerce
 
             var app = builder.Build();
 
+            app.ApplyMigrations(); 
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -132,4 +138,5 @@ namespace E_commerce
     }
 }
 
+// This is for the WebApplicationFactory<Program> in IntegrationTestFactory to use Program.cs of the E-commerce api project
 public partial class Program { }

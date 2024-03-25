@@ -1,6 +1,7 @@
 ﻿using E_commerce.BLL.IService;
-using E_commerce.Models;
 using E_commerce.Models.DTO_s.Product;
+using FluentValidation;
+using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
@@ -12,9 +13,16 @@ namespace E_commerce.Controllers
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
-        public ProductController(IProductService productService)
+        private readonly IValidator<ProductCreateRequest> _validatorCreate;
+        private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IValidator<ProductUpdateRequest> _validatorUpdate;
+        public ProductController(IProductService productService, IValidator<ProductCreateRequest> validatorCreate,
+            IPublishEndpoint publishEndpoint, IValidator<ProductUpdateRequest> validatorUpdate)
         {
             _productService = productService;
+            _validatorCreate = validatorCreate;
+            _publishEndpoint = publishEndpoint;
+            _validatorUpdate = validatorUpdate;
         }
 
         //[Authorize(Roles = "User")]
@@ -87,6 +95,38 @@ namespace E_commerce.Controllers
             var response = await _productService.GetSingleProductRedis(productId);
             Log.Information("ApiResponse objekt => {@response}", response);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+
+        //[Authorize(Roles = "User")]
+        [HttpPost("CreateMassTransit")]
+        public async Task<IActionResult> CreateProductMassTransit([FromBody] ProductCreateRequest productCreateRequest)
+        {
+            var validationResult = await _validatorCreate.ValidateAsync(productCreateRequest);
+
+            if (validationResult.IsValid)
+            {
+                await _publishEndpoint.Publish(productCreateRequest);
+
+                return Ok();
+            }
+
+            return BadRequest(validationResult.Errors);
+        }
+
+        //[Authorize(Roles = "Admin, User")]
+        [HttpPut("UpdateMassTransit")]
+        public async Task<IActionResult> UpdateProductMassTransit([FromBody] ProductUpdateRequest productUpdateRequest)
+        {
+            var validationResult = await _validatorUpdate.ValidateAsync(productUpdateRequest);
+
+            if (validationResult.IsValid) // Need to add more validation here (or inside of the validation class)
+            {
+                await _publishEndpoint.Publish(productUpdateRequest);
+
+                return Ok();
+            }
+
+            return BadRequest(validationResult.Errors);
         }
     }
 }

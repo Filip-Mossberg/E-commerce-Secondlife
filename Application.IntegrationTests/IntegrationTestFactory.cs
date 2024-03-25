@@ -1,81 +1,86 @@
-﻿using E_commerce.Context;
-using E_commerce.Models.DbModels;
+﻿using DotNet.Testcontainers.Builders;
+using DotNet.Testcontainers.Containers;
+using E_commerce.Context;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
+using Serilog;
 using Testcontainers.PostgreSql;
 
 namespace Application.IntegrationTests
 {
     public class IntegrationTestFactory : WebApplicationFactory<Program>, IAsyncLifetime
     {
-        private ServiceProvider _serviceProvider;
+        public ServiceProvider _serviceProvider;
         public IntegrationTestFactory()
         {
         }
 
         /// <summary>
-        /// Configuring a Docker test container, containing PostgreSql
+        /// Configuring a Docker test container, containing PostgreSQL, along with a container for Redis and RabbitMQ
         /// </summary>
         private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder()
             .WithImage("postgres:latest")
-            .WithDatabase("EcommerceDb")
+            .WithDatabase("ecommercetest") // Matches my database name configured in the connection string
             .WithUsername("postgres")
             .WithPassword("postgres")
+            .WithName("ecommerce.database.test")
+            .WithPortBinding(5432, 5432)
             .Build();
 
-        // Starting database container and applying migrations
+        private readonly IContainer _redisContainer = new ContainerBuilder()
+            .WithImage("redis:latest")
+            .WithName("ecommerce.redis.test")
+            .WithPortBinding(6379, 6379)
+            .Build();
+
+        private readonly IContainer _rabbitmqContainer = new ContainerBuilder()
+            .WithImage("rabbitmq:latest")
+            .WithName("ecommerce.rabbitmq.test")
+            .WithPortBinding(5672, 5672)
+            .Build();
+
+        // Starting containers and applying migrations
         public async Task InitializeAsync()
         {
-            await _dbContainer.StartAsync();
+            try
+            {
+                await _dbContainer.StartAsync();
+                await _redisContainer.StartAsync();
+                await _rabbitmqContainer.StartAsync();
 
-            var serviceColletion = new ServiceCollection();
+                var serviceColletion = new ServiceCollection();
+                _serviceProvider = serviceColletion.BuildServiceProvider();
 
-            // Initialize _serviceProvider
-            _serviceProvider = serviceColletion.BuildServiceProvider();
-
-            var _context = _serviceProvider.GetRequiredService<AppDbContext>();
-            await _context.Database.MigrateAsync();
+                var _context = _serviceProvider.GetRequiredService<AppDbContext>();
+                await _context.Database.MigrateAsync();
+            }
+            catch (Exception ex)
+            {
+                Log.Information($"Error initializing containers: {ex.Message}");
+            }
         }
 
-        // Configuring the ASP .NET Core web host
+        // Override the ConfigureWebHost method through WebApplicationFactory<Program> so we can set the environment and configurations if needed
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            builder.ConfigureTestServices(services =>
-            {
-                var descriptor = services.SingleOrDefault(s => s.ServiceType == typeof(DbContextOptions<AppDbContext>));
-                var descriptor2 = services.SingleOrDefault(s => s.ServiceType == typeof(IdentityUser));
-
-                var _serviceCollection = new ServiceCollection();
-
-                // Removing any existing configurations of AppDbContext, ensuring a clean database context
-                if (descriptor is not null)
-                {
-                    services.Remove(descriptor);
-                }
-
-                if (descriptor2 is not null)
-                {
-                    services.Remove(descriptor2);
-                }
-
-                // Adding a new database context based on the new connection string
-                services.AddDbContext<AppDbContext>(options =>
-                {
-                    options.UseNpgsql(_dbContainer.GetConnectionString());
-                });
-            });
+            builder.UseEnvironment("Test");
         }
 
-        // Closing database container 
-        public new Task DisposeAsync()
+        // Stopping containers
+        public new async Task DisposeAsync()
         {
-            return _dbContainer.StopAsync();
+            try
+            {
+                await _dbContainer.StopAsync();
+                await _rabbitmqContainer.StopAsync();
+                await _redisContainer.StopAsync();
+            }
+            catch (Exception ex)
+            {
+                Log.Information($"Error disposing containers: {ex.Message}");
+            }
         }
     }
 }

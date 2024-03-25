@@ -2,18 +2,9 @@
 using E_commerce.Models;
 using MimeKit;
 using MailKit.Net.Smtp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using E_commerce.Models.DbModels;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
-using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace E_commerce.BLL.Service
 {

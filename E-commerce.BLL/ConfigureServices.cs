@@ -1,15 +1,20 @@
-﻿using E_commerce.BLL.IService;
+﻿using AutoMapper;
+using E_commerce.BLL.IService;
 using E_commerce.BLL.Service;
+using E_commerce.BLL.Service.Consumer.CategoryConsumer;
+using E_commerce.BLL.Service.Consumer.EmailConsumer;
+using E_commerce.BLL.Service.Consumer.OrderConsumer;
+using E_commerce.BLL.Service.Consumer.ProductConsumer;
 using E_commerce.BLL.Service.ServiceTest;
 using E_commerce.BLL.Validation;
+using E_commerce.DAL.IRepository;
 using E_commerce.Models;
 using E_commerce.Models.DTO_s.User;
 using E_commerce_BLL.IService;
 using E_commerce_BLL.Service;
 using FluentValidation;
+using MassTransit;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +43,62 @@ namespace E_commerce_BLL
                 string connection = configuration.GetConnectionString("Redis");
                 redisOptions.Configuration = connection;
             });
+
+            // RabbitMQ Broker configuration 
+            var busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
+            {
+                cfg.ReceiveEndpoint("category-created-event", e =>
+                {
+                    e.Consumer(() => new CategoryCreateConsumer(
+                        services.BuildServiceProvider().GetRequiredService<ICategoryRepository>(),
+                        services.BuildServiceProvider().GetRequiredService<IMapper>()
+                        ));
+                });
+
+                cfg.ReceiveEndpoint("category-update-event", e =>
+                {
+                    e.Consumer(() => new CategoryUpdateConsumer(
+                        services.BuildServiceProvider().GetRequiredService<ICategoryRepository>()
+                        ));
+                });
+
+                cfg.ReceiveEndpoint("order-created-event", e =>
+                {
+                    e.Consumer(() => new OrderCreateConsumer(
+                        services.BuildServiceProvider().GetRequiredService<IOrderRepository>(),
+                        services.BuildServiceProvider().GetRequiredService<IMapper>(),
+                        services.BuildServiceProvider().GetRequiredService<IDistributedCache>(),
+                        services.BuildServiceProvider().GetRequiredService<IProductRepository>()
+                        ));
+                });
+
+                cfg.ReceiveEndpoint("email-send-event", e =>
+                {
+                    e.Consumer(() => new EmailConsumer(
+                        services.BuildServiceProvider().GetRequiredService<EmailConfiguration>()
+                        ));
+                });
+
+                cfg.ReceiveEndpoint("product-create-event", e =>
+                {
+                    e.Consumer(() => new ProductCreateConsumer(
+                        services.BuildServiceProvider().GetRequiredService<IProductRepository>(),
+                        services.BuildServiceProvider().GetRequiredService<IMapper>(),
+                        services.BuildServiceProvider().GetRequiredService<IImageService>()
+                        ));
+                });
+
+                cfg.ReceiveEndpoint("product-update-event", e =>
+                {
+                    e.Consumer(() => new ProductUpdateConsumer(
+                        services.BuildServiceProvider().GetRequiredService<IProductRepository>(),
+                        services.BuildServiceProvider().GetRequiredService<IDistributedCache>()
+                        ));
+                });
+            });
+
+            // Starting Broker message bus
+            Task.Run(() => busControl.StartAsync());
 
             services.AddValidatorsFromAssemblyContaining<UserRegisterValidation>();
 

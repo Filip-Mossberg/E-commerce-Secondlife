@@ -1,9 +1,7 @@
 ﻿using E_commerce.BLL.IService;
-using E_commerce.Middleware.Exceptions;
 using E_commerce.Models.DTO_s.User;
 using E_commerce_BLL.IService;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 

@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MediatR;
 using E_commerce.Context;
 using E_commerce_DAL.IRepository;
 using E_commerce_DAL.Repository;
@@ -19,7 +18,7 @@ namespace E_commerce_DAL
             IConfiguration configuration)
         {
             services.AddDbContext<AppDbContext>(options => 
-            options.UseNpgsql(configuration.GetConnectionString("EcommerceDb")));
+            options.UseNpgsql(configuration.GetConnectionString("EcommerceDockerDb")));
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICartRepository, CartRepository>();

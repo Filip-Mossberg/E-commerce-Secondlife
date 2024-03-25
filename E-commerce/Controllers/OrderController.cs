@@ -1,13 +1,10 @@
 ﻿using E_commerce.BLL.IService;
-using E_commerce.BLL.Service;
-using E_commerce.Models.DbModels;
+using E_commerce.Models.DTO_s.Email;
 using E_commerce.Models.DTO_s.Order;
-using E_commerce.Models.DTO_s.Product;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+using FluentValidation;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
-using System.Globalization;
 
 namespace E_commerce.Controllers
 {
@@ -16,9 +13,13 @@ namespace E_commerce.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
-        public OrderController(IOrderService orderService)
+        private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IValidator<PlaceOrderRequest> _validator;
+        public OrderController(IOrderService orderService, IPublishEndpoint publishEndpoint, IValidator<PlaceOrderRequest> validator)
         {
             _orderService = orderService;
+            _publishEndpoint = publishEndpoint;
+            _validator = validator;
         }
 
         //[Authorize(Roles = "User")]
@@ -55,6 +56,31 @@ namespace E_commerce.Controllers
             var response = await _orderService.CancelOrderById(id);
             Log.Information("ApiResponse object => {@response}", response);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+
+        //[Authorize(Roles = "User")]
+        [HttpPost("create/masstransit")]
+        public async Task<IActionResult> CreateOrderMassTransit([FromBody] PlaceOrderRequest placeOrderRequest)
+        {
+            var validatioResult = await _validator.ValidateAsync(placeOrderRequest);
+
+            if (validatioResult.IsValid)
+            {
+                await _publishEndpoint.Publish(placeOrderRequest);
+
+                var EmailMessageDTO = new EmailMessageDTO()
+                {
+                    To = new List<string> { placeOrderRequest.Email },
+                    Subject = "Order Receipt",
+                    Content = "You have now placed an order!"
+                };
+
+                await _publishEndpoint.Publish(EmailMessageDTO);
+
+                return Ok();
+            }
+
+            return BadRequest(validatioResult.Errors);
         }
     }
 }

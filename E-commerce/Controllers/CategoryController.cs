@@ -1,6 +1,9 @@
-﻿using E_commerce.BLL.IService;
+﻿using AutoMapper;
+using E_commerce.BLL.IService;
 using E_commerce.Models.DbModels;
 using E_commerce.Models.DTO_s.Category;
+using FluentValidation;
+using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
@@ -11,10 +14,18 @@ namespace E_commerce.Controllers
     [ApiController]
     public class CategoryController : Controller
     {
-        public readonly ICategoryService _categoryService;
-        public CategoryController(ICategoryService categoryService)
+        private readonly ICategoryService _categoryService;
+        private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IValidator<CategoryCreateRequest> _validator;
+        private readonly IMapper _mapper;
+        
+        public CategoryController(ICategoryService categoryService, IPublishEndpoint publishEndpoint,
+            IValidator<CategoryCreateRequest> validator, IMapper mapper)
         {
             _categoryService = categoryService;
+            _publishEndpoint = publishEndpoint;
+            _validator = validator;
+            _mapper = mapper; 
         }
 
         //[Authorize(Roles = "Admin")]
@@ -78,6 +89,38 @@ namespace E_commerce.Controllers
             var response = await _categoryService.GetAllCategoriesRedis();
             Log.Information("ApiResponse object => {@response}", response);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("CreateMassTransit")]
+        public async Task<IActionResult> CreateCategoryMassTransit([FromBody] CategoryCreateRequest categoryCreateReq)
+        {
+            var validationResult = await _validator.ValidateAsync(categoryCreateReq);
+
+            if (validationResult.IsValid)
+            {
+                await _publishEndpoint.Publish(categoryCreateReq);
+
+                return Ok();
+            }
+
+            return BadRequest(validationResult.Errors);
+        }
+
+        //[Authorize(Roles = "Admin")]
+        [HttpPut("UpdateMassTransit")]
+        public async Task<IActionResult> UpdateCategoryMassTransit([FromBody] Category category)
+        {
+            var validationResult = await _validator.ValidateAsync(_mapper.Map<CategoryCreateRequest>(category));
+
+            if (validationResult.IsValid)
+            {
+                await _publishEndpoint.Publish(category);
+
+                return Ok();
+            }
+
+            return BadRequest(validationResult.Errors);
         }
 
     }
