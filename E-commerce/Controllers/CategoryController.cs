@@ -99,7 +99,7 @@ namespace E_commerce.Controllers
 
             if (validationResult.IsValid)
             {
-                await _publishEndpoint.Publish(categoryCreateReq);
+                await _publishEndpoint.Publish<CategoryCreateRequest>(categoryCreateReq);
 
                 return Ok();
             }

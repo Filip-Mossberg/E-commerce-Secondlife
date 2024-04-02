@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using E_commerce.Models;
+using E_commerce.Models.DTO_s.Category;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace Application.IntegrationTests.Tests
@@ -13,12 +15,16 @@ namespace Application.IntegrationTests.Tests
         public async Task Should_Get_All_Categories()
         {
             // Arrange
+            var command = new CategoryCreateRequest()
+            {
+                Name = "Boat",
+            };
 
             // Act 
-            var test = await _context.Category.ToListAsync();
+            var result = await Sender.Send(command) as ApiResponse;
 
             // Assert
-            Assert.NotEmpty(test);
+            Assert.True(result.IsSuccess);
         }
     }
 }

@@ -3,6 +3,7 @@ using DotNet.Testcontainers.Containers;
 using E_commerce.Context;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -22,23 +23,20 @@ namespace Application.IntegrationTests
         /// </summary>
         private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder()
             .WithImage("postgres:latest")
-            .WithDatabase("ecommercetest") // Matches my database name configured in the connection string
+            .WithDatabase("ecommerce") // Matches my database name configured in the connection string
             .WithUsername("postgres")
             .WithPassword("postgres")
             .WithName("ecommerce.database.test")
-            .WithPortBinding(5432, 5432)
             .Build();
 
         private readonly IContainer _redisContainer = new ContainerBuilder()
             .WithImage("redis:latest")
             .WithName("ecommerce.redis.test")
-            .WithPortBinding(6379, 6379)
             .Build();
 
         private readonly IContainer _rabbitmqContainer = new ContainerBuilder()
             .WithImage("rabbitmq:latest")
             .WithName("ecommerce.rabbitmq.test")
-            .WithPortBinding(5672, 5672)
             .Build();
 
         // Starting containers and applying migrations
@@ -50,11 +48,11 @@ namespace Application.IntegrationTests
                 await _redisContainer.StartAsync();
                 await _rabbitmqContainer.StartAsync();
 
-                var serviceColletion = new ServiceCollection();
-                _serviceProvider = serviceColletion.BuildServiceProvider();
+                //var serviceColletion = new ServiceCollection();
+                //_serviceProvider = serviceColletion.BuildServiceProvider();
 
-                var _context = _serviceProvider.GetRequiredService<AppDbContext>();
-                await _context.Database.MigrateAsync();
+                //var _context = _serviceProvider.GetRequiredService<AppDbContext>();
+                //await _context.Database.MigrateAsync();
             }
             catch (Exception ex)
             {
@@ -65,7 +63,22 @@ namespace Application.IntegrationTests
         // Override the ConfigureWebHost method through WebApplicationFactory<Program> so we can set the environment and configurations if needed
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            builder.UseEnvironment("Test");
+            builder.ConfigureTestServices(services =>
+            {
+                var descriptor = services
+                    .SingleOrDefault(s => s.ServiceType == typeof(DbContextOptions<AppDbContext>));
+
+                if (descriptor is not null)
+                {
+                    services.Remove(descriptor);
+                }
+
+                services.AddDbContext<AppDbContext>(options =>
+                {
+                    options
+                        .UseNpgsql(_dbContainer.GetConnectionString());
+                });
+            });
         }
 
         // Stopping containers

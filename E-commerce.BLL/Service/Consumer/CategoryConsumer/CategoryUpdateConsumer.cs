@@ -1,7 +1,6 @@
 ﻿using E_commerce.DAL.IRepository;
 using E_commerce.Models.DbModels;
 using MassTransit;
-using Microsoft.Extensions.Caching.Distributed;
 
 namespace E_commerce.BLL.Service.Consumer.CategoryConsumer
 {

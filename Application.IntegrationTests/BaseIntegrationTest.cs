@@ -1,4 +1,5 @@
 ﻿using E_commerce.Context;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.IntegrationTests
@@ -9,10 +10,13 @@ namespace Application.IntegrationTests
     /// </summary>
     public abstract class BaseIntegrationTest : IClassFixture<IntegrationTestFactory>
     {
-        protected readonly AppDbContext _context;
+        private readonly IServiceScope _scope;
+        protected readonly ISender Sender;
         protected BaseIntegrationTest(IntegrationTestFactory factory)
         {
-            _context = factory._serviceProvider.GetRequiredService<AppDbContext>();
+            _scope = factory.Services.CreateScope();
+
+            Sender = _scope.ServiceProvider.GetRequiredService<ISender>();
         }
     }
 }

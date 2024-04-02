@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using E_commerce.Context;
 using E_commerce.DAL.IRepository;
 using E_commerce.Models.DbModels;
 using E_commerce.Models.DTO_s.Category;
@@ -20,6 +19,7 @@ namespace E_commerce.BLL.Service.Consumer.CategoryConsumer
         public async Task Consume(ConsumeContext<CategoryCreateRequest> context)
         {
             await _categoryRepository.CreateCategory(_mapper.Map<Category>(context.Message));
+            Log.Information("Running the CreateCategory Consume method");
         }
     }
 }

@@ -1,6 +1,5 @@
 using Azure.Storage.Blobs;
 using E_commerce.BLL.MiddleWeare;
-using E_commerce.DAL.Context;
 using E_commerce_BLL;
 using E_commerce_DAL;
 using MassTransit;
@@ -41,7 +40,11 @@ namespace E_commerce
                 {
                     builder.AllowAnyMethod();
                     builder.AllowAnyHeader();
-                    builder.WithOrigins("http://localhost:5173");
+                    builder.WithOrigins("http://localhost:15672");
+
+                    builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
                 });
             });
 
@@ -62,15 +65,6 @@ namespace E_commerce
                     ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
                 };
-            });
-
-            builder.Services.AddMassTransit(x =>
-            {
-                var rabbitMqConnectionString = builder.Configuration.GetConnectionString("RabbitMQ");
-                x.UsingRabbitMq((context, cfg) =>
-                {
-                    cfg.Host(rabbitMqConnectionString);
-                });
             });
 
             builder.Services.AddSwaggerGen(option =>
@@ -110,7 +104,7 @@ namespace E_commerce
 
             var app = builder.Build();
 
-            app.ApplyMigrations(); 
+            //app.ApplyMigrations();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

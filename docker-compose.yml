@@ -1,9 +1,5 @@
 version: '3.4'
 
-networks:
-  my-network:
-    driver: bridge
-
 services:
   e-commerce:
     image: ${DOCKER_REGISTRY-}ecommerce
@@ -14,10 +10,10 @@ services:
     ports: 
       - 5000:5000
       - 5001:5001
-    networks:
-      - my-network
     depends_on:
       - ecommerce.database
+      - ecommerce.redis
+      - ecommerce.rabbitmq
 
   ecommerce.database:
     image: postgres:latest
@@ -30,25 +26,31 @@ services:
       - ./.containers/e-commerce-db:/var/lib/postgresql/data
     ports:
       - 5432:5432
-    networks:
-      - my-network
 
   ecommerce.redis:
     image: redis:latest
     container_name: ecommerce.redis
     ports:
       - 6379:6379
-    networks:
-      - my-network
 
   ecommerce.rabbitmq:
-    image:  rabbitmq:latest
+    image:  rabbitmq:management
     container_name: ecommerce.rabbitmq
     ports:
       - 5672:5672
-    networks:
-      - my-network
+      - 15672:15672    # Maps port 15672 on the host to port 15672 on the container, thats why I can access it through localhost.
+    environment:
+      RABBITMQ_DEFAULT_USER: myuser
+      RABBITMQ_DEFAULT_PASS: mypassword
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 30s
+      timeout: 30s
+      retries: 5
+      start_period: 60s
 
-  
+networks: # We do not need to specify networks since docker compose creates a network shared among the containers automatically. 
+  my-network:
+    driver: bridge
     
   
