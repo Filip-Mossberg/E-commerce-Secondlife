@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace E_commerce.Models.DTO_s.Category
 {
-    public class CategoryCreateRequest
+    public class CategoryCreateRequest : IRequest<ApiResponse>
     {
         public string Name { get; set; }
+
+        public CategoryCreateRequest(string Name)
+        {
+            this.Name = Name;
+        }
     }
 }

@@ -5,22 +5,25 @@ using E_commerce.Models;
 using Microsoft.AspNetCore.Http;
 using AutoMapper;
 using FluentValidation;
-using Microsoft.Extensions.Caching.Distributed;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
+using Serilog;
 
 namespace E_commerce.BLL.Service.ServiceTest
 {
-    public class CreateCategoryService : IRequest<ApiResponse>
+    public class CreateCategoryService : IRequestHandler<CategoryCreateRequest, ApiResponse>
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly IValidator<CategoryCreateRequest> _categoryValidator;
         private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         public CreateCategoryService(ICategoryRepository categoryRepository, IValidator<CategoryCreateRequest> createCategoryValidator,
-            IMapper mapper)
+            IMapper mapper, IWebHostEnvironment environment)
         {
             _categoryRepository = categoryRepository;
             _categoryValidator = createCategoryValidator;
             _mapper = mapper;
+            _webHostEnvironment = environment;
         }
 
         public async Task<ApiResponse> Handle(CategoryCreateRequest request, CancellationToken cancellationToken)

@@ -1,0 +1,1644 @@
+2024-04-16 06:11:46.512 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2024-04-16 06:11:46.523 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-04-16 06:11:47.111 +00:00 [INF] Creating key {312e359f-e582-470c-b057-047507cf9a4f} with creation date 2024-04-16 06:11:47Z, activation date 2024-04-16 06:11:47Z, and expiration date 2024-07-15 06:11:47Z.
+2024-04-16 06:11:47.131 +00:00 [WRN] No XML encryptor configured. Key {312e359f-e582-470c-b057-047507cf9a4f} may be persisted to storage in unencrypted form.
+2024-04-16 06:11:47.138 +00:00 [INF] Writing data to file '/root/.aspnet/DataProtection-Keys/key-312e359f-e582-470c-b057-047507cf9a4f.xml'.
+2024-04-16 06:11:48.406 +00:00 [INF] Now listening on: https://[::]:443
+2024-04-16 06:11:48.408 +00:00 [INF] Now listening on: http://[::]:80
+2024-04-16 06:11:48.435 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-16 06:11:48.436 +00:00 [INF] Hosting environment: Development
+2024-04-16 06:11:48.437 +00:00 [INF] Content root path: /app
+2024-04-16 06:11:48.439 +00:00 [INF] Bus started: "rabbitmq://ecommerce.rabbitmq/"
+2024-04-16 06:14:32.340 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2024-04-16 06:14:32.358 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-04-16 06:14:32.783 +00:00 [INF] Creating key {26d33819-c55b-41c3-84af-461355bba4a8} with creation date 2024-04-16 06:14:32Z, activation date 2024-04-16 06:14:32Z, and expiration date 2024-07-15 06:14:32Z.
+2024-04-16 06:14:32.800 +00:00 [WRN] No XML encryptor configured. Key {26d33819-c55b-41c3-84af-461355bba4a8} may be persisted to storage in unencrypted form.
+2024-04-16 06:14:32.809 +00:00 [INF] Writing data to file '/root/.aspnet/DataProtection-Keys/key-26d33819-c55b-41c3-84af-461355bba4a8.xml'.
+2024-04-16 06:14:33.303 +00:00 [WRN] Connection Failed: "rabbitmq://ecommerce.rabbitmq/"
+RabbitMQ.Client.Exceptions.BrokerUnreachableException: None of the specified endpoints were reachable
+ ---> System.AggregateException: One or more errors occurred. (Connection failed)
+ ---> RabbitMQ.Client.Exceptions.ConnectFailureException: Connection failed
+ ---> System.Net.Sockets.SocketException (111): Connection refused
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at RabbitMQ.Client.TcpClientAdapter.ConnectAsync(String host, Int32 port)
+   at RabbitMQ.Client.Impl.TaskExtensions.TimeoutAfter(Task task, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectOrFail(ITcpClient socket, AmqpTcpEndpoint endpoint, TimeSpan timeout)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectOrFail(ITcpClient socket, AmqpTcpEndpoint endpoint, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectUsingAddressFamily(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan timeout, AddressFamily family)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectUsingIPv4(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler..ctor(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan connectionTimeout, TimeSpan readTimeout, TimeSpan writeTimeout)
+   at RabbitMQ.Client.Framing.Impl.IProtocolExtensions.CreateFrameHandler(IProtocol protocol, AmqpTcpEndpoint endpoint, ArrayPool`1 pool, Func`2 socketFactory, TimeSpan connectionTimeout, TimeSpan readTimeout, TimeSpan writeTimeout)
+   at RabbitMQ.Client.ConnectionFactory.CreateFrameHandler(AmqpTcpEndpoint endpoint)
+   at RabbitMQ.Client.EndpointResolverExtensions.SelectOne[T](IEndpointResolver resolver, Func`2 selector)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.EndpointResolverExtensions.SelectOne[T](IEndpointResolver resolver, Func`2 selector)
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IEndpointResolver endpointResolver, String clientProvidedName)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IEndpointResolver endpointResolver, String clientProvidedName)
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IList`1 hostnames, String clientProvidedName)
+   at MassTransit.RabbitMqTransport.ConnectionContextFactory.CreateConnection(ISupervisor supervisor) in /_/src/Transports/MassTransit.RabbitMqTransport/RabbitMqTransport/ConnectionContextFactory.cs:line 85
+2024-04-16 06:14:33.511 +00:00 [INF] Now listening on: https://[::]:443
+2024-04-16 06:14:33.512 +00:00 [INF] Now listening on: http://[::]:80
+2024-04-16 06:14:33.514 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-16 06:14:33.515 +00:00 [INF] Hosting environment: Development
+2024-04-16 06:14:33.516 +00:00 [INF] Content root path: /app
+2024-04-16 06:14:41.069 +00:00 [INF] Bus started: "rabbitmq://ecommerce.rabbitmq/"
+2024-04-16 06:18:02.242 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2024-04-16 06:18:02.262 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-04-16 06:18:02.988 +00:00 [INF] Creating key {7cb8aabb-943f-453f-8055-6477a8d53b76} with creation date 2024-04-16 06:18:02Z, activation date 2024-04-16 06:18:02Z, and expiration date 2024-07-15 06:18:02Z.
+2024-04-16 06:18:03.007 +00:00 [WRN] No XML encryptor configured. Key {7cb8aabb-943f-453f-8055-6477a8d53b76} may be persisted to storage in unencrypted form.
+2024-04-16 06:18:03.015 +00:00 [INF] Writing data to file '/root/.aspnet/DataProtection-Keys/key-7cb8aabb-943f-453f-8055-6477a8d53b76.xml'.
+2024-04-16 06:18:03.580 +00:00 [WRN] Connection Failed: "rabbitmq://ecommerce.rabbitmq/"
+RabbitMQ.Client.Exceptions.BrokerUnreachableException: None of the specified endpoints were reachable
+ ---> System.AggregateException: One or more errors occurred. (Connection failed)
+ ---> RabbitMQ.Client.Exceptions.ConnectFailureException: Connection failed
+ ---> System.Net.Sockets.SocketException (111): Connection refused
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at RabbitMQ.Client.TcpClientAdapter.ConnectAsync(String host, Int32 port)
+   at RabbitMQ.Client.Impl.TaskExtensions.TimeoutAfter(Task task, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectOrFail(ITcpClient socket, AmqpTcpEndpoint endpoint, TimeSpan timeout)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectOrFail(ITcpClient socket, AmqpTcpEndpoint endpoint, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectUsingAddressFamily(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan timeout, AddressFamily family)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectUsingIPv4(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler..ctor(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan connectionTimeout, TimeSpan readTimeout, TimeSpan writeTimeout)
+   at RabbitMQ.Client.Framing.Impl.IProtocolExtensions.CreateFrameHandler(IProtocol protocol, AmqpTcpEndpoint endpoint, ArrayPool`1 pool, Func`2 socketFactory, TimeSpan connectionTimeout, TimeSpan readTimeout, TimeSpan writeTimeout)
+   at RabbitMQ.Client.ConnectionFactory.CreateFrameHandler(AmqpTcpEndpoint endpoint)
+   at RabbitMQ.Client.EndpointResolverExtensions.SelectOne[T](IEndpointResolver resolver, Func`2 selector)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.EndpointResolverExtensions.SelectOne[T](IEndpointResolver resolver, Func`2 selector)
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IEndpointResolver endpointResolver, String clientProvidedName)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IEndpointResolver endpointResolver, String clientProvidedName)
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IList`1 hostnames, String clientProvidedName)
+   at MassTransit.RabbitMqTransport.ConnectionContextFactory.CreateConnection(ISupervisor supervisor) in /_/src/Transports/MassTransit.RabbitMqTransport/RabbitMqTransport/ConnectionContextFactory.cs:line 85
+2024-04-16 06:18:03.891 +00:00 [INF] Now listening on: https://[::]:443
+2024-04-16 06:18:03.892 +00:00 [INF] Now listening on: http://[::]:80
+2024-04-16 06:18:03.894 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-16 06:18:03.896 +00:00 [INF] Hosting environment: Development
+2024-04-16 06:18:03.897 +00:00 [INF] Content root path: /app
+2024-04-16 06:18:10.870 +00:00 [INF] Bus started: "rabbitmq://ecommerce.rabbitmq/"
+2024-04-16 06:22:55.909 +00:00 [INF] Request starting HTTP/2 GET https://localhost:62411/swagger - -
+2024-04-16 06:22:55.989 +00:00 [INF] Request finished HTTP/2 GET https://localhost:62411/swagger - - - 301 0 - 79.6700ms
+2024-04-16 06:22:56.045 +00:00 [INF] Request starting HTTP/2 GET https://localhost:62411/swagger/index.html - -
+2024-04-16 06:22:56.314 +00:00 [INF] Request finished HTTP/2 GET https://localhost:62411/swagger/index.html - - - 200 - text/html;charset=utf-8 268.1911ms
+2024-04-16 06:22:56.350 +00:00 [INF] Request starting HTTP/2 GET https://localhost:62411/swagger/swagger-ui.css - -
+2024-04-16 06:22:56.372 +00:00 [INF] Request starting HTTP/2 GET https://localhost:62411/swagger/swagger-ui-bundle.js - -
+2024-04-16 06:22:56.372 +00:00 [INF] Request starting HTTP/2 GET https://localhost:62411/swagger/swagger-ui-standalone-preset.js - -
+2024-04-16 06:22:56.537 +00:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2024-04-16 06:22:56.538 +00:00 [INF] Request finished HTTP/2 GET https://localhost:62411/swagger/swagger-ui.css - - - 200 144929 text/css 187.7195ms
+2024-04-16 06:22:56.556 +00:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2024-04-16 06:22:56.558 +00:00 [INF] Request finished HTTP/2 GET https://localhost:62411/swagger/swagger-ui-standalone-preset.js - - - 200 312163 text/javascript 185.8137ms
+2024-04-16 06:22:56.730 +00:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2024-04-16 06:22:56.731 +00:00 [INF] Request finished HTTP/2 GET https://localhost:62411/swagger/swagger-ui-bundle.js - - - 200 1061536 text/javascript 359.6414ms
+2024-04-16 06:22:56.874 +00:00 [INF] Request starting HTTP/2 GET https://localhost:62411/swagger/favicon-32x32.png - -
+2024-04-16 06:22:56.875 +00:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2024-04-16 06:22:56.877 +00:00 [INF] Request finished HTTP/2 GET https://localhost:62411/swagger/favicon-32x32.png - - - 200 628 image/png 2.9122ms
+2024-04-16 06:22:56.995 +00:00 [INF] Request starting HTTP/2 GET https://localhost:62411/swagger/v1/swagger.json - -
+2024-04-16 06:22:57.166 +00:00 [INF] Request finished HTTP/2 GET https://localhost:62411/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 171.5114ms
+2024-04-16 06:24:14.115 +00:00 [INF] Request starting HTTP/2 POST https://localhost:62411/api/User/Create application/json 111
+2024-04-16 06:24:14.124 +00:00 [INF] CORS policy execution successful.
+2024-04-16 06:24:14.418 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 06:24:14.469 +00:00 [INF] Route matched with {action = "UserRegister", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserRegister(E_commerce.Models.DTO_s.User.UserRegisterRequest) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 06:24:17.169 +00:00 [INF] Executed DbCommand (97ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 06:24:17.352 +00:00 [INF] Executed DbCommand (30ms) [Parameters=[@__normalizedUserName_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedUserName" = @__normalizedUserName_0
+LIMIT 1
+2024-04-16 06:24:17.592 +00:00 [INF] Executed DbCommand (24ms) [Parameters=[@p0='?', @p1='?' (DbType = Int32), @p2='?', @p3='?', @p4='?' (DbType = Boolean), @p5='?' (DbType = Double), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (DbType = Double), @p9='?', @p10='?', @p11='?', @p12='?', @p13='?' (DbType = Boolean), @p14='?', @p15='?' (DbType = Boolean), @p16='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetUsers" ("Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "Latitude", "LockoutEnabled", "LockoutEnd", "Longitude", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16);
+2024-04-16 06:24:17.621 +00:00 [INF] Executed DbCommand (8ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 06:24:17.651 +00:00 [INF] Executed DbCommand (12ms) [Parameters=[@__normalizedRoleName_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedRoleName_0
+LIMIT 2
+2024-04-16 06:24:17.701 +00:00 [INF] Executed DbCommand (12ms) [Parameters=[@__p_0='?', @__p_1='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."UserId", a."RoleId"
+FROM "AspNetUserRoles" AS a
+WHERE a."UserId" = @__p_0 AND a."RoleId" = @__p_1
+LIMIT 1
+2024-04-16 06:24:17.710 +00:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedRoleName_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedRoleName_0
+LIMIT 2
+2024-04-16 06:24:17.735 +00:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedUserName_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedUserName" = @__normalizedUserName_0
+LIMIT 1
+2024-04-16 06:24:17.789 +00:00 [INF] Executed DbCommand (17ms) [Parameters=[@p0='?', @p1='?', @p18='?', @p2='?' (DbType = Int32), @p3='?', @p19='?', @p4='?', @p5='?' (DbType = Boolean), @p6='?' (DbType = Double), @p7='?' (DbType = Boolean), @p8='?' (DbType = DateTime), @p9='?' (DbType = Double), @p10='?', @p11='?', @p12='?', @p13='?', @p14='?' (DbType = Boolean), @p15='?', @p16='?' (DbType = Boolean), @p17='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetUserRoles" ("RoleId", "UserId")
+VALUES (@p0, @p1);
+UPDATE "AspNetUsers" SET "AccessFailedCount" = @p2, "ConcurrencyStamp" = @p3, "Email" = @p4, "EmailConfirmed" = @p5, "Latitude" = @p6, "LockoutEnabled" = @p7, "LockoutEnd" = @p8, "Longitude" = @p9, "NormalizedEmail" = @p10, "NormalizedUserName" = @p11, "PasswordHash" = @p12, "PhoneNumber" = @p13, "PhoneNumberConfirmed" = @p14, "SecurityStamp" = @p15, "TwoFactorEnabled" = @p16, "UserName" = @p17
+WHERE "Id" = @p18 AND "ConcurrencyStamp" = @p19;
+2024-04-16 06:24:17.900 +00:00 [INF] Executed DbCommand (34ms) [Parameters=[@p0='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Cart" ("UserId")
+VALUES (@p0)
+RETURNING "Id";
+2024-04-16 06:24:19.570 +00:00 [INF] ApiResponse object => {"StatusCode":201,"IsSuccess":true,"Result":null,"Errors":[],"$type":"ApiResponse"}
+2024-04-16 06:24:19.586 +00:00 [INF] Executing OkObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 06:24:19.604 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce) in 5129.5658ms
+2024-04-16 06:24:19.606 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 06:24:19.611 +00:00 [INF] HTTP POST /api/User/Create responded 200 in 5478.3573 ms
+2024-04-16 06:24:19.622 +00:00 [INF] Request finished HTTP/2 POST https://localhost:62411/api/User/Create application/json 111 - 200 - application/json;+charset=utf-8 5507.9961ms
+2024-04-16 06:25:13.000 +00:00 [INF] Request starting HTTP/2 POST https://localhost:62411/api/Email/verify application/json 341
+2024-04-16 06:25:13.008 +00:00 [INF] CORS policy execution successful.
+2024-04-16 06:25:13.012 +00:00 [INF] Executing endpoint 'E_commerce.Controllers.EmailController.VerifyEmail (E-commerce)'
+2024-04-16 06:25:13.017 +00:00 [INF] Route matched with {action = "VerifyEmail", controller = "Email"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] VerifyEmail(System.String) on controller E_commerce.Controllers.EmailController (E-commerce).
+2024-04-16 06:25:13.120 +00:00 [INF] Executed DbCommand (7ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 06:25:13.254 +00:00 [INF] ApiResponse object => {"StatusCode":400,"IsSuccess":false,"Result":null,"Errors":[],"$type":"ApiResponse"}
+2024-04-16 06:25:13.309 +00:00 [INF] Executing NotFoundObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 06:25:13.312 +00:00 [INF] Executed action E_commerce.Controllers.EmailController.VerifyEmail (E-commerce) in 293.1782ms
+2024-04-16 06:25:13.313 +00:00 [INF] Executed endpoint 'E_commerce.Controllers.EmailController.VerifyEmail (E-commerce)'
+2024-04-16 06:25:13.315 +00:00 [INF] HTTP POST /api/Email/verify responded 404 in 305.8461 ms
+2024-04-16 06:25:13.318 +00:00 [INF] Request finished HTTP/2 POST https://localhost:62411/api/Email/verify application/json 341 - 404 - application/json;+charset=utf-8 338.0943ms
+2024-04-16 06:25:26.244 +00:00 [INF] Request starting HTTP/2 POST https://localhost:62411/api/Email/verify application/json 284
+2024-04-16 06:25:26.246 +00:00 [INF] CORS policy execution successful.
+2024-04-16 06:25:26.251 +00:00 [INF] Executing endpoint 'E_commerce.Controllers.EmailController.VerifyEmail (E-commerce)'
+2024-04-16 06:25:26.253 +00:00 [INF] Route matched with {action = "VerifyEmail", controller = "Email"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] VerifyEmail(System.String) on controller E_commerce.Controllers.EmailController (E-commerce).
+2024-04-16 06:25:26.338 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 06:25:26.342 +00:00 [INF] ApiResponse object => {"StatusCode":400,"IsSuccess":false,"Result":null,"Errors":[],"$type":"ApiResponse"}
+2024-04-16 06:25:26.344 +00:00 [INF] Executing NotFoundObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 06:25:26.345 +00:00 [INF] Executed action E_commerce.Controllers.EmailController.VerifyEmail (E-commerce) in 91.6457ms
+2024-04-16 06:25:26.346 +00:00 [INF] Executed endpoint 'E_commerce.Controllers.EmailController.VerifyEmail (E-commerce)'
+2024-04-16 06:25:26.346 +00:00 [INF] HTTP POST /api/Email/verify responded 404 in 99.8589 ms
+2024-04-16 06:25:26.347 +00:00 [INF] Request finished HTTP/2 POST https://localhost:62411/api/Email/verify application/json 284 - 404 - application/json;+charset=utf-8 102.7470ms
+2024-04-16 06:25:34.813 +00:00 [INF] Request starting HTTP/2 POST https://localhost:62411/api/Email/verify application/json 302
+2024-04-16 06:25:34.814 +00:00 [INF] CORS policy execution successful.
+2024-04-16 06:25:34.815 +00:00 [INF] Executing endpoint 'E_commerce.Controllers.EmailController.VerifyEmail (E-commerce)'
+2024-04-16 06:25:34.816 +00:00 [INF] Route matched with {action = "VerifyEmail", controller = "Email"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] VerifyEmail(System.String) on controller E_commerce.Controllers.EmailController (E-commerce).
+2024-04-16 06:25:34.844 +00:00 [INF] Executed DbCommand (25ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 06:25:34.869 +00:00 [INF] ApiResponse object => {"StatusCode":400,"IsSuccess":false,"Result":null,"Errors":[],"$type":"ApiResponse"}
+2024-04-16 06:25:34.914 +00:00 [INF] Executing NotFoundObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 06:25:34.921 +00:00 [INF] Executed action E_commerce.Controllers.EmailController.VerifyEmail (E-commerce) in 103.6895ms
+2024-04-16 06:25:34.922 +00:00 [INF] Executed endpoint 'E_commerce.Controllers.EmailController.VerifyEmail (E-commerce)'
+2024-04-16 06:25:34.923 +00:00 [INF] HTTP POST /api/Email/verify responded 404 in 107.6727 ms
+2024-04-16 06:25:34.924 +00:00 [INF] Request finished HTTP/2 POST https://localhost:62411/api/Email/verify application/json 302 - 404 - application/json;+charset=utf-8 111.7011ms
+2024-04-16 06:26:27.984 +00:00 [INF] Request starting HTTP/2 POST https://localhost:62411/api/User/ConfirmEmail application/json 335
+2024-04-16 06:26:27.992 +00:00 [INF] CORS policy execution successful.
+2024-04-16 06:26:27.994 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.ConfirmEmail (E-commerce)'
+2024-04-16 06:26:27.999 +00:00 [INF] Route matched with {action = "ConfirmEmail", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ConfirmEmail(Confirmpass) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 06:26:28.119 +00:00 [INF] Executed DbCommand (47ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 06:26:28.216 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 06:26:28.218 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.ConfirmEmail (E-commerce) in 217.8674ms
+2024-04-16 06:26:28.219 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.ConfirmEmail (E-commerce)'
+2024-04-16 06:26:28.221 +00:00 [INF] HTTP POST /api/User/ConfirmEmail responded 400 in 228.0320 ms
+2024-04-16 06:26:28.225 +00:00 [INF] Request finished HTTP/2 POST https://localhost:62411/api/User/ConfirmEmail application/json 335 - 400 - application/json;+charset=utf-8 261.5384ms
+2024-04-16 06:27:11.831 +00:00 [INF] Request starting HTTP/2 POST https://localhost:62411/api/User/ConfirmEmail application/json 335
+2024-04-16 06:27:11.832 +00:00 [INF] CORS policy execution successful.
+2024-04-16 06:27:11.833 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.ConfirmEmail (E-commerce)'
+2024-04-16 06:27:11.835 +00:00 [INF] Route matched with {action = "ConfirmEmail", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ConfirmEmail(Confirmpass) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 06:27:11.923 +00:00 [INF] Executed DbCommand (24ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 06:27:11.951 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 06:27:11.952 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.ConfirmEmail (E-commerce) in 116.9772ms
+2024-04-16 06:27:11.953 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.ConfirmEmail (E-commerce)'
+2024-04-16 06:27:11.954 +00:00 [INF] HTTP POST /api/User/ConfirmEmail responded 400 in 120.4813 ms
+2024-04-16 06:27:11.956 +00:00 [INF] Request finished HTTP/2 POST https://localhost:62411/api/User/ConfirmEmail application/json 335 - 400 - application/json;+charset=utf-8 125.5105ms
+2024-04-16 06:28:01.618 +00:00 [INF] Request starting HTTP/2 POST https://localhost:62411/api/Email/verify application/json 23
+2024-04-16 06:28:01.619 +00:00 [INF] CORS policy execution successful.
+2024-04-16 06:28:01.620 +00:00 [INF] Executing endpoint 'E_commerce.Controllers.EmailController.VerifyEmail (E-commerce)'
+2024-04-16 06:28:01.621 +00:00 [INF] Route matched with {action = "VerifyEmail", controller = "Email"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] VerifyEmail(System.String) on controller E_commerce.Controllers.EmailController (E-commerce).
+2024-04-16 06:28:01.672 +00:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 06:28:02.732 +00:00 [INF] ApiResponse object => {"StatusCode":200,"IsSuccess":true,"Result":null,"Errors":[],"$type":"ApiResponse"}
+2024-04-16 06:28:02.733 +00:00 [INF] Executing OkObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 06:28:02.734 +00:00 [INF] Executed action E_commerce.Controllers.EmailController.VerifyEmail (E-commerce) in 1111.5247ms
+2024-04-16 06:28:02.735 +00:00 [INF] Executed endpoint 'E_commerce.Controllers.EmailController.VerifyEmail (E-commerce)'
+2024-04-16 06:28:02.736 +00:00 [INF] HTTP POST /api/Email/verify responded 200 in 1116.1020 ms
+2024-04-16 06:28:02.737 +00:00 [INF] Request finished HTTP/2 POST https://localhost:62411/api/Email/verify application/json 23 - 200 - application/json;+charset=utf-8 1119.5362ms
+2024-04-16 06:28:52.895 +00:00 [INF] Request starting HTTP/2 POST https://localhost:62411/api/User/Login application/json 69
+2024-04-16 06:28:52.896 +00:00 [INF] CORS policy execution successful.
+2024-04-16 06:28:52.903 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.UserLogin (E-commerce)'
+2024-04-16 06:28:52.910 +00:00 [INF] Route matched with {action = "UserLogin", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserLogin(E_commerce.Models.DTO_s.User.UserLoginRequest) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 06:28:52.949 +00:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 06:28:53.339 +00:00 [INF] Executed DbCommand (24ms) [Parameters=[@__userId_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a0."Name"
+FROM "AspNetUserRoles" AS a
+INNER JOIN "AspNetRoles" AS a0 ON a."RoleId" = a0."Id"
+WHERE a."UserId" = @__userId_0
+2024-04-16 06:28:53.378 +00:00 [INF] ApiResponse object => {"StatusCode":200,"IsSuccess":true,"EmailConfirmed":false,"Result":{"JwtToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJoZXJlaWFtNTY4NUBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImQ3YTQwODliLTg1MDQtNDJjYy1iOWQ1LTc0MTQ1ZWY4NjYwOCIsImp0aSI6Ijk5MDgyMmU0LWQ2Y2YtNGM4MS1iYTE5LTkzOTE3YTI5NjYyNSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJleHAiOjE3MTMyNTYxMzMsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjcxMDciLCJhdWQiOiJVSS11cmwifQ.RB5ozfwtSeoJrZA11LVaqCDEaRcW0mD1shnfKSJ_XNU","ExpireDate":"2024-04-16T08:28:53.0000000Z","$type":"JwtTokenHandler"},"Errors":[],"$type":"ApiLoginResponse"}
+2024-04-16 06:28:53.381 +00:00 [INF] Executing OkObjectResult, writing value of type 'E_commerce.Models.ApiLoginResponse'.
+2024-04-16 06:28:53.394 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.UserLogin (E-commerce) in 483.4148ms
+2024-04-16 06:28:53.396 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.UserLogin (E-commerce)'
+2024-04-16 06:28:53.397 +00:00 [INF] HTTP POST /api/User/Login responded 200 in 496.2832 ms
+2024-04-16 06:28:53.398 +00:00 [INF] Request finished HTTP/2 POST https://localhost:62411/api/User/Login application/json 69 - 200 - application/json;+charset=utf-8 503.1091ms
+2024-04-16 06:51:11.123 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2024-04-16 06:51:11.131 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-04-16 06:51:12.241 +00:00 [INF] Now listening on: https://[::]:443
+2024-04-16 06:51:12.242 +00:00 [INF] Now listening on: http://[::]:80
+2024-04-16 06:51:12.314 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-16 06:51:12.337 +00:00 [INF] Hosting environment: Development
+2024-04-16 06:51:12.338 +00:00 [INF] Content root path: /app
+2024-04-16 06:51:12.468 +00:00 [INF] Bus started: "rabbitmq://ecommerce.rabbitmq/"
+2024-04-16 06:57:02.132 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2024-04-16 06:57:02.143 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-04-16 06:57:02.487 +00:00 [INF] Creating key {4969667e-3dab-43ec-94bc-04c671adc056} with creation date 2024-04-16 06:57:02Z, activation date 2024-04-16 06:57:02Z, and expiration date 2024-07-15 06:57:02Z.
+2024-04-16 06:57:02.504 +00:00 [WRN] No XML encryptor configured. Key {4969667e-3dab-43ec-94bc-04c671adc056} may be persisted to storage in unencrypted form.
+2024-04-16 06:57:02.510 +00:00 [INF] Writing data to file '/root/.aspnet/DataProtection-Keys/key-4969667e-3dab-43ec-94bc-04c671adc056.xml'.
+2024-04-16 06:57:03.118 +00:00 [WRN] Connection Failed: "rabbitmq://ecommerce.rabbitmq/"
+RabbitMQ.Client.Exceptions.BrokerUnreachableException: None of the specified endpoints were reachable
+ ---> System.AggregateException: One or more errors occurred. (Connection failed)
+ ---> RabbitMQ.Client.Exceptions.ConnectFailureException: Connection failed
+ ---> System.Net.Sockets.SocketException (111): Connection refused
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at RabbitMQ.Client.TcpClientAdapter.ConnectAsync(String host, Int32 port)
+   at RabbitMQ.Client.Impl.TaskExtensions.TimeoutAfter(Task task, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectOrFail(ITcpClient socket, AmqpTcpEndpoint endpoint, TimeSpan timeout)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectOrFail(ITcpClient socket, AmqpTcpEndpoint endpoint, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectUsingAddressFamily(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan timeout, AddressFamily family)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectUsingIPv4(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler..ctor(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan connectionTimeout, TimeSpan readTimeout, TimeSpan writeTimeout)
+   at RabbitMQ.Client.Framing.Impl.IProtocolExtensions.CreateFrameHandler(IProtocol protocol, AmqpTcpEndpoint endpoint, ArrayPool`1 pool, Func`2 socketFactory, TimeSpan connectionTimeout, TimeSpan readTimeout, TimeSpan writeTimeout)
+   at RabbitMQ.Client.ConnectionFactory.CreateFrameHandler(AmqpTcpEndpoint endpoint)
+   at RabbitMQ.Client.EndpointResolverExtensions.SelectOne[T](IEndpointResolver resolver, Func`2 selector)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.EndpointResolverExtensions.SelectOne[T](IEndpointResolver resolver, Func`2 selector)
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IEndpointResolver endpointResolver, String clientProvidedName)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IEndpointResolver endpointResolver, String clientProvidedName)
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IList`1 hostnames, String clientProvidedName)
+   at MassTransit.RabbitMqTransport.ConnectionContextFactory.CreateConnection(ISupervisor supervisor) in /_/src/Transports/MassTransit.RabbitMqTransport/RabbitMqTransport/ConnectionContextFactory.cs:line 85
+2024-04-16 06:57:03.343 +00:00 [INF] Now listening on: https://[::]:443
+2024-04-16 06:57:03.344 +00:00 [INF] Now listening on: http://[::]:80
+2024-04-16 06:57:03.347 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-16 06:57:03.348 +00:00 [INF] Hosting environment: Development
+2024-04-16 06:57:03.349 +00:00 [INF] Content root path: /app
+2024-04-16 06:57:11.287 +00:00 [INF] Bus started: "rabbitmq://ecommerce.rabbitmq/"
+2024-04-16 07:01:58.528 +00:00 [INF] Request starting HTTP/2 GET https://localhost:64795/swagger - -
+2024-04-16 07:01:59.113 +00:00 [INF] Request finished HTTP/2 GET https://localhost:64795/swagger - - - 301 0 - 605.5426ms
+2024-04-16 07:01:59.198 +00:00 [INF] Request starting HTTP/2 GET https://localhost:64795/swagger/index.html - -
+2024-04-16 07:02:00.693 +00:00 [INF] Request finished HTTP/2 GET https://localhost:64795/swagger/index.html - - - 200 - text/html;charset=utf-8 1494.6430ms
+2024-04-16 07:02:00.873 +00:00 [INF] Request starting HTTP/2 GET https://localhost:64795/swagger/swagger-ui.css - -
+2024-04-16 07:02:00.896 +00:00 [INF] Request starting HTTP/2 GET https://localhost:64795/swagger/swagger-ui-bundle.js - -
+2024-04-16 07:02:00.896 +00:00 [INF] Request starting HTTP/2 GET https://localhost:64795/swagger/swagger-ui-standalone-preset.js - -
+2024-04-16 07:02:02.218 +00:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2024-04-16 07:02:02.226 +00:00 [INF] Request finished HTTP/2 GET https://localhost:64795/swagger/swagger-ui.css - - - 200 144929 text/css 1352.0057ms
+2024-04-16 07:02:02.970 +00:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2024-04-16 07:02:03.013 +00:00 [INF] Request finished HTTP/2 GET https://localhost:64795/swagger/swagger-ui-standalone-preset.js - - - 200 312163 text/javascript 2117.2529ms
+2024-04-16 07:02:03.322 +00:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2024-04-16 07:02:03.326 +00:00 [INF] Request finished HTTP/2 GET https://localhost:64795/swagger/swagger-ui-bundle.js - - - 200 1061536 text/javascript 2430.5283ms
+2024-04-16 07:02:03.937 +00:00 [INF] Request starting HTTP/2 GET https://localhost:64795/swagger/favicon-32x32.png - -
+2024-04-16 07:02:03.953 +00:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2024-04-16 07:02:03.959 +00:00 [INF] Request finished HTTP/2 GET https://localhost:64795/swagger/favicon-32x32.png - - - 200 628 image/png 21.7668ms
+2024-04-16 07:02:04.306 +00:00 [INF] Request starting HTTP/2 GET https://localhost:64795/swagger/v1/swagger.json - -
+2024-04-16 07:02:05.496 +00:00 [INF] Request finished HTTP/2 GET https://localhost:64795/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 1193.6332ms
+2024-04-16 07:55:49.130 +00:00 [INF] Request starting HTTP/2 GET https://localhost:64795/api/User/GetAllUsers - -
+2024-04-16 07:55:49.547 +00:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Admin|User)
+2024-04-16 07:55:49.568 +00:00 [INF] AuthenticationScheme: Bearer was challenged.
+2024-04-16 07:55:49.575 +00:00 [INF] HTTP GET /api/User/GetAllUsers responded 401 in 396.6650 ms
+2024-04-16 07:55:49.580 +00:00 [INF] Request finished HTTP/2 GET https://localhost:64795/api/User/GetAllUsers - - - 401 0 - 451.0139ms
+2024-04-16 07:57:12.839 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2024-04-16 07:57:12.863 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-04-16 07:57:16.532 +00:00 [INF] Bus started: "rabbitmq://ecommerce.rabbitmq/"
+2024-04-16 07:57:16.933 +00:00 [INF] Now listening on: https://[::]:443
+2024-04-16 07:57:16.954 +00:00 [INF] Now listening on: http://[::]:80
+2024-04-16 07:57:16.961 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-16 07:57:16.968 +00:00 [INF] Hosting environment: Development
+2024-04-16 07:57:16.976 +00:00 [INF] Content root path: /app
+2024-04-16 08:02:00.280 +00:00 [INF] Request starting HTTP/2 GET https://localhost:64795/swagger/index.html - -
+2024-04-16 08:02:00.558 +00:00 [INF] Request finished HTTP/2 GET https://localhost:64795/swagger/index.html - - - 200 - text/html;charset=utf-8 282.6430ms
+2024-04-16 08:02:01.042 +00:00 [INF] Request starting HTTP/2 GET https://localhost:64795/swagger/v1/swagger.json - -
+2024-04-16 08:02:01.231 +00:00 [INF] Request finished HTTP/2 GET https://localhost:64795/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 188.8804ms
+2024-04-16 08:02:08.217 +00:00 [INF] Request starting HTTP/2 GET https://localhost:64795/api/User/GetAllUsers - -
+2024-04-16 08:02:08.406 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.GetAllUsers (E-commerce)'
+2024-04-16 08:02:08.439 +00:00 [INF] Route matched with {action = "GetAllUsers", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllUsers() on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 08:02:10.843 +00:00 [INF] Executed DbCommand (49ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+2024-04-16 08:02:10.959 +00:00 [INF] ApiResponse object => {"StatusCode":404,"IsSuccess":false,"Result":null,"Errors":["No Users Found!"],"$type":"ApiResponse"}
+2024-04-16 08:02:10.980 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 08:02:11.001 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.GetAllUsers (E-commerce) in 2554.7917ms
+2024-04-16 08:02:11.002 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.GetAllUsers (E-commerce)'
+2024-04-16 08:02:11.006 +00:00 [INF] HTTP GET /api/User/GetAllUsers responded 400 in 2780.5538 ms
+2024-04-16 08:02:11.019 +00:00 [INF] Request finished HTTP/2 GET https://localhost:64795/api/User/GetAllUsers - - - 400 - application/json;+charset=utf-8 2802.3128ms
+2024-04-16 08:05:09.836 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2024-04-16 08:05:09.843 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-04-16 08:05:10.971 +00:00 [INF] Now listening on: https://[::]:443
+2024-04-16 08:05:10.972 +00:00 [INF] Now listening on: http://[::]:80
+2024-04-16 08:05:10.975 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-16 08:05:10.977 +00:00 [INF] Hosting environment: Development
+2024-04-16 08:05:10.977 +00:00 [INF] Content root path: /app
+2024-04-16 08:05:11.036 +00:00 [INF] Bus started: "rabbitmq://ecommerce.rabbitmq/"
+2024-04-16 08:10:05.186 +00:00 [INF] Request starting HTTP/2 GET https://localhost:64795/swagger/index.html - -
+2024-04-16 08:10:05.523 +00:00 [INF] Request finished HTTP/2 GET https://localhost:64795/swagger/index.html - - - 200 - text/html;charset=utf-8 342.3008ms
+2024-04-16 08:10:05.858 +00:00 [INF] Request starting HTTP/2 GET https://localhost:64795/swagger/v1/swagger.json - -
+2024-04-16 08:10:06.102 +00:00 [INF] Request finished HTTP/2 GET https://localhost:64795/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 244.7293ms
+2024-04-16 08:10:19.847 +00:00 [INF] Request starting HTTP/2 POST https://localhost:64795/api/User/Create application/json 113
+2024-04-16 08:10:19.864 +00:00 [INF] CORS policy execution successful.
+2024-04-16 08:10:20.043 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 08:10:20.085 +00:00 [INF] Route matched with {action = "UserRegister", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserRegister(E_commerce.Models.DTO_s.User.UserRegisterRequest) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 08:10:24.189 +00:00 [INF] Executed DbCommand (116ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 08:10:24.440 +00:00 [INF] ApiResponse object => {"StatusCode":400,"IsSuccess":false,"Result":null,"Errors":["Email already exsists!"],"$type":"ApiResponse"}
+2024-04-16 08:10:24.476 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 08:10:24.505 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce) in 4411.4418ms
+2024-04-16 08:10:24.509 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 08:10:24.518 +00:00 [INF] HTTP POST /api/User/Create responded 400 in 4646.2755 ms
+2024-04-16 08:10:24.564 +00:00 [INF] Request finished HTTP/2 POST https://localhost:64795/api/User/Create application/json 113 - 400 - application/json;+charset=utf-8 4708.8831ms
+2024-04-16 08:16:18.766 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2024-04-16 08:16:18.784 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-04-16 08:16:19.251 +00:00 [INF] Creating key {08d1e00e-0e89-45d8-9ec3-f381054ff06e} with creation date 2024-04-16 08:16:19Z, activation date 2024-04-16 08:16:19Z, and expiration date 2024-07-15 08:16:19Z.
+2024-04-16 08:16:19.273 +00:00 [WRN] No XML encryptor configured. Key {08d1e00e-0e89-45d8-9ec3-f381054ff06e} may be persisted to storage in unencrypted form.
+2024-04-16 08:16:19.281 +00:00 [INF] Writing data to file '/root/.aspnet/DataProtection-Keys/key-08d1e00e-0e89-45d8-9ec3-f381054ff06e.xml'.
+2024-04-16 08:16:19.793 +00:00 [WRN] Connection Failed: "rabbitmq://ecommerce.rabbitmq/"
+RabbitMQ.Client.Exceptions.BrokerUnreachableException: None of the specified endpoints were reachable
+ ---> System.AggregateException: One or more errors occurred. (Connection failed)
+ ---> RabbitMQ.Client.Exceptions.ConnectFailureException: Connection failed
+ ---> System.Net.Sockets.SocketException (111): Connection refused
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at RabbitMQ.Client.TcpClientAdapter.ConnectAsync(String host, Int32 port)
+   at RabbitMQ.Client.Impl.TaskExtensions.TimeoutAfter(Task task, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectOrFail(ITcpClient socket, AmqpTcpEndpoint endpoint, TimeSpan timeout)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectOrFail(ITcpClient socket, AmqpTcpEndpoint endpoint, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectUsingAddressFamily(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan timeout, AddressFamily family)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectUsingIPv4(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler..ctor(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan connectionTimeout, TimeSpan readTimeout, TimeSpan writeTimeout)
+   at RabbitMQ.Client.Framing.Impl.IProtocolExtensions.CreateFrameHandler(IProtocol protocol, AmqpTcpEndpoint endpoint, ArrayPool`1 pool, Func`2 socketFactory, TimeSpan connectionTimeout, TimeSpan readTimeout, TimeSpan writeTimeout)
+   at RabbitMQ.Client.ConnectionFactory.CreateFrameHandler(AmqpTcpEndpoint endpoint)
+   at RabbitMQ.Client.EndpointResolverExtensions.SelectOne[T](IEndpointResolver resolver, Func`2 selector)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.EndpointResolverExtensions.SelectOne[T](IEndpointResolver resolver, Func`2 selector)
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IEndpointResolver endpointResolver, String clientProvidedName)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IEndpointResolver endpointResolver, String clientProvidedName)
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IList`1 hostnames, String clientProvidedName)
+   at MassTransit.RabbitMqTransport.ConnectionContextFactory.CreateConnection(ISupervisor supervisor) in /_/src/Transports/MassTransit.RabbitMqTransport/RabbitMqTransport/ConnectionContextFactory.cs:line 85
+2024-04-16 08:16:20.012 +00:00 [INF] Now listening on: https://[::]:443
+2024-04-16 08:16:20.034 +00:00 [INF] Now listening on: http://[::]:80
+2024-04-16 08:16:20.036 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-16 08:16:20.038 +00:00 [INF] Hosting environment: Development
+2024-04-16 08:16:20.039 +00:00 [INF] Content root path: /app
+2024-04-16 08:16:27.679 +00:00 [INF] Bus started: "rabbitmq://ecommerce.rabbitmq/"
+2024-04-16 08:21:11.295 +00:00 [INF] Request starting HTTP/2 GET https://localhost:53652/swagger - -
+2024-04-16 08:21:11.369 +00:00 [INF] Request finished HTTP/2 GET https://localhost:53652/swagger - - - 301 0 - 70.1086ms
+2024-04-16 08:21:11.382 +00:00 [INF] Request starting HTTP/2 GET https://localhost:53652/swagger/index.html - -
+2024-04-16 08:21:11.545 +00:00 [INF] Request finished HTTP/2 GET https://localhost:53652/swagger/index.html - - - 200 - text/html;charset=utf-8 163.6263ms
+2024-04-16 08:21:11.566 +00:00 [INF] Request starting HTTP/2 GET https://localhost:53652/swagger/swagger-ui.css - -
+2024-04-16 08:21:11.595 +00:00 [INF] Request starting HTTP/2 GET https://localhost:53652/swagger/swagger-ui-standalone-preset.js - -
+2024-04-16 08:21:11.595 +00:00 [INF] Request starting HTTP/2 GET https://localhost:53652/swagger/swagger-ui-bundle.js - -
+2024-04-16 08:21:11.743 +00:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2024-04-16 08:21:11.744 +00:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2024-04-16 08:21:11.746 +00:00 [INF] Request finished HTTP/2 GET https://localhost:53652/swagger/swagger-ui-standalone-preset.js - - - 200 312163 text/javascript 150.7447ms
+2024-04-16 08:21:11.748 +00:00 [INF] Request finished HTTP/2 GET https://localhost:53652/swagger/swagger-ui.css - - - 200 144929 text/css 182.0245ms
+2024-04-16 08:21:11.853 +00:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2024-04-16 08:21:11.854 +00:00 [INF] Request finished HTTP/2 GET https://localhost:53652/swagger/swagger-ui-bundle.js - - - 200 1061536 text/javascript 259.7111ms
+2024-04-16 08:21:11.975 +00:00 [INF] Request starting HTTP/2 GET https://localhost:53652/swagger/favicon-32x32.png - -
+2024-04-16 08:21:11.978 +00:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2024-04-16 08:21:11.979 +00:00 [INF] Request finished HTTP/2 GET https://localhost:53652/swagger/favicon-32x32.png - - - 200 628 image/png 4.9034ms
+2024-04-16 08:21:12.079 +00:00 [INF] Request starting HTTP/2 GET https://localhost:53652/swagger/v1/swagger.json - -
+2024-04-16 08:21:12.311 +00:00 [INF] Request finished HTTP/2 GET https://localhost:53652/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 232.1420ms
+2024-04-16 08:22:05.702 +00:00 [INF] Request starting HTTP/2 POST https://localhost:53652/api/User/Create application/json 115
+2024-04-16 08:22:05.715 +00:00 [INF] CORS policy execution successful.
+2024-04-16 08:22:05.912 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 08:22:05.957 +00:00 [INF] Route matched with {action = "UserRegister", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserRegister(E_commerce.Models.DTO_s.User.UserRegisterRequest) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 08:22:08.432 +00:00 [INF] Executed DbCommand (57ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 08:22:08.556 +00:00 [INF] ApiResponse object => {"StatusCode":400,"IsSuccess":false,"Result":null,"Errors":["Email already exsists!"],"$type":"ApiResponse"}
+2024-04-16 08:22:08.574 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 08:22:08.590 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce) in 2625.8612ms
+2024-04-16 08:22:08.592 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 08:22:08.597 +00:00 [INF] HTTP POST /api/User/Create responded 400 in 2876.2942 ms
+2024-04-16 08:22:08.608 +00:00 [INF] Request finished HTTP/2 POST https://localhost:53652/api/User/Create application/json 115 - 400 - application/json;+charset=utf-8 2929.6700ms
+2024-04-16 08:22:21.512 +00:00 [INF] Request starting HTTP/2 GET https://localhost:53652/api/User/GetAllUsers - -
+2024-04-16 08:22:21.525 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.GetAllUsers (E-commerce)'
+2024-04-16 08:22:21.531 +00:00 [INF] Route matched with {action = "GetAllUsers", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllUsers() on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 08:22:21.613 +00:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+2024-04-16 08:22:21.616 +00:00 [INF] ApiResponse object => {"StatusCode":404,"IsSuccess":false,"Result":null,"Errors":["No Users Found!"],"$type":"ApiResponse"}
+2024-04-16 08:22:21.619 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 08:22:21.620 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.GetAllUsers (E-commerce) in 88.8672ms
+2024-04-16 08:22:21.621 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.GetAllUsers (E-commerce)'
+2024-04-16 08:22:21.622 +00:00 [INF] HTTP GET /api/User/GetAllUsers responded 400 in 102.4328 ms
+2024-04-16 08:22:21.626 +00:00 [INF] Request finished HTTP/2 GET https://localhost:53652/api/User/GetAllUsers - - - 400 - application/json;+charset=utf-8 114.4885ms
+2024-04-16 08:23:33.982 +00:00 [INF] Request starting HTTP/2 GET https://localhost:53652/api/Product/GetAllByUserId?userId=52 - -
+2024-04-16 08:23:33.990 +00:00 [INF] Executing endpoint 'E_commerce.Controllers.ProductController.GetAllByUserId (E-commerce)'
+2024-04-16 08:23:34.003 +00:00 [INF] Route matched with {action = "GetAllByUserId", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllByUserId(System.String) on controller E_commerce.Controllers.ProductController (E-commerce).
+2024-04-16 08:23:34.344 +00:00 [INF] Executed DbCommand (41ms) [Parameters=[@__userId_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT p."Id", p."CategoryId", p."DateListed", p."Description", p."IsOrdered", p."Latitude", p."Longitude", p."OrderId", p."Price", p."RandomOrderIdentifier", p."Title", p."UserId", i."Id", i."IsDisplayImage", i."ProductId", i."Url"
+FROM "Product" AS p
+LEFT JOIN "Image" AS i ON p."Id" = i."ProductId"
+WHERE p."UserId" = @__userId_0
+ORDER BY p."Id"
+2024-04-16 08:23:34.346 +00:00 [INF] ApiResponse object => {"StatusCode":400,"IsSuccess":false,"Result":null,"Errors":["You dont have any products!"],"$type":"ApiResponse"}
+2024-04-16 08:23:34.347 +00:00 [INF] Executing NotFoundObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 08:23:34.348 +00:00 [INF] Executed action E_commerce.Controllers.ProductController.GetAllByUserId (E-commerce) in 344.6688ms
+2024-04-16 08:23:34.348 +00:00 [INF] Executed endpoint 'E_commerce.Controllers.ProductController.GetAllByUserId (E-commerce)'
+2024-04-16 08:23:34.349 +00:00 [INF] HTTP GET /api/Product/GetAllByUserId responded 404 in 362.4601 ms
+2024-04-16 08:23:34.350 +00:00 [INF] Request finished HTTP/2 GET https://localhost:53652/api/Product/GetAllByUserId?userId=52 - - - 404 - application/json;+charset=utf-8 367.6356ms
+2024-04-16 08:24:23.785 +00:00 [INF] Request starting HTTP/2 GET https://localhost:53652/api/Category/GetAll - -
+2024-04-16 08:24:23.788 +00:00 [INF] Executing endpoint 'E_commerce.Controllers.CategoryController.GetAllCategories (E-commerce)'
+2024-04-16 08:24:23.792 +00:00 [INF] Route matched with {action = "GetAllCategories", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllCategories() on controller E_commerce.Controllers.CategoryController (E-commerce).
+2024-04-16 08:24:23.891 +00:00 [INF] Executed DbCommand (25ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."Name"
+FROM "Category" AS c
+2024-04-16 08:24:23.933 +00:00 [INF] ApiResponse object => {"StatusCode":200,"IsSuccess":true,"Result":[{"Id":1,"Name":"Cars","$type":"Category"},{"Id":2,"Name":"Electronics","$type":"Category"},{"Id":3,"Name":"Decor","$type":"Category"},{"Id":6,"Name":"Bussss","$type":"Category"},{"Id":5,"Name":"stringSssons","$type":"Category"},{"Id":7,"Name":"Boat","$type":"Category"},{"Id":40,"Name":"Soda","$type":"Category"},{"Id":43,"Name":"Socks","$type":"Category"}],"Errors":[],"$type":"ApiResponse"}
+2024-04-16 08:24:23.936 +00:00 [INF] Executing OkObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 08:24:23.942 +00:00 [INF] Executed action E_commerce.Controllers.CategoryController.GetAllCategories (E-commerce) in 149.0624ms
+2024-04-16 08:24:23.943 +00:00 [INF] Executed endpoint 'E_commerce.Controllers.CategoryController.GetAllCategories (E-commerce)'
+2024-04-16 08:24:23.944 +00:00 [INF] HTTP GET /api/Category/GetAll responded 200 in 156.4069 ms
+2024-04-16 08:24:23.945 +00:00 [INF] Request finished HTTP/2 GET https://localhost:53652/api/Category/GetAll - - - 200 - application/json;+charset=utf-8 164.0557ms
+2024-04-16 08:27:23.171 +00:00 [INF] Request starting HTTP/2 POST https://localhost:53652/api/User/Create application/json 108
+2024-04-16 08:27:23.221 +00:00 [INF] CORS policy execution successful.
+2024-04-16 08:27:23.223 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 08:27:23.224 +00:00 [INF] Route matched with {action = "UserRegister", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserRegister(E_commerce.Models.DTO_s.User.UserRegisterRequest) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 08:27:23.438 +00:00 [INF] Executed DbCommand (16ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 08:27:23.587 +00:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedUserName_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedUserName" = @__normalizedUserName_0
+LIMIT 1
+2024-04-16 08:27:23.791 +00:00 [INF] Executed DbCommand (32ms) [Parameters=[@p0='?', @p1='?' (DbType = Int32), @p2='?', @p3='?', @p4='?' (DbType = Boolean), @p5='?' (DbType = Double), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (DbType = Double), @p9='?', @p10='?', @p11='?', @p12='?', @p13='?' (DbType = Boolean), @p14='?', @p15='?' (DbType = Boolean), @p16='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetUsers" ("Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "Latitude", "LockoutEnabled", "LockoutEnd", "Longitude", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16);
+2024-04-16 08:27:23.847 +00:00 [INF] Executed DbCommand (29ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 08:27:23.897 +00:00 [INF] Executed DbCommand (26ms) [Parameters=[@__normalizedRoleName_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedRoleName_0
+LIMIT 2
+2024-04-16 08:27:23.956 +00:00 [INF] Executed DbCommand (16ms) [Parameters=[@__p_0='?', @__p_1='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."UserId", a."RoleId"
+FROM "AspNetUserRoles" AS a
+WHERE a."UserId" = @__p_0 AND a."RoleId" = @__p_1
+LIMIT 1
+2024-04-16 08:27:23.968 +00:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedRoleName_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedRoleName_0
+LIMIT 2
+2024-04-16 08:27:24.016 +00:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedUserName_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedUserName" = @__normalizedUserName_0
+LIMIT 1
+2024-04-16 08:27:24.110 +00:00 [INF] Executed DbCommand (17ms) [Parameters=[@p0='?', @p1='?', @p18='?', @p2='?' (DbType = Int32), @p3='?', @p19='?', @p4='?', @p5='?' (DbType = Boolean), @p6='?' (DbType = Double), @p7='?' (DbType = Boolean), @p8='?' (DbType = DateTime), @p9='?' (DbType = Double), @p10='?', @p11='?', @p12='?', @p13='?', @p14='?' (DbType = Boolean), @p15='?', @p16='?' (DbType = Boolean), @p17='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetUserRoles" ("RoleId", "UserId")
+VALUES (@p0, @p1);
+UPDATE "AspNetUsers" SET "AccessFailedCount" = @p2, "ConcurrencyStamp" = @p3, "Email" = @p4, "EmailConfirmed" = @p5, "Latitude" = @p6, "LockoutEnabled" = @p7, "LockoutEnd" = @p8, "Longitude" = @p9, "NormalizedEmail" = @p10, "NormalizedUserName" = @p11, "PasswordHash" = @p12, "PhoneNumber" = @p13, "PhoneNumberConfirmed" = @p14, "SecurityStamp" = @p15, "TwoFactorEnabled" = @p16, "UserName" = @p17
+WHERE "Id" = @p18 AND "ConcurrencyStamp" = @p19;
+2024-04-16 08:27:24.265 +00:00 [INF] Executed DbCommand (39ms) [Parameters=[@p0='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Cart" ("UserId")
+VALUES (@p0)
+RETURNING "Id";
+2024-04-16 08:27:25.848 +00:00 [INF] ApiResponse object => {"StatusCode":201,"IsSuccess":true,"Result":null,"Errors":[],"$type":"ApiResponse"}
+2024-04-16 08:27:25.849 +00:00 [INF] Executing OkObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 08:27:25.852 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce) in 2627.519ms
+2024-04-16 08:27:25.853 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 08:27:25.854 +00:00 [INF] HTTP POST /api/User/Create responded 200 in 2631.0489 ms
+2024-04-16 08:27:25.855 +00:00 [INF] Request finished HTTP/2 POST https://localhost:53652/api/User/Create application/json 108 - 200 - application/json;+charset=utf-8 2683.9344ms
+2024-04-16 08:27:53.538 +00:00 [INF] Request starting HTTP/2 POST https://localhost:53652/api/Email/verify application/json 16
+2024-04-16 08:27:53.544 +00:00 [INF] CORS policy execution successful.
+2024-04-16 08:27:53.546 +00:00 [INF] Executing endpoint 'E_commerce.Controllers.EmailController.VerifyEmail (E-commerce)'
+2024-04-16 08:27:53.554 +00:00 [INF] Route matched with {action = "VerifyEmail", controller = "Email"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] VerifyEmail(System.String) on controller E_commerce.Controllers.EmailController (E-commerce).
+2024-04-16 08:27:53.572 +00:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 08:27:54.480 +00:00 [INF] ApiResponse object => {"StatusCode":200,"IsSuccess":true,"Result":null,"Errors":[],"$type":"ApiResponse"}
+2024-04-16 08:27:54.484 +00:00 [INF] Executing OkObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 08:27:54.486 +00:00 [INF] Executed action E_commerce.Controllers.EmailController.VerifyEmail (E-commerce) in 930.7256ms
+2024-04-16 08:27:54.487 +00:00 [INF] Executed endpoint 'E_commerce.Controllers.EmailController.VerifyEmail (E-commerce)'
+2024-04-16 08:27:54.488 +00:00 [INF] HTTP POST /api/Email/verify responded 200 in 942.4736 ms
+2024-04-16 08:27:54.490 +00:00 [INF] Request finished HTTP/2 POST https://localhost:53652/api/Email/verify application/json 16 - 200 - application/json;+charset=utf-8 951.4845ms
+2024-04-16 08:28:37.330 +00:00 [INF] Request starting HTTP/2 POST https://localhost:53652/api/User/Login application/json 64
+2024-04-16 08:28:37.331 +00:00 [INF] CORS policy execution successful.
+2024-04-16 08:28:37.334 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.UserLogin (E-commerce)'
+2024-04-16 08:28:37.341 +00:00 [INF] Route matched with {action = "UserLogin", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserLogin(E_commerce.Models.DTO_s.User.UserLoginRequest) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 08:28:37.431 +00:00 [INF] Executed DbCommand (24ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 08:28:37.620 +00:00 [INF] Executed DbCommand (23ms) [Parameters=[@__userId_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a0."Name"
+FROM "AspNetUserRoles" AS a
+INNER JOIN "AspNetRoles" AS a0 ON a."RoleId" = a0."Id"
+WHERE a."UserId" = @__userId_0
+2024-04-16 08:28:37.658 +00:00 [INF] ApiResponse object => {"StatusCode":200,"IsSuccess":true,"EmailConfirmed":false,"Result":{"JwtToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhbGV4QGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMTBmZjAyOTUtOTNiNy00NTY4LTk4YTMtZDViYzIxZDNmNDNhIiwianRpIjoiZWIyNzczMDYtMzRjYy00NTFmLTlhYzktMmU4MTNjMzhmOTg2IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVXNlciIsImV4cCI6MTcxMzI2MzMxNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzEwNyIsImF1ZCI6IlVJLXVybCJ9.u9eOU9IHfCOx8PKElER6s36J9iLf_i65m-K2kQh6-7Q","ExpireDate":"2024-04-16T10:28:37.0000000Z","$type":"JwtTokenHandler"},"Errors":[],"$type":"ApiLoginResponse"}
+2024-04-16 08:28:37.660 +00:00 [INF] Executing OkObjectResult, writing value of type 'E_commerce.Models.ApiLoginResponse'.
+2024-04-16 08:28:37.675 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.UserLogin (E-commerce) in 333.0635ms
+2024-04-16 08:28:37.676 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.UserLogin (E-commerce)'
+2024-04-16 08:28:37.677 +00:00 [INF] HTTP POST /api/User/Login responded 200 in 343.6277 ms
+2024-04-16 08:28:37.679 +00:00 [INF] Request finished HTTP/2 POST https://localhost:53652/api/User/Login application/json 64 - 200 - application/json;+charset=utf-8 348.7496ms
+2024-04-16 08:30:44.134 +00:00 [INF] Request starting HTTP/2 POST https://localhost:53652/api/User/Create application/json 118
+2024-04-16 08:30:44.135 +00:00 [INF] CORS policy execution successful.
+2024-04-16 08:30:44.138 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 08:30:44.141 +00:00 [INF] Route matched with {action = "UserRegister", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserRegister(E_commerce.Models.DTO_s.User.UserRegisterRequest) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 08:30:44.260 +00:00 [INF] Executed DbCommand (24ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 08:30:44.326 +00:00 [INF] ApiResponse object => {"StatusCode":400,"IsSuccess":false,"Result":null,"Errors":["Email already exsists!"],"$type":"ApiResponse"}
+2024-04-16 08:30:44.327 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 08:30:44.328 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce) in 185.2551ms
+2024-04-16 08:30:44.330 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 08:30:44.331 +00:00 [INF] HTTP POST /api/User/Create responded 400 in 193.8197 ms
+2024-04-16 08:30:44.332 +00:00 [INF] Request finished HTTP/2 POST https://localhost:53652/api/User/Create application/json 118 - 400 - application/json;+charset=utf-8 222.6265ms
+2024-04-16 08:30:54.578 +00:00 [INF] Request starting HTTP/2 POST https://localhost:53652/api/User/Create application/json 119
+2024-04-16 08:30:54.579 +00:00 [INF] CORS policy execution successful.
+2024-04-16 08:30:54.580 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 08:30:54.580 +00:00 [INF] Route matched with {action = "UserRegister", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserRegister(E_commerce.Models.DTO_s.User.UserRegisterRequest) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 08:30:54.597 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 08:30:54.843 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedUserName_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedUserName" = @__normalizedUserName_0
+LIMIT 1
+2024-04-16 08:30:54.921 +00:00 [INF] Executed DbCommand (10ms) [Parameters=[@p0='?', @p1='?' (DbType = Int32), @p2='?', @p3='?', @p4='?' (DbType = Boolean), @p5='?' (DbType = Double), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (DbType = Double), @p9='?', @p10='?', @p11='?', @p12='?', @p13='?' (DbType = Boolean), @p14='?', @p15='?' (DbType = Boolean), @p16='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetUsers" ("Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "Latitude", "LockoutEnabled", "LockoutEnd", "Longitude", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16);
+2024-04-16 08:30:54.928 +00:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 08:30:54.958 +00:00 [INF] Executed DbCommand (25ms) [Parameters=[@__normalizedRoleName_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedRoleName_0
+LIMIT 2
+2024-04-16 08:30:54.989 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[@__p_0='?', @__p_1='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."UserId", a."RoleId"
+FROM "AspNetUserRoles" AS a
+WHERE a."UserId" = @__p_0 AND a."RoleId" = @__p_1
+LIMIT 1
+2024-04-16 08:30:55.056 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedRoleName_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedRoleName_0
+LIMIT 2
+2024-04-16 08:30:55.096 +00:00 [INF] Executed DbCommand (7ms) [Parameters=[@__normalizedUserName_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedUserName" = @__normalizedUserName_0
+LIMIT 1
+2024-04-16 08:30:55.112 +00:00 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?', @p1='?', @p18='?', @p2='?' (DbType = Int32), @p3='?', @p19='?', @p4='?', @p5='?' (DbType = Boolean), @p6='?' (DbType = Double), @p7='?' (DbType = Boolean), @p8='?' (DbType = DateTime), @p9='?' (DbType = Double), @p10='?', @p11='?', @p12='?', @p13='?', @p14='?' (DbType = Boolean), @p15='?', @p16='?' (DbType = Boolean), @p17='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetUserRoles" ("RoleId", "UserId")
+VALUES (@p0, @p1);
+UPDATE "AspNetUsers" SET "AccessFailedCount" = @p2, "ConcurrencyStamp" = @p3, "Email" = @p4, "EmailConfirmed" = @p5, "Latitude" = @p6, "LockoutEnabled" = @p7, "LockoutEnd" = @p8, "Longitude" = @p9, "NormalizedEmail" = @p10, "NormalizedUserName" = @p11, "PasswordHash" = @p12, "PhoneNumber" = @p13, "PhoneNumberConfirmed" = @p14, "SecurityStamp" = @p15, "TwoFactorEnabled" = @p16, "UserName" = @p17
+WHERE "Id" = @p18 AND "ConcurrencyStamp" = @p19;
+2024-04-16 08:30:55.215 +00:00 [INF] Executed DbCommand (54ms) [Parameters=[@p0='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Cart" ("UserId")
+VALUES (@p0)
+RETURNING "Id";
+2024-04-16 08:30:56.065 +00:00 [INF] ApiResponse object => {"StatusCode":201,"IsSuccess":true,"Result":null,"Errors":[],"$type":"ApiResponse"}
+2024-04-16 08:30:56.067 +00:00 [INF] Executing OkObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 08:30:56.070 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce) in 1488.4157ms
+2024-04-16 08:30:56.070 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 08:30:56.071 +00:00 [INF] HTTP POST /api/User/Create responded 200 in 1491.6934 ms
+2024-04-16 08:30:56.073 +00:00 [INF] Request finished HTTP/2 POST https://localhost:53652/api/User/Create application/json 119 - 200 - application/json;+charset=utf-8 1516.1793ms
+2024-04-16 08:32:21.332 +00:00 [INF] Request starting HTTP/2 POST https://localhost:53652/api/User/ConfirmEmail application/json 337
+2024-04-16 08:32:21.339 +00:00 [INF] CORS policy execution successful.
+2024-04-16 08:32:21.342 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.ConfirmEmail (E-commerce)'
+2024-04-16 08:32:21.352 +00:00 [INF] Route matched with {action = "ConfirmEmail", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ConfirmEmail(Confirmpass) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 08:32:21.452 +00:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 08:32:21.532 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 08:32:21.533 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.ConfirmEmail (E-commerce) in 180.1836ms
+2024-04-16 08:32:21.535 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.ConfirmEmail (E-commerce)'
+2024-04-16 08:32:21.536 +00:00 [INF] HTTP POST /api/User/ConfirmEmail responded 400 in 195.9657 ms
+2024-04-16 08:32:21.537 +00:00 [INF] Request finished HTTP/2 POST https://localhost:53652/api/User/ConfirmEmail application/json 337 - 400 - application/json;+charset=utf-8 205.7813ms
+2024-04-16 08:35:56.486 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2024-04-16 08:35:56.495 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-04-16 08:35:57.793 +00:00 [INF] Now listening on: https://[::]:443
+2024-04-16 08:35:57.794 +00:00 [INF] Now listening on: http://[::]:80
+2024-04-16 08:35:57.798 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-16 08:35:57.800 +00:00 [INF] Hosting environment: Development
+2024-04-16 08:35:57.801 +00:00 [INF] Content root path: /app
+2024-04-16 08:35:57.910 +00:00 [INF] Bus started: "rabbitmq://ecommerce.rabbitmq/"
+2024-04-16 08:40:50.902 +00:00 [INF] Request starting HTTP/2 GET https://localhost:53652/swagger/index.html - -
+2024-04-16 08:40:51.232 +00:00 [INF] Request finished HTTP/2 GET https://localhost:53652/swagger/index.html - - - 200 - text/html;charset=utf-8 331.9482ms
+2024-04-16 08:40:51.721 +00:00 [INF] Request starting HTTP/2 GET https://localhost:53652/swagger/v1/swagger.json - -
+2024-04-16 08:40:51.944 +00:00 [INF] Request finished HTTP/2 GET https://localhost:53652/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 223.0983ms
+2024-04-16 08:41:01.441 +00:00 [INF] Request starting HTTP/2 GET https://localhost:53652/api/User/GetAllUsers - -
+2024-04-16 08:41:01.648 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.GetAllUsers (E-commerce)'
+2024-04-16 08:41:01.691 +00:00 [INF] Route matched with {action = "GetAllUsers", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllUsers() on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 08:41:03.878 +00:00 [INF] Executed DbCommand (39ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+2024-04-16 08:41:04.053 +00:00 [INF] ApiResponse object => {"StatusCode":404,"IsSuccess":false,"Result":null,"Errors":["No Users Found!"],"$type":"ApiResponse"}
+2024-04-16 08:41:04.079 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 08:41:04.100 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.GetAllUsers (E-commerce) in 2402.9433ms
+2024-04-16 08:41:04.102 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.GetAllUsers (E-commerce)'
+2024-04-16 08:41:04.107 +00:00 [INF] HTTP GET /api/User/GetAllUsers responded 400 in 2655.5448 ms
+2024-04-16 08:41:04.117 +00:00 [INF] Request finished HTTP/2 GET https://localhost:53652/api/User/GetAllUsers - - - 400 - application/json;+charset=utf-8 2675.7840ms
+2024-04-16 08:41:29.449 +00:00 [INF] Request starting HTTP/2 POST https://localhost:53652/api/User/Create application/json 93
+2024-04-16 08:41:29.458 +00:00 [INF] CORS policy execution successful.
+2024-04-16 08:41:29.463 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 08:41:29.481 +00:00 [INF] Route matched with {action = "UserRegister", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserRegister(E_commerce.Models.DTO_s.User.UserRegisterRequest) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 08:41:29.783 +00:00 [INF] Executed DbCommand (21ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 08:41:29.790 +00:00 [INF] ApiResponse object => {"StatusCode":400,"IsSuccess":false,"Result":null,"Errors":["Password must be at least 8 characters long.","Password needs to contain at least one uppercase letter, one digit, and one special character.","Passwords do not match."],"$type":"ApiResponse"}
+2024-04-16 08:41:29.792 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 08:41:29.795 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce) in 313.1655ms
+2024-04-16 08:41:29.796 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 08:41:29.797 +00:00 [INF] HTTP POST /api/User/Create responded 400 in 336.9233 ms
+2024-04-16 08:41:29.798 +00:00 [INF] Request finished HTTP/2 POST https://localhost:53652/api/User/Create application/json 93 - 400 - application/json;+charset=utf-8 349.4341ms
+2024-04-16 08:41:49.732 +00:00 [INF] Request starting HTTP/2 POST https://localhost:53652/api/User/Create application/json 111
+2024-04-16 08:41:49.738 +00:00 [INF] CORS policy execution successful.
+2024-04-16 08:41:49.745 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 08:41:49.746 +00:00 [INF] Route matched with {action = "UserRegister", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserRegister(E_commerce.Models.DTO_s.User.UserRegisterRequest) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 08:41:49.914 +00:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 08:41:49.923 +00:00 [INF] ApiResponse object => {"StatusCode":400,"IsSuccess":false,"Result":null,"Errors":["Email already exsists!"],"$type":"ApiResponse"}
+2024-04-16 08:41:49.924 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 08:41:49.925 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce) in 178.9845ms
+2024-04-16 08:41:49.926 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 08:41:49.927 +00:00 [INF] HTTP POST /api/User/Create responded 400 in 187.4374 ms
+2024-04-16 08:41:49.928 +00:00 [INF] Request finished HTTP/2 POST https://localhost:53652/api/User/Create application/json 111 - 400 - application/json;+charset=utf-8 195.9701ms
+2024-04-16 08:47:18.269 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2024-04-16 08:47:18.277 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-04-16 08:47:19.406 +00:00 [INF] Now listening on: https://[::]:443
+2024-04-16 08:47:19.407 +00:00 [INF] Now listening on: http://[::]:80
+2024-04-16 08:47:19.410 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-16 08:47:19.412 +00:00 [INF] Hosting environment: Development
+2024-04-16 08:47:19.412 +00:00 [INF] Content root path: /app
+2024-04-16 08:47:19.516 +00:00 [INF] Bus started: "rabbitmq://ecommerce.rabbitmq/"
+2024-04-16 08:52:12.376 +00:00 [INF] Request starting HTTP/2 GET https://localhost:53652/swagger/index.html - -
+2024-04-16 08:52:12.638 +00:00 [INF] Request finished HTTP/2 GET https://localhost:53652/swagger/index.html - - - 200 - text/html;charset=utf-8 270.1648ms
+2024-04-16 08:52:13.302 +00:00 [INF] Request starting HTTP/2 GET https://localhost:53652/swagger/v1/swagger.json - -
+2024-04-16 08:52:13.496 +00:00 [INF] Request finished HTTP/2 GET https://localhost:53652/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 194.7996ms
+2024-04-16 08:52:55.775 +00:00 [INF] Request starting HTTP/2 GET https://localhost:53652/api/User/GetUserByEmail - -
+2024-04-16 08:52:55.980 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.GetUserByEmail (E-commerce)'
+2024-04-16 08:52:56.018 +00:00 [INF] Route matched with {action = "GetUserByEmail", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserByEmail(System.String) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 08:52:58.508 +00:00 [INF] Executed DbCommand (70ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 08:52:58.623 +00:00 [INF] ApiResponse object => {"StatusCode":404,"IsSuccess":false,"Result":null,"Errors":["No User Found!"],"$type":"ApiResponse"}
+2024-04-16 08:52:58.641 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 08:52:58.677 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.GetUserByEmail (E-commerce) in 2636.0855ms
+2024-04-16 08:52:58.679 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.GetUserByEmail (E-commerce)'
+2024-04-16 08:52:58.686 +00:00 [INF] HTTP GET /api/User/GetUserByEmail responded 400 in 2886.4007 ms
+2024-04-16 08:52:58.698 +00:00 [INF] Request finished HTTP/2 GET https://localhost:53652/api/User/GetUserByEmail - - - 400 - application/json;+charset=utf-8 2923.5561ms
+2024-04-16 08:56:22.936 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2024-04-16 08:56:22.953 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-04-16 08:56:23.609 +00:00 [INF] Creating key {692cd8e0-8b55-4929-96a3-7db9514ddc7e} with creation date 2024-04-16 08:56:23Z, activation date 2024-04-16 08:56:23Z, and expiration date 2024-07-15 08:56:23Z.
+2024-04-16 08:56:23.630 +00:00 [WRN] No XML encryptor configured. Key {692cd8e0-8b55-4929-96a3-7db9514ddc7e} may be persisted to storage in unencrypted form.
+2024-04-16 08:56:23.639 +00:00 [INF] Writing data to file '/root/.aspnet/DataProtection-Keys/key-692cd8e0-8b55-4929-96a3-7db9514ddc7e.xml'.
+2024-04-16 08:56:23.898 +00:00 [WRN] Connection Failed: "rabbitmq://ecommerce.rabbitmq/"
+RabbitMQ.Client.Exceptions.BrokerUnreachableException: None of the specified endpoints were reachable
+ ---> System.AggregateException: One or more errors occurred. (Connection failed)
+ ---> RabbitMQ.Client.Exceptions.ConnectFailureException: Connection failed
+ ---> System.Net.Sockets.SocketException (111): Connection refused
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at RabbitMQ.Client.TcpClientAdapter.ConnectAsync(String host, Int32 port)
+   at RabbitMQ.Client.Impl.TaskExtensions.TimeoutAfter(Task task, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectOrFail(ITcpClient socket, AmqpTcpEndpoint endpoint, TimeSpan timeout)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectOrFail(ITcpClient socket, AmqpTcpEndpoint endpoint, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectUsingAddressFamily(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan timeout, AddressFamily family)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectUsingIPv4(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler..ctor(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan connectionTimeout, TimeSpan readTimeout, TimeSpan writeTimeout)
+   at RabbitMQ.Client.Framing.Impl.IProtocolExtensions.CreateFrameHandler(IProtocol protocol, AmqpTcpEndpoint endpoint, ArrayPool`1 pool, Func`2 socketFactory, TimeSpan connectionTimeout, TimeSpan readTimeout, TimeSpan writeTimeout)
+   at RabbitMQ.Client.ConnectionFactory.CreateFrameHandler(AmqpTcpEndpoint endpoint)
+   at RabbitMQ.Client.EndpointResolverExtensions.SelectOne[T](IEndpointResolver resolver, Func`2 selector)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.EndpointResolverExtensions.SelectOne[T](IEndpointResolver resolver, Func`2 selector)
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IEndpointResolver endpointResolver, String clientProvidedName)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IEndpointResolver endpointResolver, String clientProvidedName)
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IList`1 hostnames, String clientProvidedName)
+   at MassTransit.RabbitMqTransport.ConnectionContextFactory.CreateConnection(ISupervisor supervisor) in /_/src/Transports/MassTransit.RabbitMqTransport/RabbitMqTransport/ConnectionContextFactory.cs:line 85
+2024-04-16 08:56:24.176 +00:00 [INF] Now listening on: https://[::]:443
+2024-04-16 08:56:24.177 +00:00 [INF] Now listening on: http://[::]:80
+2024-04-16 08:56:24.180 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-16 08:56:24.181 +00:00 [INF] Hosting environment: Development
+2024-04-16 08:56:24.183 +00:00 [INF] Content root path: /app
+2024-04-16 08:56:31.077 +00:00 [WRN] Connection Failed: "rabbitmq://ecommerce.rabbitmq/"
+RabbitMQ.Client.Exceptions.BrokerUnreachableException: None of the specified endpoints were reachable
+ ---> System.AggregateException: One or more errors occurred. (Connection failed)
+ ---> RabbitMQ.Client.Exceptions.ConnectFailureException: Connection failed
+ ---> System.Net.Sockets.SocketException (111): Connection refused
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at RabbitMQ.Client.TcpClientAdapter.ConnectAsync(String host, Int32 port)
+   at RabbitMQ.Client.Impl.TaskExtensions.TimeoutAfter(Task task, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectOrFail(ITcpClient socket, AmqpTcpEndpoint endpoint, TimeSpan timeout)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectOrFail(ITcpClient socket, AmqpTcpEndpoint endpoint, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectUsingAddressFamily(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan timeout, AddressFamily family)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectUsingIPv4(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler..ctor(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan connectionTimeout, TimeSpan readTimeout, TimeSpan writeTimeout)
+   at RabbitMQ.Client.Framing.Impl.IProtocolExtensions.CreateFrameHandler(IProtocol protocol, AmqpTcpEndpoint endpoint, ArrayPool`1 pool, Func`2 socketFactory, TimeSpan connectionTimeout, TimeSpan readTimeout, TimeSpan writeTimeout)
+   at RabbitMQ.Client.ConnectionFactory.CreateFrameHandler(AmqpTcpEndpoint endpoint)
+   at RabbitMQ.Client.EndpointResolverExtensions.SelectOne[T](IEndpointResolver resolver, Func`2 selector)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.EndpointResolverExtensions.SelectOne[T](IEndpointResolver resolver, Func`2 selector)
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IEndpointResolver endpointResolver, String clientProvidedName)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IEndpointResolver endpointResolver, String clientProvidedName)
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IList`1 hostnames, String clientProvidedName)
+   at MassTransit.RabbitMqTransport.ConnectionContextFactory.CreateConnection(ISupervisor supervisor) in /_/src/Transports/MassTransit.RabbitMqTransport/RabbitMqTransport/ConnectionContextFactory.cs:line 85
+2024-04-16 08:56:40.927 +00:00 [INF] Bus started: "rabbitmq://ecommerce.rabbitmq/"
+2024-04-16 11:30:23.560 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2024-04-16 11:30:23.586 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-04-16 11:30:24.397 +00:00 [INF] Creating key {6eae828c-542b-4d00-aa4f-560e1b13cffb} with creation date 2024-04-16 11:30:24Z, activation date 2024-04-16 11:30:24Z, and expiration date 2024-07-15 11:30:24Z.
+2024-04-16 11:30:24.449 +00:00 [WRN] No XML encryptor configured. Key {6eae828c-542b-4d00-aa4f-560e1b13cffb} may be persisted to storage in unencrypted form.
+2024-04-16 11:30:24.463 +00:00 [INF] Writing data to file '/root/.aspnet/DataProtection-Keys/key-6eae828c-542b-4d00-aa4f-560e1b13cffb.xml'.
+2024-04-16 11:30:25.129 +00:00 [WRN] Connection Failed: "rabbitmq://ecommerce.rabbitmq/"
+RabbitMQ.Client.Exceptions.BrokerUnreachableException: None of the specified endpoints were reachable
+ ---> System.AggregateException: One or more errors occurred. (Connection failed)
+ ---> RabbitMQ.Client.Exceptions.ConnectFailureException: Connection failed
+ ---> System.Net.Sockets.SocketException (111): Connection refused
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at RabbitMQ.Client.TcpClientAdapter.ConnectAsync(String host, Int32 port)
+   at RabbitMQ.Client.Impl.TaskExtensions.TimeoutAfter(Task task, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectOrFail(ITcpClient socket, AmqpTcpEndpoint endpoint, TimeSpan timeout)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectOrFail(ITcpClient socket, AmqpTcpEndpoint endpoint, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectUsingAddressFamily(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan timeout, AddressFamily family)
+   at RabbitMQ.Client.Impl.SocketFrameHandler.ConnectUsingIPv4(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan timeout)
+   at RabbitMQ.Client.Impl.SocketFrameHandler..ctor(AmqpTcpEndpoint endpoint, Func`2 socketFactory, TimeSpan connectionTimeout, TimeSpan readTimeout, TimeSpan writeTimeout)
+   at RabbitMQ.Client.Framing.Impl.IProtocolExtensions.CreateFrameHandler(IProtocol protocol, AmqpTcpEndpoint endpoint, ArrayPool`1 pool, Func`2 socketFactory, TimeSpan connectionTimeout, TimeSpan readTimeout, TimeSpan writeTimeout)
+   at RabbitMQ.Client.ConnectionFactory.CreateFrameHandler(AmqpTcpEndpoint endpoint)
+   at RabbitMQ.Client.EndpointResolverExtensions.SelectOne[T](IEndpointResolver resolver, Func`2 selector)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.EndpointResolverExtensions.SelectOne[T](IEndpointResolver resolver, Func`2 selector)
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IEndpointResolver endpointResolver, String clientProvidedName)
+   --- End of inner exception stack trace ---
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IEndpointResolver endpointResolver, String clientProvidedName)
+   at RabbitMQ.Client.ConnectionFactory.CreateConnection(IList`1 hostnames, String clientProvidedName)
+   at MassTransit.RabbitMqTransport.ConnectionContextFactory.CreateConnection(ISupervisor supervisor) in /_/src/Transports/MassTransit.RabbitMqTransport/RabbitMqTransport/ConnectionContextFactory.cs:line 85
+2024-04-16 11:30:25.552 +00:00 [INF] Now listening on: https://[::]:443
+2024-04-16 11:30:25.553 +00:00 [INF] Now listening on: http://[::]:80
+2024-04-16 11:30:25.555 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-16 11:30:25.556 +00:00 [INF] Hosting environment: Development
+2024-04-16 11:30:25.558 +00:00 [INF] Content root path: /app
+2024-04-16 11:30:33.260 +00:00 [INF] Bus started: "rabbitmq://ecommerce.rabbitmq/"
+2024-04-16 11:35:09.238 +00:00 [INF] Request starting HTTP/2 GET https://localhost:54017/swagger - -
+2024-04-16 11:35:09.383 +00:00 [INF] Request finished HTTP/2 GET https://localhost:54017/swagger - - - 301 0 - 147.8879ms
+2024-04-16 11:35:09.449 +00:00 [INF] Request starting HTTP/2 GET https://localhost:54017/swagger/index.html - -
+2024-04-16 11:35:09.676 +00:00 [INF] Request finished HTTP/2 GET https://localhost:54017/swagger/index.html - - - 200 - text/html;charset=utf-8 226.2650ms
+2024-04-16 11:35:09.704 +00:00 [INF] Request starting HTTP/2 GET https://localhost:54017/swagger/swagger-ui.css - -
+2024-04-16 11:35:09.726 +00:00 [INF] Request starting HTTP/2 GET https://localhost:54017/swagger/swagger-ui-standalone-preset.js - -
+2024-04-16 11:35:09.726 +00:00 [INF] Request starting HTTP/2 GET https://localhost:54017/swagger/swagger-ui-bundle.js - -
+2024-04-16 11:35:09.975 +00:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2024-04-16 11:35:09.975 +00:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2024-04-16 11:35:09.977 +00:00 [INF] Request finished HTTP/2 GET https://localhost:54017/swagger/swagger-ui.css - - - 200 144929 text/css 272.9381ms
+2024-04-16 11:35:09.977 +00:00 [INF] Request finished HTTP/2 GET https://localhost:54017/swagger/swagger-ui-standalone-preset.js - - - 200 312163 text/javascript 250.1737ms
+2024-04-16 11:35:10.315 +00:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2024-04-16 11:35:10.318 +00:00 [INF] Request finished HTTP/2 GET https://localhost:54017/swagger/swagger-ui-bundle.js - - - 200 1061536 text/javascript 591.6929ms
+2024-04-16 11:35:10.622 +00:00 [INF] Request starting HTTP/2 GET https://localhost:54017/swagger/favicon-32x32.png - -
+2024-04-16 11:35:10.625 +00:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2024-04-16 11:35:10.628 +00:00 [INF] Request finished HTTP/2 GET https://localhost:54017/swagger/favicon-32x32.png - - - 200 628 image/png 6.2045ms
+2024-04-16 11:35:10.806 +00:00 [INF] Request starting HTTP/2 GET https://localhost:54017/swagger/v1/swagger.json - -
+2024-04-16 11:35:11.091 +00:00 [INF] Request finished HTTP/2 GET https://localhost:54017/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 285.6477ms
+2024-04-16 11:35:57.986 +00:00 [INF] Request starting HTTP/2 POST https://localhost:54017/api/User/Create application/json 113
+2024-04-16 11:35:58.023 +00:00 [INF] CORS policy execution successful.
+2024-04-16 11:35:58.258 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 11:35:58.304 +00:00 [INF] Route matched with {action = "UserRegister", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserRegister(E_commerce.Models.DTO_s.User.UserRegisterRequest) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 11:36:02.170 +00:00 [ERR] Failed executing DbCommand (85ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 11:36:02.212 +00:00 [ERR] An exception occurred while iterating over the results of a query for context type 'E_commerce.Context.AppDbContext'.
+Npgsql.PostgresException (0x80004005): 42P01: relation "AspNetUsers" does not exist
+
+POSITION: 322
+   at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42P01
+    MessageText: relation "AspNetUsers" does not exist
+    Position: 322
+    File: parse_relation.c
+    Line: 1449
+    Routine: parserOpenTable
+Npgsql.PostgresException (0x80004005): 42P01: relation "AspNetUsers" does not exist
+
+POSITION: 322
+   at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42P01
+    MessageText: relation "AspNetUsers" does not exist
+    Position: 322
+    File: parse_relation.c
+    Line: 1449
+    Routine: parserOpenTable
+2024-04-16 11:36:02.402 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce) in 4092.8734ms
+2024-04-16 11:36:02.404 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 11:36:02.506 +00:00 [ERR] HTTP POST /api/User/Create responded 500 in 4477.3975 ms
+2024-04-16 11:36:02.520 +00:00 [INF] Request finished HTTP/2 POST https://localhost:54017/api/User/Create application/json 113 - 500 - application/json;+charset=utf-8 4537.5233ms
+2024-04-16 11:36:34.147 +00:00 [INF] Request starting HTTP/2 GET https://localhost:54017/api/Category/GetAll - -
+2024-04-16 11:36:34.192 +00:00 [INF] Executing endpoint 'E_commerce.Controllers.CategoryController.GetAllCategories (E-commerce)'
+2024-04-16 11:36:34.209 +00:00 [INF] Route matched with {action = "GetAllCategories", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllCategories() on controller E_commerce.Controllers.CategoryController (E-commerce).
+2024-04-16 11:36:34.455 +00:00 [ERR] Failed executing DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."Name"
+FROM "Category" AS c
+2024-04-16 11:36:34.635 +00:00 [ERR] An exception occurred while iterating over the results of a query for context type 'E_commerce.Context.AppDbContext'.
+Npgsql.PostgresException (0x80004005): 42P01: relation "Category" does not exist
+
+POSITION: 30
+   at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42P01
+    MessageText: relation "Category" does not exist
+    Position: 30
+    File: parse_relation.c
+    Line: 1449
+    Routine: parserOpenTable
+Npgsql.PostgresException (0x80004005): 42P01: relation "Category" does not exist
+
+POSITION: 30
+   at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|234_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42P01
+    MessageText: relation "Category" does not exist
+    Position: 30
+    File: parse_relation.c
+    Line: 1449
+    Routine: parserOpenTable
+2024-04-16 11:36:34.743 +00:00 [INF] Executed action E_commerce.Controllers.CategoryController.GetAllCategories (E-commerce) in 532.6427ms
+2024-04-16 11:36:34.744 +00:00 [INF] Executed endpoint 'E_commerce.Controllers.CategoryController.GetAllCategories (E-commerce)'
+2024-04-16 11:36:34.798 +00:00 [ERR] HTTP GET /api/Category/GetAll responded 500 in 612.8489 ms
+2024-04-16 11:36:34.803 +00:00 [INF] Request finished HTTP/2 GET https://localhost:54017/api/Category/GetAll - - - 500 - application/json;+charset=utf-8 653.0480ms
+2024-04-16 11:45:57.545 +00:00 [INF] Executed DbCommand (75ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-04-16 11:45:57.846 +00:00 [INF] Executed DbCommand (85ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "__EFMigrationsHistory" (
+    "MigrationId" character varying(150) NOT NULL,
+    "ProductVersion" character varying(32) NOT NULL,
+    CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY ("MigrationId")
+);
+2024-04-16 11:45:57.901 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-04-16 11:45:57.917 +00:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2024-04-16 11:45:57.944 +00:00 [INF] Applying migration '20231206100929_InitialCreation'.
+2024-04-16 11:45:58.087 +00:00 [INF] Executed DbCommand (51ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "AspNetRoles" (
+    "Id" text NOT NULL,
+    "Name" character varying(256) NULL,
+    "NormalizedName" character varying(256) NULL,
+    "ConcurrencyStamp" text NULL,
+    CONSTRAINT "PK_AspNetRoles" PRIMARY KEY ("Id")
+);
+2024-04-16 11:45:58.131 +00:00 [INF] Executed DbCommand (43ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "AspNetUsers" (
+    "Id" text NOT NULL,
+    "Longitude" double precision NOT NULL,
+    "Latitude" double precision NOT NULL,
+    "UserName" character varying(256) NULL,
+    "NormalizedUserName" character varying(256) NULL,
+    "Email" character varying(256) NULL,
+    "NormalizedEmail" character varying(256) NULL,
+    "EmailConfirmed" boolean NOT NULL,
+    "PasswordHash" text NULL,
+    "SecurityStamp" text NULL,
+    "ConcurrencyStamp" text NULL,
+    "PhoneNumber" text NULL,
+    "PhoneNumberConfirmed" boolean NOT NULL,
+    "TwoFactorEnabled" boolean NOT NULL,
+    "LockoutEnd" timestamp with time zone NULL,
+    "LockoutEnabled" boolean NOT NULL,
+    "AccessFailedCount" integer NOT NULL,
+    CONSTRAINT "PK_AspNetUsers" PRIMARY KEY ("Id")
+);
+2024-04-16 11:45:58.186 +00:00 [INF] Executed DbCommand (54ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Category" (
+    "Id" integer GENERATED BY DEFAULT AS IDENTITY,
+    "Name" text NOT NULL,
+    CONSTRAINT "PK_Category" PRIMARY KEY ("Id")
+);
+2024-04-16 11:45:58.261 +00:00 [INF] Executed DbCommand (74ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "AspNetRoleClaims" (
+    "Id" integer GENERATED BY DEFAULT AS IDENTITY,
+    "RoleId" text NOT NULL,
+    "ClaimType" text NULL,
+    "ClaimValue" text NULL,
+    CONSTRAINT "PK_AspNetRoleClaims" PRIMARY KEY ("Id"),
+    CONSTRAINT "FK_AspNetRoleClaims_AspNetRoles_RoleId" FOREIGN KEY ("RoleId") REFERENCES "AspNetRoles" ("Id") ON DELETE CASCADE
+);
+2024-04-16 11:45:58.336 +00:00 [INF] Executed DbCommand (73ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "AspNetUserClaims" (
+    "Id" integer GENERATED BY DEFAULT AS IDENTITY,
+    "UserId" text NOT NULL,
+    "ClaimType" text NULL,
+    "ClaimValue" text NULL,
+    CONSTRAINT "PK_AspNetUserClaims" PRIMARY KEY ("Id"),
+    CONSTRAINT "FK_AspNetUserClaims_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE
+);
+2024-04-16 11:45:58.396 +00:00 [INF] Executed DbCommand (59ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "AspNetUserLogins" (
+    "LoginProvider" text NOT NULL,
+    "ProviderKey" text NOT NULL,
+    "ProviderDisplayName" text NULL,
+    "UserId" text NOT NULL,
+    CONSTRAINT "PK_AspNetUserLogins" PRIMARY KEY ("LoginProvider", "ProviderKey"),
+    CONSTRAINT "FK_AspNetUserLogins_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE
+);
+2024-04-16 11:45:58.458 +00:00 [INF] Executed DbCommand (60ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "AspNetUserRoles" (
+    "UserId" text NOT NULL,
+    "RoleId" text NOT NULL,
+    CONSTRAINT "PK_AspNetUserRoles" PRIMARY KEY ("UserId", "RoleId"),
+    CONSTRAINT "FK_AspNetUserRoles_AspNetRoles_RoleId" FOREIGN KEY ("RoleId") REFERENCES "AspNetRoles" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_AspNetUserRoles_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE
+);
+2024-04-16 11:45:58.508 +00:00 [INF] Executed DbCommand (49ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "AspNetUserTokens" (
+    "UserId" text NOT NULL,
+    "LoginProvider" text NOT NULL,
+    "Name" text NOT NULL,
+    "Value" text NULL,
+    CONSTRAINT "PK_AspNetUserTokens" PRIMARY KEY ("UserId", "LoginProvider", "Name"),
+    CONSTRAINT "FK_AspNetUserTokens_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE
+);
+2024-04-16 11:45:58.577 +00:00 [INF] Executed DbCommand (69ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Cart" (
+    "Id" integer GENERATED BY DEFAULT AS IDENTITY,
+    "UserId" text NOT NULL,
+    CONSTRAINT "PK_Cart" PRIMARY KEY ("Id"),
+    CONSTRAINT "FK_Cart_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE
+);
+2024-04-16 11:45:58.630 +00:00 [INF] Executed DbCommand (51ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Order" (
+    "Id" integer GENERATED BY DEFAULT AS IDENTITY,
+    "DateOrdered" timestamp with time zone NOT NULL,
+    "UserId" text NOT NULL,
+    CONSTRAINT "PK_Order" PRIMARY KEY ("Id"),
+    CONSTRAINT "FK_Order_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE
+);
+2024-04-16 11:45:58.681 +00:00 [INF] Executed DbCommand (51ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Product" (
+    "Id" integer GENERATED BY DEFAULT AS IDENTITY,
+    "Title" text NOT NULL,
+    "Description" text NOT NULL,
+    "Price" integer NOT NULL,
+    "DateListed" timestamp with time zone NOT NULL,
+    "IsOrdered" boolean NOT NULL,
+    "Longitude" double precision NOT NULL,
+    "Latitude" double precision NOT NULL,
+    "OrderId" integer NULL,
+    "UserId" text NOT NULL,
+    "CategoryId" integer NOT NULL,
+    CONSTRAINT "PK_Product" PRIMARY KEY ("Id"),
+    CONSTRAINT "FK_Product_AspNetUsers_UserId" FOREIGN KEY ("UserId") REFERENCES "AspNetUsers" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_Product_Category_CategoryId" FOREIGN KEY ("CategoryId") REFERENCES "Category" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_Product_Order_OrderId" FOREIGN KEY ("OrderId") REFERENCES "Order" ("Id")
+);
+2024-04-16 11:45:58.711 +00:00 [INF] Executed DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "CartProduct" (
+    "CartsId" integer NOT NULL,
+    "ProductsId" integer NOT NULL,
+    CONSTRAINT "PK_CartProduct" PRIMARY KEY ("CartsId", "ProductsId"),
+    CONSTRAINT "FK_CartProduct_Cart_CartsId" FOREIGN KEY ("CartsId") REFERENCES "Cart" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_CartProduct_Product_ProductsId" FOREIGN KEY ("ProductsId") REFERENCES "Product" ("Id") ON DELETE CASCADE
+);
+2024-04-16 11:45:58.753 +00:00 [INF] Executed DbCommand (42ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Image" (
+    "Id" text NOT NULL,
+    "Url" text NOT NULL,
+    "IsDisplayImage" boolean NOT NULL,
+    "ProductId" integer NOT NULL,
+    CONSTRAINT "PK_Image" PRIMARY KEY ("Id"),
+    CONSTRAINT "FK_Image_Product_ProductId" FOREIGN KEY ("ProductId") REFERENCES "Product" ("Id") ON DELETE CASCADE
+);
+2024-04-16 11:45:58.764 +00:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetRoles" ("Id", "ConcurrencyStamp", "Name", "NormalizedName")
+VALUES ('578fe86c-7c25-4a46-b77f-42d8901eb483', '1', 'Admin', 'ADMIN');
+INSERT INTO "AspNetRoles" ("Id", "ConcurrencyStamp", "Name", "NormalizedName")
+VALUES ('6eaf73bb-8ba5-45ce-a4ec-254cd152f26b', '2', 'User', 'USER');
+2024-04-16 11:45:58.771 +00:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Category" ("Id", "Name")
+VALUES (1, 'Cars');
+INSERT INTO "Category" ("Id", "Name")
+VALUES (2, 'Electronics');
+INSERT INTO "Category" ("Id", "Name")
+VALUES (3, 'Decor');
+2024-04-16 11:45:58.786 +00:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_AspNetRoleClaims_RoleId" ON "AspNetRoleClaims" ("RoleId");
+2024-04-16 11:45:58.805 +00:00 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "RoleNameIndex" ON "AspNetRoles" ("NormalizedName");
+2024-04-16 11:45:58.820 +00:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_AspNetUserClaims_UserId" ON "AspNetUserClaims" ("UserId");
+2024-04-16 11:45:58.836 +00:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_AspNetUserLogins_UserId" ON "AspNetUserLogins" ("UserId");
+2024-04-16 11:45:58.853 +00:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_AspNetUserRoles_RoleId" ON "AspNetUserRoles" ("RoleId");
+2024-04-16 11:45:58.871 +00:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "EmailIndex" ON "AspNetUsers" ("NormalizedEmail");
+2024-04-16 11:45:58.888 +00:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "UserNameIndex" ON "AspNetUsers" ("NormalizedUserName");
+2024-04-16 11:45:58.905 +00:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Cart_UserId" ON "Cart" ("UserId");
+2024-04-16 11:45:58.921 +00:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_CartProduct_ProductsId" ON "CartProduct" ("ProductsId");
+2024-04-16 11:45:58.936 +00:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Image_ProductId" ON "Image" ("ProductId");
+2024-04-16 11:45:58.951 +00:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Order_UserId" ON "Order" ("UserId");
+2024-04-16 11:45:58.968 +00:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Product_CategoryId" ON "Product" ("CategoryId");
+2024-04-16 11:45:58.985 +00:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Product_OrderId" ON "Product" ("OrderId");
+2024-04-16 11:45:59.003 +00:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Product_UserId" ON "Product" ("UserId");
+2024-04-16 11:45:59.018 +00:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT setval(
+    pg_get_serial_sequence('"Category"', 'Id'),
+    GREATEST(
+        (SELECT MAX("Id") FROM "Category") + 1,
+        nextval(pg_get_serial_sequence('"Category"', 'Id'))),
+    false);
+2024-04-16 11:45:59.021 +00:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20231206100929_InitialCreation', '7.0.13');
+2024-04-16 11:45:59.033 +00:00 [INF] Applying migration '20231206132036_ImageModelRework'.
+2024-04-16 11:45:59.118 +00:00 [INF] Executed DbCommand (57ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AspNetRoles"
+WHERE "Id" = '578fe86c-7c25-4a46-b77f-42d8901eb483';
+2024-04-16 11:45:59.120 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AspNetRoles"
+WHERE "Id" = '6eaf73bb-8ba5-45ce-a4ec-254cd152f26b';
+2024-04-16 11:45:59.124 +00:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetRoles" ("Id", "ConcurrencyStamp", "Name", "NormalizedName")
+VALUES ('39a61b39-163e-4b33-896e-a2e57d85eab8', '1', 'Admin', 'ADMIN');
+INSERT INTO "AspNetRoles" ("Id", "ConcurrencyStamp", "Name", "NormalizedName")
+VALUES ('caebd75c-b366-4fbb-86a0-a6499fb1daaa', '2', 'User', 'USER');
+2024-04-16 11:45:59.125 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20231206132036_ImageModelRework', '7.0.13');
+2024-04-16 11:45:59.130 +00:00 [INF] Applying migration '20240209092548_migrationforerrorfix'.
+2024-04-16 11:45:59.153 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AspNetRoles"
+WHERE "Id" = '39a61b39-163e-4b33-896e-a2e57d85eab8';
+2024-04-16 11:45:59.154 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DELETE FROM "AspNetRoles"
+WHERE "Id" = 'caebd75c-b366-4fbb-86a0-a6499fb1daaa';
+2024-04-16 11:45:59.156 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetRoles" ("Id", "ConcurrencyStamp", "Name", "NormalizedName")
+VALUES ('04db2643-a53f-4b33-920f-3ccc9563aac9', '1', 'Admin', 'ADMIN');
+INSERT INTO "AspNetRoles" ("Id", "ConcurrencyStamp", "Name", "NormalizedName")
+VALUES ('f66fe0a8-8603-4a6e-bacc-cbff7d8c2ef8', '2', 'User', 'USER');
+2024-04-16 11:45:59.157 +00:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20240209092548_migrationforerrorfix', '7.0.13');
+2024-04-16 11:45:59.162 +00:00 [INF] Applying migration '20240219091710_NewImageByteProp'.
+2024-04-16 11:45:59.187 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Image" ADD "ByteImage" bytea NULL;
+2024-04-16 11:45:59.188 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20240219091710_NewImageByteProp', '7.0.13');
+2024-04-16 11:45:59.193 +00:00 [INF] Applying migration '20240219144849_RemovedByteImageProp'.
+2024-04-16 11:45:59.240 +00:00 [INF] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Image" DROP COLUMN "ByteImage";
+2024-04-16 11:45:59.242 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20240219144849_RemovedByteImageProp', '7.0.13');
+2024-04-16 11:45:59.248 +00:00 [INF] Applying migration '20240228120759_RandomOrderIdentifier'.
+2024-04-16 11:45:59.301 +00:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Product" ADD "RandomOrderIdentifier" uuid NOT NULL DEFAULT '00000000-0000-0000-0000-000000000000';
+2024-04-16 11:45:59.303 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20240228120759_RandomOrderIdentifier', '7.0.13');
+2024-04-16 11:45:59.497 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2024-04-16 11:45:59.498 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-04-16 11:45:59.766 +00:00 [INF] Creating key {e068c15f-f06e-48a8-9c98-726666998910} with creation date 2024-04-16 11:45:59Z, activation date 2024-04-16 11:45:59Z, and expiration date 2024-07-15 11:45:59Z.
+2024-04-16 11:45:59.784 +00:00 [WRN] No XML encryptor configured. Key {e068c15f-f06e-48a8-9c98-726666998910} may be persisted to storage in unencrypted form.
+2024-04-16 11:45:59.790 +00:00 [INF] Writing data to file '/root/.aspnet/DataProtection-Keys/key-e068c15f-f06e-48a8-9c98-726666998910.xml'.
+2024-04-16 11:46:00.882 +00:00 [INF] Now listening on: https://[::]:443
+2024-04-16 11:46:00.883 +00:00 [INF] Now listening on: http://[::]:80
+2024-04-16 11:46:00.887 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-16 11:46:00.890 +00:00 [INF] Hosting environment: Development
+2024-04-16 11:46:00.913 +00:00 [INF] Content root path: /app
+2024-04-16 11:46:01.017 +00:00 [INF] Bus started: "rabbitmq://ecommerce.rabbitmq/"
+2024-04-16 11:50:50.417 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/swagger - -
+2024-04-16 11:50:50.527 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/swagger - - - 301 0 - 88.2610ms
+2024-04-16 11:50:50.562 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/swagger/index.html - -
+2024-04-16 11:50:50.755 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/swagger/index.html - - - 200 - text/html;charset=utf-8 192.7545ms
+2024-04-16 11:50:50.775 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/swagger/swagger-ui.css - -
+2024-04-16 11:50:50.797 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/swagger/swagger-ui-standalone-preset.js - -
+2024-04-16 11:50:50.797 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/swagger/swagger-ui-bundle.js - -
+2024-04-16 11:50:50.919 +00:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2024-04-16 11:50:50.934 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/swagger/swagger-ui.css - - - 200 144929 text/css 158.8255ms
+2024-04-16 11:50:50.986 +00:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2024-04-16 11:50:50.988 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/swagger/swagger-ui-standalone-preset.js - - - 200 312163 text/javascript 191.2193ms
+2024-04-16 11:50:51.197 +00:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2024-04-16 11:50:51.199 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/swagger/swagger-ui-bundle.js - - - 200 1061536 text/javascript 401.7647ms
+2024-04-16 11:50:51.460 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/swagger/favicon-32x32.png - -
+2024-04-16 11:50:51.462 +00:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2024-04-16 11:50:51.466 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/swagger/favicon-32x32.png - - - 200 628 image/png 6.0576ms
+2024-04-16 11:50:51.677 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/swagger/v1/swagger.json - -
+2024-04-16 11:50:52.201 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 525.2076ms
+2024-04-16 11:53:31.940 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/api/Category/GetAll - -
+2024-04-16 11:53:32.195 +00:00 [INF] Executing endpoint 'E_commerce.Controllers.CategoryController.GetAllCategories (E-commerce)'
+2024-04-16 11:53:32.233 +00:00 [INF] Route matched with {action = "GetAllCategories", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllCategories() on controller E_commerce.Controllers.CategoryController (E-commerce).
+2024-04-16 11:53:32.896 +00:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."Name"
+FROM "Category" AS c
+2024-04-16 11:53:32.999 +00:00 [INF] ApiResponse object => {"StatusCode":200,"IsSuccess":true,"Result":[{"Id":1,"Name":"Cars","$type":"Category"},{"Id":2,"Name":"Electronics","$type":"Category"},{"Id":3,"Name":"Decor","$type":"Category"}],"Errors":[],"$type":"ApiResponse"}
+2024-04-16 11:53:33.019 +00:00 [INF] Executing OkObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 11:53:33.047 +00:00 [INF] Executed action E_commerce.Controllers.CategoryController.GetAllCategories (E-commerce) in 806.4898ms
+2024-04-16 11:53:33.049 +00:00 [INF] Executed endpoint 'E_commerce.Controllers.CategoryController.GetAllCategories (E-commerce)'
+2024-04-16 11:53:33.053 +00:00 [INF] HTTP GET /api/Category/GetAll responded 200 in 1075.9598 ms
+2024-04-16 11:53:33.061 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/api/Category/GetAll - - - 200 - application/json;+charset=utf-8 1145.7533ms
+2024-04-16 11:54:58.839 +00:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-04-16 11:54:58.897 +00:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-04-16 11:54:58.922 +00:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2024-04-16 11:54:58.945 +00:00 [INF] No migrations were applied. The database is already up to date.
+2024-04-16 11:54:59.108 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2024-04-16 11:54:59.109 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-04-16 11:55:00.590 +00:00 [INF] Now listening on: https://[::]:443
+2024-04-16 11:55:00.591 +00:00 [INF] Now listening on: http://[::]:80
+2024-04-16 11:55:00.624 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-16 11:55:00.647 +00:00 [INF] Hosting environment: Development
+2024-04-16 11:55:00.649 +00:00 [INF] Content root path: /app
+2024-04-16 11:55:00.684 +00:00 [INF] Bus started: "rabbitmq://ecommerce.rabbitmq/"
+2024-04-16 11:59:52.358 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/swagger/index.html - -
+2024-04-16 11:59:53.890 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/swagger/index.html - - - 200 - text/html;charset=utf-8 1542.6755ms
+2024-04-16 11:59:55.148 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/swagger/v1/swagger.json - -
+2024-04-16 11:59:56.037 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 884.8796ms
+2024-04-16 12:00:10.138 +00:00 [INF] Request starting HTTP/2 POST https://localhost:55089/api/User/Create application/json 115
+2024-04-16 12:00:10.173 +00:00 [INF] CORS policy execution successful.
+2024-04-16 12:00:10.507 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 12:00:10.632 +00:00 [INF] Route matched with {action = "UserRegister", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserRegister(E_commerce.Models.DTO_s.User.UserRegisterRequest) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 12:00:12.238 +00:00 [INF] Executed DbCommand (142ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 12:00:12.298 +00:00 [INF] ApiResponse object => {"StatusCode":400,"IsSuccess":false,"Result":null,"Errors":["Password needs to contain at least one uppercase letter, one digit, and one special character."],"$type":"ApiResponse"}
+2024-04-16 12:00:12.395 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 12:00:12.473 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce) in 1824.9858ms
+2024-04-16 12:00:12.478 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 12:00:12.494 +00:00 [INF] HTTP POST /api/User/Create responded 400 in 2307.8102 ms
+2024-04-16 12:00:12.533 +00:00 [INF] Request finished HTTP/2 POST https://localhost:55089/api/User/Create application/json 115 - 400 - application/json;+charset=utf-8 2395.5198ms
+2024-04-16 12:00:26.566 +00:00 [INF] Request starting HTTP/2 POST https://localhost:55089/api/User/Create application/json 117
+2024-04-16 12:00:26.582 +00:00 [INF] CORS policy execution successful.
+2024-04-16 12:00:26.596 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 12:00:26.599 +00:00 [INF] Route matched with {action = "UserRegister", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserRegister(E_commerce.Models.DTO_s.User.UserRegisterRequest) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 12:00:27.014 +00:00 [INF] Executed DbCommand (71ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 12:00:27.345 +00:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedUserName_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedUserName" = @__normalizedUserName_0
+LIMIT 1
+2024-04-16 12:00:27.753 +00:00 [INF] Executed DbCommand (32ms) [Parameters=[@p0='?', @p1='?' (DbType = Int32), @p2='?', @p3='?', @p4='?' (DbType = Boolean), @p5='?' (DbType = Double), @p6='?' (DbType = Boolean), @p7='?' (DbType = DateTime), @p8='?' (DbType = Double), @p9='?', @p10='?', @p11='?', @p12='?', @p13='?' (DbType = Boolean), @p14='?', @p15='?' (DbType = Boolean), @p16='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetUsers" ("Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "Latitude", "LockoutEnabled", "LockoutEnd", "Longitude", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16);
+2024-04-16 12:00:27.811 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 12:00:27.912 +00:00 [INF] Executed DbCommand (47ms) [Parameters=[@__normalizedRoleName_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedRoleName_0
+LIMIT 2
+2024-04-16 12:00:28.061 +00:00 [INF] Executed DbCommand (21ms) [Parameters=[@__p_0='?', @__p_1='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."UserId", a."RoleId"
+FROM "AspNetUserRoles" AS a
+WHERE a."UserId" = @__p_0 AND a."RoleId" = @__p_1
+LIMIT 1
+2024-04-16 12:00:28.079 +00:00 [INF] Executed DbCommand (6ms) [Parameters=[@__normalizedRoleName_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."ConcurrencyStamp", a."Name", a."NormalizedName"
+FROM "AspNetRoles" AS a
+WHERE a."NormalizedName" = @__normalizedRoleName_0
+LIMIT 2
+2024-04-16 12:00:28.133 +00:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedUserName_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedUserName" = @__normalizedUserName_0
+LIMIT 1
+2024-04-16 12:00:28.259 +00:00 [INF] Executed DbCommand (8ms) [Parameters=[@p0='?', @p1='?', @p18='?', @p2='?' (DbType = Int32), @p3='?', @p19='?', @p4='?', @p5='?' (DbType = Boolean), @p6='?' (DbType = Double), @p7='?' (DbType = Boolean), @p8='?' (DbType = DateTime), @p9='?' (DbType = Double), @p10='?', @p11='?', @p12='?', @p13='?', @p14='?' (DbType = Boolean), @p15='?', @p16='?' (DbType = Boolean), @p17='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "AspNetUserRoles" ("RoleId", "UserId")
+VALUES (@p0, @p1);
+UPDATE "AspNetUsers" SET "AccessFailedCount" = @p2, "ConcurrencyStamp" = @p3, "Email" = @p4, "EmailConfirmed" = @p5, "Latitude" = @p6, "LockoutEnabled" = @p7, "LockoutEnd" = @p8, "Longitude" = @p9, "NormalizedEmail" = @p10, "NormalizedUserName" = @p11, "PasswordHash" = @p12, "PhoneNumber" = @p13, "PhoneNumberConfirmed" = @p14, "SecurityStamp" = @p15, "TwoFactorEnabled" = @p16, "UserName" = @p17
+WHERE "Id" = @p18 AND "ConcurrencyStamp" = @p19;
+2024-04-16 12:00:28.356 +00:00 [INF] Executed DbCommand (20ms) [Parameters=[@p0='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Cart" ("UserId")
+VALUES (@p0)
+RETURNING "Id";
+2024-04-16 12:00:30.494 +00:00 [INF] ApiResponse object => {"StatusCode":201,"IsSuccess":true,"Result":null,"Errors":[],"$type":"ApiResponse"}
+2024-04-16 12:00:30.500 +00:00 [INF] Executing OkObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 12:00:30.502 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce) in 3901.2778ms
+2024-04-16 12:00:30.503 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.UserRegister (E-commerce)'
+2024-04-16 12:00:30.505 +00:00 [INF] HTTP POST /api/User/Create responded 200 in 3921.2888 ms
+2024-04-16 12:00:30.555 +00:00 [INF] Request finished HTTP/2 POST https://localhost:55089/api/User/Create application/json 117 - 200 - application/json;+charset=utf-8 3985.3655ms
+2024-04-16 12:04:06.925 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/api/Category/GetAll - -
+2024-04-16 12:04:07.005 +00:00 [INF] Executing endpoint 'E_commerce.Controllers.CategoryController.GetAllCategories (E-commerce)'
+2024-04-16 12:04:07.018 +00:00 [INF] Route matched with {action = "GetAllCategories", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllCategories() on controller E_commerce.Controllers.CategoryController (E-commerce).
+2024-04-16 12:04:07.081 +00:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."Name"
+FROM "Category" AS c
+2024-04-16 12:04:07.240 +00:00 [INF] ApiResponse object => {"StatusCode":200,"IsSuccess":true,"Result":[{"Id":1,"Name":"Cars","$type":"Category"},{"Id":2,"Name":"Electronics","$type":"Category"},{"Id":3,"Name":"Decor","$type":"Category"}],"Errors":[],"$type":"ApiResponse"}
+2024-04-16 12:04:07.243 +00:00 [INF] Executing OkObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 12:04:07.259 +00:00 [INF] Executed action E_commerce.Controllers.CategoryController.GetAllCategories (E-commerce) in 239.6167ms
+2024-04-16 12:04:07.260 +00:00 [INF] Executed endpoint 'E_commerce.Controllers.CategoryController.GetAllCategories (E-commerce)'
+2024-04-16 12:04:07.261 +00:00 [INF] HTTP GET /api/Category/GetAll responded 200 in 261.9468 ms
+2024-04-16 12:04:07.264 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/api/Category/GetAll - - - 200 - application/json;+charset=utf-8 338.2342ms
+2024-04-16 12:04:37.524 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/api/Category/GetAll - -
+2024-04-16 12:04:37.528 +00:00 [INF] Executing endpoint 'E_commerce.Controllers.CategoryController.GetAllCategories (E-commerce)'
+2024-04-16 12:04:37.529 +00:00 [INF] Route matched with {action = "GetAllCategories", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllCategories() on controller E_commerce.Controllers.CategoryController (E-commerce).
+2024-04-16 12:04:37.564 +00:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT c."Id", c."Name"
+FROM "Category" AS c
+2024-04-16 12:04:37.591 +00:00 [INF] ApiResponse object => {"StatusCode":200,"IsSuccess":true,"Result":[{"Id":1,"Name":"Cars","$type":"Category"},{"Id":2,"Name":"Electronics","$type":"Category"},{"Id":3,"Name":"Decor","$type":"Category"}],"Errors":[],"$type":"ApiResponse"}
+2024-04-16 12:04:37.617 +00:00 [INF] Executing OkObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 12:04:37.644 +00:00 [INF] Executed action E_commerce.Controllers.CategoryController.GetAllCategories (E-commerce) in 113.6119ms
+2024-04-16 12:04:37.644 +00:00 [INF] Executed endpoint 'E_commerce.Controllers.CategoryController.GetAllCategories (E-commerce)'
+2024-04-16 12:04:37.645 +00:00 [INF] HTTP GET /api/Category/GetAll responded 200 in 117.1073 ms
+2024-04-16 12:04:37.646 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/api/Category/GetAll - - - 200 - application/json;+charset=utf-8 123.1168ms
+2024-04-16 12:09:20.758 +00:00 [INF] Request starting HTTP/2 POST https://localhost:55089/api/User/Login application/json 72
+2024-04-16 12:09:20.832 +00:00 [INF] CORS policy execution successful.
+2024-04-16 12:09:20.834 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.UserLogin (E-commerce)'
+2024-04-16 12:09:20.882 +00:00 [INF] Route matched with {action = "UserLogin", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserLogin(E_commerce.Models.DTO_s.User.UserLoginRequest) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 12:09:21.310 +00:00 [INF] Executed DbCommand (19ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 12:09:21.493 +00:00 [INF] Executed DbCommand (16ms) [Parameters=[@__userId_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a0."Name"
+FROM "AspNetUserRoles" AS a
+INNER JOIN "AspNetRoles" AS a0 ON a."RoleId" = a0."Id"
+WHERE a."UserId" = @__userId_0
+2024-04-16 12:09:21.532 +00:00 [INF] ApiResponse object => {"StatusCode":200,"IsSuccess":true,"EmailConfirmed":false,"Result":{"JwtToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJoZXJlaWFtNTY4NUBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImQ3NDYxMTNkLTRjM2YtNDkyMy04YzNiLWU5YTkyNTRkNjk1NiIsImp0aSI6ImUzOGE0NzE5LTBmOWUtNDg0NS1hOWY3LTkwNmMzOGRjNDQ2NyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJleHAiOjE3MTMyNzY1NjEsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjcxMDciLCJhdWQiOiJVSS11cmwifQ.L50FLRjwemXNuiqT5MnGsrvH5puvGL9Pkn2BIfarmSM","ExpireDate":"2024-04-16T14:09:21.0000000Z","$type":"JwtTokenHandler"},"Errors":[],"$type":"ApiLoginResponse"}
+2024-04-16 12:09:21.534 +00:00 [INF] Executing OkObjectResult, writing value of type 'E_commerce.Models.ApiLoginResponse'.
+2024-04-16 12:09:21.551 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.UserLogin (E-commerce) in 658.951ms
+2024-04-16 12:09:21.551 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.UserLogin (E-commerce)'
+2024-04-16 12:09:21.552 +00:00 [INF] HTTP POST /api/User/Login responded 200 in 718.7818 ms
+2024-04-16 12:09:21.553 +00:00 [INF] Request finished HTTP/2 POST https://localhost:55089/api/User/Login application/json 72 - 200 - application/json;+charset=utf-8 839.9189ms
+2024-04-16 12:10:37.290 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/api/User/GetUserByEmail - -
+2024-04-16 12:10:37.333 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.GetUserByEmail (E-commerce)'
+2024-04-16 12:10:37.341 +00:00 [INF] Route matched with {action = "GetUserByEmail", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserByEmail(System.String) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 12:10:37.357 +00:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 12:10:37.499 +00:00 [INF] ApiResponse object => {"StatusCode":404,"IsSuccess":false,"Result":null,"Errors":["No User Found!"],"$type":"ApiResponse"}
+2024-04-16 12:10:37.501 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 12:10:37.504 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.GetUserByEmail (E-commerce) in 163.779ms
+2024-04-16 12:10:37.505 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.GetUserByEmail (E-commerce)'
+2024-04-16 12:10:37.506 +00:00 [INF] HTTP GET /api/User/GetUserByEmail responded 400 in 175.5750 ms
+2024-04-16 12:10:37.530 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/api/User/GetUserByEmail - - - 400 - application/json;+charset=utf-8 220.1245ms
+2024-04-16 12:12:20.966 +00:00 [INF] Request starting HTTP/2 POST https://localhost:55089/api/User/Login application/json 70
+2024-04-16 12:12:21.030 +00:00 [INF] CORS policy execution successful.
+2024-04-16 12:12:21.034 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.UserLogin (E-commerce)'
+2024-04-16 12:12:21.036 +00:00 [INF] Route matched with {action = "UserLogin", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserLogin(E_commerce.Models.DTO_s.User.UserLoginRequest) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 12:12:21.066 +00:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 12:12:21.111 +00:00 [INF] ApiResponse object => {"StatusCode":400,"IsSuccess":false,"EmailConfirmed":false,"Result":null,"Errors":["Email or password is incorrect!"],"$type":"ApiLoginResponse"}
+2024-04-16 12:12:21.140 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'E_commerce.Models.ApiLoginResponse'.
+2024-04-16 12:12:21.143 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.UserLogin (E-commerce) in 106.0831ms
+2024-04-16 12:12:21.144 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.UserLogin (E-commerce)'
+2024-04-16 12:12:21.144 +00:00 [INF] HTTP POST /api/User/Login responded 400 in 110.9255 ms
+2024-04-16 12:12:21.146 +00:00 [INF] Request finished HTTP/2 POST https://localhost:55089/api/User/Login application/json 70 - 400 - application/json;+charset=utf-8 180.1708ms
+2024-04-16 12:15:20.693 +00:00 [INF] Executed DbCommand (50ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-04-16 12:15:20.765 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-04-16 12:15:20.786 +00:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2024-04-16 12:15:20.805 +00:00 [INF] No migrations were applied. The database is already up to date.
+2024-04-16 12:15:20.935 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2024-04-16 12:15:20.936 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-04-16 12:15:22.569 +00:00 [INF] Now listening on: https://[::]:443
+2024-04-16 12:15:22.570 +00:00 [INF] Now listening on: http://[::]:80
+2024-04-16 12:15:22.577 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-16 12:15:22.579 +00:00 [INF] Hosting environment: Development
+2024-04-16 12:15:22.580 +00:00 [INF] Content root path: /app
+2024-04-16 12:15:22.700 +00:00 [INF] Bus started: "rabbitmq://ecommerce.rabbitmq/"
+2024-04-16 12:20:11.397 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/swagger/index.html - -
+2024-04-16 12:20:11.646 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/swagger/index.html - - - 200 - text/html;charset=utf-8 254.4916ms
+2024-04-16 12:20:12.333 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/swagger/v1/swagger.json - -
+2024-04-16 12:20:12.849 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 515.9909ms
+2024-04-16 12:22:20.313 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/api/User/GetUserByEmail - -
+2024-04-16 12:22:20.556 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.GetUserByEmail (E-commerce)'
+2024-04-16 12:22:20.596 +00:00 [INF] Route matched with {action = "GetUserByEmail", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserByEmail(System.String) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 12:22:21.454 +00:00 [INF] Executed DbCommand (52ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 12:22:21.768 +00:00 [INF] ApiResponse object => {"StatusCode":200,"IsSuccess":true,"Result":{"Id":"d746113d-4c3f-4923-8c3b-e9a9254d6956","UserName":"hereiam5685@gmail.com","Email":"hereiam5685@gmail.com","Latitude":0,"Longitude":0,"$type":"UserGetRequest"},"Errors":[],"$type":"ApiResponse"}
+2024-04-16 12:22:21.816 +00:00 [INF] Executing OkObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 12:22:21.864 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.GetUserByEmail (E-commerce) in 1261.5747ms
+2024-04-16 12:22:21.867 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.GetUserByEmail (E-commerce)'
+2024-04-16 12:22:21.875 +00:00 [INF] HTTP GET /api/User/GetUserByEmail responded 200 in 1512.1700 ms
+2024-04-16 12:22:21.889 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/api/User/GetUserByEmail - - - 200 - application/json;+charset=utf-8 1596.5899ms
+2024-04-16 12:24:30.484 +00:00 [INF] Executed DbCommand (40ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-04-16 12:24:30.530 +00:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-04-16 12:24:30.549 +00:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2024-04-16 12:24:30.567 +00:00 [INF] No migrations were applied. The database is already up to date.
+2024-04-16 12:24:30.695 +00:00 [WRN] Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed.
+2024-04-16 12:24:30.696 +00:00 [INF] User profile is available. Using '/root/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-04-16 12:24:32.171 +00:00 [INF] Now listening on: https://[::]:443
+2024-04-16 12:24:32.172 +00:00 [INF] Now listening on: http://[::]:80
+2024-04-16 12:24:32.181 +00:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-16 12:24:32.184 +00:00 [INF] Hosting environment: Development
+2024-04-16 12:24:32.186 +00:00 [INF] Content root path: /app
+2024-04-16 12:24:32.329 +00:00 [INF] Bus started: "rabbitmq://ecommerce.rabbitmq/"
+2024-04-16 12:29:23.629 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/swagger/index.html - -
+2024-04-16 12:29:23.916 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/swagger/index.html - - - 200 - text/html;charset=utf-8 288.6420ms
+2024-04-16 12:29:24.286 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/swagger/v1/swagger.json - -
+2024-04-16 12:29:24.596 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 309.1453ms
+2024-04-16 12:29:52.316 +00:00 [INF] Request starting HTTP/2 GET https://localhost:55089/api/User/GetUserByEmail - -
+2024-04-16 12:29:52.619 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.GetUserByEmail (E-commerce)'
+2024-04-16 12:29:52.689 +00:00 [INF] Route matched with {action = "GetUserByEmail", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserByEmail(System.String) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 12:29:53.620 +00:00 [INF] Executed DbCommand (46ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 12:29:53.808 +00:00 [INF] ApiResponse object => {"StatusCode":200,"IsSuccess":true,"Result":{"Longitude":0,"Latitude":0,"Cart":null,"Products":[],"Orders":[],"Id":"d746113d-4c3f-4923-8c3b-e9a9254d6956","UserName":"hereiam5685@gmail.com","NormalizedUserName":"HEREIAM5685@GMAIL.COM","Email":"hereiam5685@gmail.com","NormalizedEmail":"HEREIAM5685@GMAIL.COM","EmailConfirmed":false,"PasswordHash":"AQAAAAIAAYagAAAAEJFQXL+JbhtsFe6V/aITGZGNnuYazl2a1OBIXEGgAUxVd9VA3i1l6nn4osFDE4FD9g==","SecurityStamp":"7WY6UA5UZI5ET2JGJ6E6MTSULD5O7FUB","ConcurrencyStamp":"7f008fb6-5502-46d2-8838-99fa896fe440","PhoneNumber":null,"PhoneNumberConfirmed":false,"TwoFactorEnabled":false,"LockoutEnd":null,"LockoutEnabled":true,"AccessFailedCount":0,"$type":"User"},"Errors":[],"$type":"ApiResponse"}
+2024-04-16 12:29:53.843 +00:00 [INF] Executing OkObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 12:29:53.931 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.GetUserByEmail (E-commerce) in 1231.7651ms
+2024-04-16 12:29:53.933 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.GetUserByEmail (E-commerce)'
+2024-04-16 12:29:53.941 +00:00 [INF] HTTP GET /api/User/GetUserByEmail responded 200 in 1588.8169 ms
+2024-04-16 12:29:53.955 +00:00 [INF] Request finished HTTP/2 GET https://localhost:55089/api/User/GetUserByEmail - - - 200 - application/json;+charset=utf-8 1639.2846ms
+2024-04-16 12:30:51.208 +00:00 [INF] Request starting HTTP/2 POST https://localhost:55089/api/User/Login application/json 72
+2024-04-16 12:30:51.215 +00:00 [INF] CORS policy execution successful.
+2024-04-16 12:30:51.221 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.UserLogin (E-commerce)'
+2024-04-16 12:30:51.258 +00:00 [INF] Route matched with {action = "UserLogin", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserLogin(E_commerce.Models.DTO_s.User.UserLoginRequest) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 12:30:51.560 +00:00 [INF] Executed DbCommand (46ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 12:30:51.908 +00:00 [INF] Executed DbCommand (27ms) [Parameters=[@__userId_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a0."Name"
+FROM "AspNetUserRoles" AS a
+INNER JOIN "AspNetRoles" AS a0 ON a."RoleId" = a0."Id"
+WHERE a."UserId" = @__userId_0
+2024-04-16 12:30:51.987 +00:00 [INF] ApiResponse object => {"StatusCode":200,"IsSuccess":true,"EmailConfirmed":false,"Result":{"JwtToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJoZXJlaWFtNTY4NUBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImQ3NDYxMTNkLTRjM2YtNDkyMy04YzNiLWU5YTkyNTRkNjk1NiIsImp0aSI6ImMyODU0YTI1LTYzZGQtNDk3Yi1hNGY1LTFkMTYyN2FlOTQyNiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJleHAiOjE3MTMyNzc4NTEsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjcxMDciLCJhdWQiOiJVSS11cmwifQ.2J-2Ru9h0CgJksEUBvGuKECDUoegqy-2oIRLXRjG5Q4","ExpireDate":"2024-04-16T14:30:51.0000000Z","$type":"JwtTokenHandler"},"Errors":[],"$type":"ApiLoginResponse"}
+2024-04-16 12:30:51.999 +00:00 [INF] Executing OkObjectResult, writing value of type 'E_commerce.Models.ApiLoginResponse'.
+2024-04-16 12:30:52.031 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.UserLogin (E-commerce) in 772.8148ms
+2024-04-16 12:30:52.033 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.UserLogin (E-commerce)'
+2024-04-16 12:30:52.080 +00:00 [INF] HTTP POST /api/User/Login responded 200 in 862.4193 ms
+2024-04-16 12:30:52.083 +00:00 [INF] Request finished HTTP/2 POST https://localhost:55089/api/User/Login application/json 72 - 200 - application/json;+charset=utf-8 874.6163ms
+2024-04-16 12:33:22.514 +00:00 [INF] Request starting HTTP/2 POST https://localhost:55089/api/User/ConfirmEmail application/json 644
+2024-04-16 12:33:22.573 +00:00 [INF] CORS policy execution successful.
+2024-04-16 12:33:22.590 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.ConfirmEmail (E-commerce)'
+2024-04-16 12:33:22.612 +00:00 [INF] Route matched with {action = "ConfirmEmail", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ConfirmEmail(Confirmpass) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 12:33:35.894 +00:00 [INF] Executed DbCommand (27ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 12:33:51.823 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 12:33:51.935 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.ConfirmEmail (E-commerce) in 29320.3594ms
+2024-04-16 12:33:51.939 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.ConfirmEmail (E-commerce)'
+2024-04-16 12:33:51.940 +00:00 [INF] HTTP POST /api/User/ConfirmEmail responded 400 in 29363.1305 ms
+2024-04-16 12:33:51.942 +00:00 [INF] Request finished HTTP/2 POST https://localhost:55089/api/User/ConfirmEmail application/json 644 - 400 - application/json;+charset=utf-8 29453.1419ms
+2024-04-16 12:34:40.590 +00:00 [INF] Request starting HTTP/2 POST https://localhost:55089/api/Email/verify application/json 23
+2024-04-16 12:34:40.592 +00:00 [INF] CORS policy execution successful.
+2024-04-16 12:34:40.594 +00:00 [INF] Executing endpoint 'E_commerce.Controllers.EmailController.VerifyEmail (E-commerce)'
+2024-04-16 12:34:40.602 +00:00 [INF] Route matched with {action = "VerifyEmail", controller = "Email"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] VerifyEmail(System.String) on controller E_commerce.Controllers.EmailController (E-commerce).
+2024-04-16 12:34:40.664 +00:00 [INF] Executed DbCommand (27ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 12:34:42.488 +00:00 [INF] ApiResponse object => {"StatusCode":200,"IsSuccess":true,"Result":null,"Errors":[],"$type":"ApiResponse"}
+2024-04-16 12:34:42.491 +00:00 [INF] Executing OkObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 12:34:42.493 +00:00 [INF] Executed action E_commerce.Controllers.EmailController.VerifyEmail (E-commerce) in 1889.7612ms
+2024-04-16 12:34:42.494 +00:00 [INF] Executed endpoint 'E_commerce.Controllers.EmailController.VerifyEmail (E-commerce)'
+2024-04-16 12:34:42.496 +00:00 [INF] HTTP POST /api/Email/verify responded 200 in 1902.7463 ms
+2024-04-16 12:34:42.500 +00:00 [INF] Request finished HTTP/2 POST https://localhost:55089/api/Email/verify application/json 23 - 200 - application/json;+charset=utf-8 1911.5314ms
+2024-04-16 13:12:02.406 +00:00 [INF] Request starting HTTP/2 POST https://localhost:55089/api/Email/verify application/json 23
+2024-04-16 13:12:02.411 +00:00 [INF] CORS policy execution successful.
+2024-04-16 13:12:02.414 +00:00 [INF] Executing endpoint 'E_commerce.Controllers.EmailController.VerifyEmail (E-commerce)'
+2024-04-16 13:12:02.417 +00:00 [INF] Route matched with {action = "VerifyEmail", controller = "Email"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] VerifyEmail(System.String) on controller E_commerce.Controllers.EmailController (E-commerce).
+2024-04-16 13:12:02.720 +00:00 [INF] Executed DbCommand (36ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 13:12:03.977 +00:00 [INF] ApiResponse object => {"StatusCode":200,"IsSuccess":true,"Result":null,"Errors":[],"$type":"ApiResponse"}
+2024-04-16 13:12:03.979 +00:00 [INF] Executing OkObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 13:12:03.982 +00:00 [INF] Executed action E_commerce.Controllers.EmailController.VerifyEmail (E-commerce) in 1564.146ms
+2024-04-16 13:12:03.985 +00:00 [INF] Executed endpoint 'E_commerce.Controllers.EmailController.VerifyEmail (E-commerce)'
+2024-04-16 13:12:03.987 +00:00 [INF] HTTP POST /api/Email/verify responded 200 in 1575.0120 ms
+2024-04-16 13:12:03.989 +00:00 [INF] Request finished HTTP/2 POST https://localhost:55089/api/Email/verify application/json 23 - 200 - application/json;+charset=utf-8 1625.2212ms
+2024-04-16 13:13:10.349 +00:00 [INF] Request starting HTTP/2 POST https://localhost:55089/api/User/ConfirmEmail application/json 345
+2024-04-16 13:13:10.358 +00:00 [INF] CORS policy execution successful.
+2024-04-16 13:13:10.360 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.ConfirmEmail (E-commerce)'
+2024-04-16 13:13:10.362 +00:00 [INF] Route matched with {action = "ConfirmEmail", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ConfirmEmail(Confirmpass) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 13:13:29.410 +00:00 [INF] Executed DbCommand (9ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 13:17:13.312 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 13:17:13.366 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.ConfirmEmail (E-commerce) in 243004.6847ms
+2024-04-16 13:17:13.389 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.ConfirmEmail (E-commerce)'
+2024-04-16 13:17:13.392 +00:00 [INF] HTTP POST /api/User/ConfirmEmail responded 400 in 243034.8318 ms
+2024-04-16 13:17:13.397 +00:00 [INF] Request finished HTTP/2 POST https://localhost:55089/api/User/ConfirmEmail application/json 345 - 400 - application/json;+charset=utf-8 243074.5224ms
+2024-04-16 13:17:18.624 +00:00 [INF] Request starting HTTP/2 POST https://localhost:55089/api/User/ConfirmEmail application/json 346
+2024-04-16 13:17:18.630 +00:00 [INF] CORS policy execution successful.
+2024-04-16 13:17:18.632 +00:00 [INF] Executing endpoint 'E_commerce_recycling.Controllers.UserController.ConfirmEmail (E-commerce)'
+2024-04-16 13:17:18.634 +00:00 [INF] Route matched with {action = "ConfirmEmail", controller = "User"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ConfirmEmail(Confirmpass) on controller E_commerce_recycling.Controllers.UserController (E-commerce).
+2024-04-16 13:17:27.516 +00:00 [INF] Executed DbCommand (48ms) [Parameters=[@__normalizedEmail_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT a."Id", a."AccessFailedCount", a."ConcurrencyStamp", a."Email", a."EmailConfirmed", a."Latitude", a."LockoutEnabled", a."LockoutEnd", a."Longitude", a."NormalizedEmail", a."NormalizedUserName", a."PasswordHash", a."PhoneNumber", a."PhoneNumberConfirmed", a."SecurityStamp", a."TwoFactorEnabled", a."UserName"
+FROM "AspNetUsers" AS a
+WHERE a."NormalizedEmail" = @__normalizedEmail_0
+LIMIT 2
+2024-04-16 13:17:37.073 +00:00 [INF] Executing BadRequestObjectResult, writing value of type 'E_commerce.Models.ApiResponse'.
+2024-04-16 13:17:37.120 +00:00 [INF] Executed action E_commerce_recycling.Controllers.UserController.ConfirmEmail (E-commerce) in 18485.1152ms
+2024-04-16 13:17:37.126 +00:00 [INF] Executed endpoint 'E_commerce_recycling.Controllers.UserController.ConfirmEmail (E-commerce)'
+2024-04-16 13:17:37.128 +00:00 [INF] HTTP POST /api/User/ConfirmEmail responded 400 in 18496.0241 ms
+2024-04-16 13:17:37.131 +00:00 [INF] Request finished HTTP/2 POST https://localhost:55089/api/User/ConfirmEmail application/json 346 - 400 - application/json;+charset=utf-8 18506.6205ms

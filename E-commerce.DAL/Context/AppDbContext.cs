@@ -7,10 +7,10 @@ namespace E_commerce.Context
 {
     public class AppDbContext : IdentityDbContext<User>
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) 
-            :base(options)
+
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
         {
-            
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -28,7 +28,7 @@ namespace E_commerce.Context
             SeedRoles(builder);
         }
 
-        private static void SeedRoles(ModelBuilder builder)
+        private void SeedRoles(ModelBuilder builder)
         {
             builder.Entity<IdentityRole>().HasData
                 (
@@ -37,7 +37,7 @@ namespace E_commerce.Context
                 );
             builder.Entity<Category>().HasData
                 (
-                new Category() { Id = 1, Name = "Cars"},
+                new Category() { Id = 1, Name = "Cars" },
                 new Category() { Id = 2, Name = "Electronics" },
                 new Category() { Id = 3, Name = "Decor" }
                 );

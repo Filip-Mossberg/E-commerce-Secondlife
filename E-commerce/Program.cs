@@ -1,5 +1,6 @@
 using Azure.Storage.Blobs;
 using E_commerce.BLL.MiddleWeare;
+using E_commerce.DAL.Context;
 using E_commerce_BLL;
 using E_commerce_DAL;
 using MassTransit;
@@ -23,7 +24,7 @@ namespace E_commerce
 
             builder.Services
                 .DbServicesDAL(builder.Configuration)
-                .DbServicesBLL(builder.Configuration);
+                .DbServicesBLL(builder.Configuration, builder.Environment);
 
             builder.Services.AddTransient<ExceptionMiddleWare>();
 
@@ -97,14 +98,13 @@ namespace E_commerce
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()
-                .WriteTo.Console()
+                .WriteTo.File("C:\\Users\\Joakim\\Desktop\\Serilog Logs.txt")
+                //.WriteTo.Console()
                 .CreateLogger();
 
             builder.Host.UseSerilog();
 
             var app = builder.Build();
-
-            //app.ApplyMigrations();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -114,6 +114,13 @@ namespace E_commerce
             }
 
             app.UseCors("CORSPolicy");
+
+            //if (builder.Environment.EnvironmentName == "Testing")
+            //{
+            //    app.ApplyMigrations();
+            //}
+
+            app.ApplyMigrations();
 
             app.UseSerilogRequestLogging();
 

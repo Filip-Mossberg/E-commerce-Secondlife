@@ -55,15 +55,6 @@ namespace E_commerce.Controllers
             return response.IsSuccess ? Ok(response) : NotFound(response);
         }
 
-        [AllowAnonymous]
-        [HttpGet("GetByIdRedis")]
-        public async Task<IActionResult> GetCategoryByIdRedis(int id)
-        {
-            var response = await _categoryService.GetCategoryByIdRedis(id);
-            Log.Information("ApiResponse object => {@response}", response);
-            return response.IsSuccess ? Ok(response) : NotFound(response);
-        }
-
         //[Authorize(Roles = "Admin")]
         [HttpPut("Update")]
         public async Task<IActionResult> UpdateCategory(Category category)
@@ -80,6 +71,15 @@ namespace E_commerce.Controllers
             var response = await _categoryService.DeleteCategoryById(id);
             Log.Information("ApiResponse object => {@response}", response);
             return response.IsSuccess ? Ok(response) : NotFound();
+        }
+
+        [AllowAnonymous]
+        [HttpGet("GetByIdRedis")]
+        public async Task<IActionResult> GetCategoryByIdRedis(int id)
+        {
+            var response = await _categoryService.GetCategoryByIdRedis(id);
+            Log.Information("ApiResponse object => {@response}", response);
+            return response.IsSuccess ? Ok(response) : NotFound(response);
         }
 
         [AllowAnonymous]

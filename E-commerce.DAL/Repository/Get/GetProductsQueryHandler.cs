@@ -5,13 +5,7 @@ using E_commerce.Models.DTO_s.Product;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace E_commerce.DAL.Repository.Get
 {

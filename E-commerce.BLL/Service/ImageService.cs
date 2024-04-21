@@ -1,14 +1,10 @@
 ﻿using Azure.Storage.Blobs;
-using Azure.Storage.Blobs.Models;
-using Azure.Storage.Sas;
 using E_commerce.BLL.IService;
 using E_commerce.DAL.IRepository;
 using E_commerce.Models;
 using E_commerce.Models.DbModels;
 using E_commerce.Models.DTO_s.Image;
 using FluentValidation;
-using ImageProcessor;
-using ImageProcessor.Imaging.Formats;
 using Microsoft.AspNetCore.Http;
 
 namespace E_commerce.BLL.Service
@@ -38,18 +34,8 @@ namespace E_commerce.BLL.Service
                 {
                     var Name = Guid.NewGuid().ToString();
 
-                    var blobClient = _blobContainerClient.GetBlobClient(Name);
-
-                    using (var imageFactory = new ImageFactory())
-                    {
-                        imageFactory.Load(image.FilePath);
-
-                        imageFactory.Resolution(1200, 1200);
-
-                        var newImage = imageFactory.ImagePath;
-
-                        await blobClient.UploadAsync(newImage, new BlobHttpHeaders { ContentType = image.FilePath.GetContentType() });
-                    }
+                    var blobClient = _blobContainerClient.GetBlobClient(Name); // Creates a new reference to a new blob in Azure Blob Storage (creates a new blob)
+                    await blobClient.UploadAsync(image.FilePath);
 
                     Image imageUpload = new Image()
                     {

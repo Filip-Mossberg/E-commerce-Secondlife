@@ -262,5 +262,23 @@ namespace E_commerce_BLL.Service
 
             return token;
         }
+
+        public async Task<ApiResponse> GetUserByEmail(string email)
+        {
+            ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status404NotFound, Errors = new List<string> { "No User Found!" } };
+            var user = await _userRepository.GetUserByEmail(email);
+
+            if (user != null)
+            {
+                response.IsSuccess = true;
+                response.StatusCode = 200;
+                response.Result = user;
+                response.Errors = new List<string> { };
+
+                return response;
+            }
+
+            return response;
+        }
     }
 }

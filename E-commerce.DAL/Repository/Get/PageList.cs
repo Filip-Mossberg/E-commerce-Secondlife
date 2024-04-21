@@ -14,7 +14,7 @@ namespace E_commerce.DAL.Repository.Get
     {
         // Private constructor enforce the use of CreateAsync when creating instances of PageList<T>
         [JsonConstructor] // Tells the json deserializer to use this constructor for deserialization.
-        private PageList(List<T> items, int page, int pageSize, int totalCount)
+        public PageList(List<T> items, int page, int pageSize, int totalCount)
         {
             this.items = items;
             Page = page;

@@ -88,6 +88,11 @@ namespace E_commerce.DAL.Migrations
                         {
                             Id = 3,
                             Name = "Decor"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Other"
                         });
                 });
 
@@ -288,14 +293,14 @@ namespace E_commerce.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9ae560ed-6100-4336-bc60-3526eefa4f91",
+                            Id = "e2071f26-c42e-40f7-8fe3-640b93ccc6ae",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "3120802c-4c24-4b38-adba-fa3d14ecdce8",
+                            Id = "d93e95af-4df7-4172-b661-f55cf8fe7790",
                             ConcurrencyStamp = "2",
                             Name = "User",
                             NormalizedName = "USER"
@@ -325,6 +330,76 @@ namespace E_commerce.DAL.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IdentityUser");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "965cf97a-7dba-478e-8326-b13a55adf010",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "df151df7-31e1-4a65-b307-3bd5960772b3",
+                            Email = "hereiam5685@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "HEREIAM5685@GMAIL.COM",
+                            NormalizedUserName = "HEREIAM5685@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAENLMN0IuBelTCoLkTW2MjyIwJ9myXEpL/DoMQF7VovTJ4A1uGmVVZHxVLfkxx8qwYQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "6db6931d-53d7-4253-8f10-e342030cc677",
+                            TwoFactorEnabled = false,
+                            UserName = "hereiam5685@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -387,6 +462,13 @@ namespace E_commerce.DAL.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "965cf97a-7dba-478e-8326-b13a55adf010",
+                            RoleId = "e2071f26-c42e-40f7-8fe3-640b93ccc6ae"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

@@ -187,17 +187,17 @@ namespace E_commerce.BLL.Service
             return response;
         }
 
-        public async Task<ApiResponse> GetAllProductsRedis(ProductGetRequest p)
+        public async Task<ApiResponse> GetAllProductsRedis(string? searchTerm, string? sortColumn, string? sortOrder, int? category, int page, int pageSize)
         {
             ApiResponse response = new ApiResponse() { IsSuccess = false, StatusCode = StatusCodes.Status400BadRequest };
 
-            string? key = $"{p.searchTerm?.ToLower() + p.sortColumn?.ToLower() + p.sortOrder?.ToLower() + p.category + p.page + p.pageSize}";
+            string? key = $"{searchTerm?.ToLower() + sortColumn?.ToLower() + sortOrder?.ToLower() + category + page + pageSize}";
 
             var cachedProducts = await _cache.GetStringAsync(key);
 
             if (string.IsNullOrEmpty(cachedProducts))
             {
-                var products = await _productRepository.GetAllProducts(p.searchTerm, p.sortColumn, p.sortOrder, p.category, p.page, p.pageSize);
+                var products = await _productRepository.GetAllProducts(searchTerm, sortColumn, sortOrder, category, page, pageSize);
 
                 if (products != null)
                 {

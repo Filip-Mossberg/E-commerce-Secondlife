@@ -73,5 +73,14 @@ namespace E_commerce_recycling.Controllers
             Log.Information("ApiResponse object => {@response}", response);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
+
+        //[Authorize(Roles = "Admin, User")]
+        [HttpGet("GetUserByEmail")]
+        public async Task<IActionResult> GetUserByEmail([FromHeader] string email)
+        {
+            var response = await _userService.GetUserByEmail(email);
+            Log.Information("ApiResponse object => {@response}", response);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
     }
 }

@@ -15,9 +15,25 @@ namespace E_commerce.Models.DTO_s.Product
         public string Title { get; set; }
         public string Description { get; set; }
         public int Price { get; set; }
-        public DateTime DateListed { get; set; } = DateTime.Now;
+        public DateTime DateListed { get; set; } = DateTime.UtcNow;
         public List<ImageUploadRequest> Images { get; set; }
         public string UserId { get; set; }
         public int CategoryId { get; set; }
+
+        public ProductCreateRequest()
+        {
+            
+        }
+
+        public ProductCreateRequest(string title, string description, int price, 
+            List<ImageUploadRequest> images, string userId, int categoryId)
+        {
+            this.Title = title;
+            this.Description = description;
+            this.Price = price;
+            this.Images = images;
+            this.UserId = userId;   
+            this.CategoryId =categoryId;
+        }
     }
 }

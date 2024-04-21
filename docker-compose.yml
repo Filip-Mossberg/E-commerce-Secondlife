@@ -38,7 +38,7 @@ services:
     container_name: ecommerce.rabbitmq
     ports:
       - 5672:5672
-      - 15672:15672    # Maps port 15672 on the host to port 15672 on the container, thats why I can access it through localhost.
+      - 15672:15672 # Maps port 15672 on the host to port 15672 on the container, thats why I can access it through localhost.
     environment:
       RABBITMQ_DEFAULT_USER: myuser
       RABBITMQ_DEFAULT_PASS: mypassword

@@ -9,9 +9,11 @@ namespace E_commerce_DAL.Repository
     public class UserRepository : IUserRepository
     {
         private readonly UserManager<User> _userManager;
-        public UserRepository(UserManager<User> userManager)
+        private readonly AppDbContext _context;
+        public UserRepository(UserManager<User> userManager, AppDbContext context)
         {
             _userManager = userManager;
+            _context = context;
         }
 
         public async Task DeleteUserById(User user)
@@ -32,6 +34,11 @@ namespace E_commerce_DAL.Repository
         public async Task<IdentityResult> UserPasswordUpdate(User user, string currentPassword, string password)
         {
             return await _userManager.ChangePasswordAsync(user, currentPassword, password);
+        }
+
+        public async Task<IdentityUser> GetUserByEmail(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
         }
     }
 }

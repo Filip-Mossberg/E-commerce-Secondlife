@@ -21,7 +21,7 @@ namespace E_commerce.BLL.Validation
                 .Length(50, 500).WithMessage("Description must be between 50 and 500 characters.");
             RuleFor(price => price.Price)
                 .NotEmpty().WithMessage("Price is requierd!")
-                .ExclusiveBetween(1, 100000000).WithMessage("Price needs to be bewteen 1 - 100 000 000 Sek");
+                .ExclusiveBetween(1, 100000000).WithMessage("Price needs to be between 1 - 100 000 000 Sek");
             RuleFor(image => image.Images)
                 .NotEmpty().WithMessage("One image is required!");
         }

@@ -81,16 +81,17 @@ namespace E_commerce.Controllers
 
         [AllowAnonymous]
         [HttpGet("GetAllRedis")]
-        public async Task<IActionResult> GetAllProductsRedis([FromQuery] ProductGetRequest productGetRequest)
+        public async Task<IActionResult> GetAllProductsRedis([FromQuery] string? searchTerm, string? sortColumn, string? sortOrder,
+            int? categoty, int page, int pageSize)
         {
-            var response = await _productService.GetAllProductsRedis(productGetRequest);
+            var response = await _productService.GetAllProductsRedis(searchTerm, sortColumn, sortOrder, categoty, page, pageSize);
             Log.Information("ApiResponse objekt => {@response}", response);
             return response.IsSuccess ? Ok(response) : BadRequest(response);
         }
 
         [AllowAnonymous]
         [HttpGet("GetSingleProductRedis")]
-        public async Task<IActionResult> GetSingleProductRedis([FromQuery] int productId)
+        public async Task<IActionResult> GetSingleProductRedis(int productId)
         {
             var response = await _productService.GetSingleProductRedis(productId);
             Log.Information("ApiResponse objekt => {@response}", response);

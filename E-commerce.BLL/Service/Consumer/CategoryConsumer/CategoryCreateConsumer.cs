@@ -19,7 +19,6 @@ namespace E_commerce.BLL.Service.Consumer.CategoryConsumer
         public async Task Consume(ConsumeContext<CategoryCreateRequest> context)
         {
             await _categoryRepository.CreateCategory(_mapper.Map<Category>(context.Message));
-            Log.Information("Running the CreateCategory Consume method");
         }
     }
 }

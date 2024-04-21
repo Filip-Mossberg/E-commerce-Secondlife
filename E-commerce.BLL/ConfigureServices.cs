@@ -15,6 +15,7 @@ using E_commerce_BLL.Service;
 using FluentValidation;
 using MassTransit;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,7 +26,8 @@ namespace E_commerce_BLL
     {
         public static IServiceCollection DbServicesBLL(
             this IServiceCollection services,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IWebHostEnvironment environment)
         {
             services.AddAutoMapper(typeof(MappingConfig));
 
@@ -37,73 +39,78 @@ namespace E_commerce_BLL
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddTransient<IRequestHandler<UserRegisterRequest, ApiResponse>, CreateUserService>();
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreateCategoryService)));
 
-            services.AddStackExchangeRedisCache(redisOptions =>
+            if (environment.EnvironmentName != "Testing")
             {
-                string connection = configuration.GetConnectionString("Redis");
-                redisOptions.Configuration = connection;
-            });
-
-            services.AddMassTransit(x =>
-            {
-                x.UsingRabbitMq((context, cfg) =>
+                services.AddStackExchangeRedisCache(redisOptions =>
                 {
-                    cfg.Host("ecommerce.rabbitmq", "/", h =>
-                    {
-                        h.Username("myuser");
-                        h.Password("mypassword");
-                    });
+                    string redisConnection = configuration.GetConnectionString("Redis");
+                    redisOptions.Configuration = redisConnection;
+                });
 
-                    cfg.ReceiveEndpoint("category-created-event", e =>
+                services.AddMassTransit(x =>
+                {
+                    x.UsingRabbitMq((context, cfg) =>
                     {
-                        e.Consumer(() => new CategoryCreateConsumer(
-                            services.BuildServiceProvider().GetRequiredService<ICategoryRepository>(),
-                            services.BuildServiceProvider().GetRequiredService<IMapper>()
-                            ));
-                    });
+                        var rabbitmqConnection = configuration.GetConnectionString("RabbitMQ");
+                        cfg.Host(rabbitmqConnection, "/", h =>
+                        {
+                            h.Username("myuser");
+                            h.Password("mypassword");
+                        });
 
-                    cfg.ReceiveEndpoint("category-update-event", e =>
-                    {
-                        e.Consumer(() => new CategoryUpdateConsumer(
-                            services.BuildServiceProvider().GetRequiredService<ICategoryRepository>()
-                            ));
-                    });
+                        cfg.ReceiveEndpoint("category-created-event", e =>
+                        {
+                            e.Consumer(() => new CategoryCreateConsumer(
+                                services.BuildServiceProvider().GetRequiredService<ICategoryRepository>(),
+                                services.BuildServiceProvider().GetRequiredService<IMapper>()
+                                ));
+                        });
 
-                    cfg.ReceiveEndpoint("order-created-event", e =>
-                    {
-                        e.Consumer(() => new OrderCreateConsumer(
-                            services.BuildServiceProvider().GetRequiredService<IOrderRepository>(),
-                            services.BuildServiceProvider().GetRequiredService<IMapper>(),
-                            services.BuildServiceProvider().GetRequiredService<IDistributedCache>(),
-                            services.BuildServiceProvider().GetRequiredService<IProductRepository>()
-                            ));
-                    });
+                        cfg.ReceiveEndpoint("category-update-event", e =>
+                        {
+                            e.Consumer(() => new CategoryUpdateConsumer(
+                                services.BuildServiceProvider().GetRequiredService<ICategoryRepository>()
+                                ));
+                        });
 
-                    cfg.ReceiveEndpoint("email-send-event", e =>
-                    {
-                        e.Consumer(() => new EmailConsumer(
-                            services.BuildServiceProvider().GetRequiredService<EmailConfiguration>()
-                            ));
-                    });
+                        cfg.ReceiveEndpoint("order-created-event", e =>
+                        {
+                            e.Consumer(() => new OrderCreateConsumer(
+                                services.BuildServiceProvider().GetRequiredService<IOrderRepository>(),
+                                services.BuildServiceProvider().GetRequiredService<IMapper>(),
+                                services.BuildServiceProvider().GetRequiredService<IDistributedCache>(),
+                                services.BuildServiceProvider().GetRequiredService<IProductRepository>()
+                                ));
+                        });
 
-                    cfg.ReceiveEndpoint("product-create-event", e =>
-                    {
-                        e.Consumer(() => new ProductCreateConsumer(
-                            services.BuildServiceProvider().GetRequiredService<IProductRepository>(),
-                            services.BuildServiceProvider().GetRequiredService<IMapper>(),
-                            services.BuildServiceProvider().GetRequiredService<IImageService>()
-                            ));
-                    });
+                        cfg.ReceiveEndpoint("email-send-event", e =>
+                        {
+                            e.Consumer(() => new EmailConsumer(
+                                services.BuildServiceProvider().GetRequiredService<EmailConfiguration>()
+                                ));
+                        });
 
-                    cfg.ReceiveEndpoint("product-update-event", e =>
-                    {
-                        e.Consumer(() => new ProductUpdateConsumer(
-                            services.BuildServiceProvider().GetRequiredService<IProductRepository>(),
-                            services.BuildServiceProvider().GetRequiredService<IDistributedCache>()
-                            ));
+                        cfg.ReceiveEndpoint("product-create-event", e =>
+                        {
+                            e.Consumer(() => new ProductCreateConsumer(
+                                services.BuildServiceProvider().GetRequiredService<IProductRepository>(),
+                                services.BuildServiceProvider().GetRequiredService<IMapper>(),
+                                services.BuildServiceProvider().GetRequiredService<IImageService>()
+                                ));
+                        });
+
+                        cfg.ReceiveEndpoint("product-update-event", e =>
+                        {
+                            e.Consumer(() => new ProductUpdateConsumer(
+                                services.BuildServiceProvider().GetRequiredService<IProductRepository>(),
+                                services.BuildServiceProvider().GetRequiredService<IDistributedCache>()
+                                ));
+                        });
                     });
                 });
-            });
+            }
 
             services.AddValidatorsFromAssemblyContaining<UserRegisterValidation>();
 
